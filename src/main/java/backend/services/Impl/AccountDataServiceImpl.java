@@ -1,7 +1,8 @@
-package backend.services;
+package backend.services.Impl;
 
-import backend.DAO.AccDAO;
+import backend.DAO.Intrfaces.AccDAO;
 import backend.model.AccountData;
+import backend.services.Intrfaces.AccountDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,7 +10,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 @Service("AccountDataService")
 @Transactional
-public class AccountDataServiceImpl implements AccountDataService{
+public class AccountDataServiceImpl implements AccountDataService {
 
     private AccDAO accDAO;
     @Autowired

@@ -1,4 +1,4 @@
-package backend.DAO;
+package backend.DAO.Intrfaces;
 
 import backend.model.AccountData;
 

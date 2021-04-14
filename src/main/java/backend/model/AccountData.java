@@ -6,14 +6,14 @@ import java.sql.Date;
 
 @Entity
 @Table( name = "accounts")
-public class AccountData {
+public class AccountData  {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @Column(name = "Name")
-    private String username;
-    @Column(name  = "Age")
+    private String name;
+    @Column(name  = "BitrthDay")
     private Date age;
     @Column(name  = "Sex_ID")
     private int Sex;
@@ -37,12 +37,12 @@ public class AccountData {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getName() {
+        return name;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getSex() {
@@ -73,10 +73,10 @@ public class AccountData {
 
     }
 
-    public AccountData(int id, String username) {
+    public AccountData(int id, String name) {
         super();
         this.id = id;
-        this.username = username;
+        this.name = name;
     }
 
 

@@ -7,12 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
-@CrossOrigin(origins = { "http://localhost:3000", "http://localhost:4200", "http://localhost:8081" })
 @RestController
-@RequestMapping("accounts")
-public class AccController {
-
+public class SexController {
     private AccountDataService accService;
     @Autowired
     public void setAccService(AccountDataServiceImpl accService) {
@@ -42,5 +38,6 @@ public class AccController {
     public void delete(@PathVariable("id") int id) {
         accService.delete(accService.getById(id));
     }
+
 
 }

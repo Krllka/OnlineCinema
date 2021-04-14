@@ -1,5 +1,6 @@
-package backend.DAO;
+package backend.DAO.Impl;
 
+import backend.DAO.Intrfaces.AccDAO;
 import backend.model.AccountData;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 @Repository
-public class AccDAOimpl implements AccDAO{
+public class AccDAOimpl implements AccDAO {
 
 
     private SessionFactory sessionFactory;
@@ -27,7 +28,7 @@ public class AccDAOimpl implements AccDAO{
     @Override
     public void add(AccountData film) {
         Session session = sessionFactory.getCurrentSession();
-        session.persist(film);
+        session.save(film);
     }
 
     @Override
