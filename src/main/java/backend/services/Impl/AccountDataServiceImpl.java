@@ -26,20 +26,20 @@ public class AccountDataServiceImpl implements AccountDataService {
 
     @Override
     @Transactional
-    public void add(AccountData film) {
-        accDAO.add(film);
+    public void add(AccountData  account) {
+        accDAO.add( account);
     }
 
     @Override
     @Transactional
-    public void delete(AccountData film) {
-        accDAO.delete(film);
+    public void delete(AccountData  account) {
+        accDAO.delete( account);
     }
 
     @Override
     @Transactional
-    public void edit(AccountData film) {
-        accDAO.edit(film);
+    public void edit(AccountData  account) {
+        accDAO.edit( account);
     }
 
     @Override

@@ -1,42 +1,43 @@
 package backend.controllers;
 
-import backend.model.AccountData;
-import backend.services.Intrfaces.AccountDataService;
-import backend.services.Impl.AccountDataServiceImpl;
+import backend.model.SexData;
+import backend.services.Intrfaces.SexDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @RestController
+@RequestMapping("sex")
 public class SexController {
-    private AccountDataService accService;
+    private SexDataService sexService;
+
     @Autowired
-    public void setAccService(AccountDataServiceImpl accService) {
-        this.accService = accService;
+    public void setAccService(SexDataService sexService) {
+        this.sexService = sexService;
     }
     @GetMapping
-    public List<AccountData> allAccs() {
-        return accService.allAccs();
+    public List<SexData> allAccs() {
+        return sexService.allAccs();
     }
     @GetMapping("/{id}")
-    public AccountData read(@PathVariable("id") int id) {
-        return accService.getById(id);
+    public SexData read(@PathVariable("id") int id) {
+        return sexService.getById(id);
     }
     @PostMapping
-    public AccountData create(@RequestBody AccountData inputAcc) {
-        accService.add(inputAcc);
+    public SexData create(@RequestBody SexData inputAcc) {
+        sexService.add(inputAcc);
         return inputAcc;
     }
     @PutMapping("/{id}")
-    public AccountData edit(@PathVariable("id") int id , @RequestBody AccountData editAcc) {
-        AccountData save = accService.getById(id);
-        editAcc.setId(save.getId());
-        accService.edit(editAcc);
+    public SexData edit(@PathVariable("id") int id , @RequestBody SexData editSex) {
+        SexData save = sexService.getById(id);
+        editSex.setId(save.getId());
+        sexService.edit(editSex);
         return save;
     }
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") int id) {
-        accService.delete(accService.getById(id));
+        sexService.delete(sexService.getById(id));
     }
 
 
