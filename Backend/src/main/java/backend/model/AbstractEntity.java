@@ -2,16 +2,12 @@ package backend.model;
 
 import javax.persistence.*;
 
-@Entity
-@Table(name = "sex")
-public class SexData {
-
+@MappedSuperclass
+public class AbstractEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private int id;
-    @Column(name = "Name")
-    private String name;
 
     public int getId() {
         return id;
@@ -20,12 +16,11 @@ public class SexData {
     public void setId(int id) {
         this.id = id;
     }
+    AbstractEntity(){
 
-    public String getName() {
-        return name;
     }
-
-    public void setName(String name) {
-        this.name = name;
+    AbstractEntity(int id){
+        super();
+        this.id = id;
     }
 }
