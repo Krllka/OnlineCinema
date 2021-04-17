@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    Online Cinema App
+    <h1>Онлайн кинотеатр</h1>
+    <router-view></router-view>
   </div>
 </template>
 
