@@ -6,11 +6,8 @@ import java.sql.Date;
 
 @Entity
 @Table( name = "accounts")
-public class AccountData  {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
-    private int id;
+public class AccountData extends AbstractEntity {
+
     @Column(name = "Name")
     private String name;
     @Column(name  = "BitrthDay")
@@ -28,13 +25,6 @@ public class AccountData  {
 
     public void setAge(Date age) {
         this.age = age;
-    }
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -70,12 +60,11 @@ public class AccountData  {
     }
 
     public AccountData() {
-
+        super();
     }
 
     public AccountData(int id, String name) {
-        super();
-        this.id = id;
+        super(id);
         this.name = name;
     }
 

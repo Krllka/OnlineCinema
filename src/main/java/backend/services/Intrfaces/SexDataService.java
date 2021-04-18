@@ -4,7 +4,7 @@ import backend.model.SexData;
 
 import java.util.List;
 
-public interface SexDataService {
+public interface SexDataService extends AbstractServiceInterface<SexData>{
     List<SexData> allAccs();
     void add(SexData film);
     void delete(SexData film);

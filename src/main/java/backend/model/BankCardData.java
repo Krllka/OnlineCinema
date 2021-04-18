@@ -4,25 +4,24 @@ import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
-@Table(name = "BANKCARD")
-public class BankCardData {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Accouts_ID")
-    private int id;
-    @Column(name = "number")
+@Table(name = "bankcard")
+public class BankCardData extends AbstractEntity {
+
+    @Column(name = "Accounts_ID")
+    private int acc_id;
+    @Column(name = "Number")
     private String number;
     @Column(name = "Banks_ID")
     private String bank;
-    @Column(name = "Month/Year")
+    @Column(name = "Month_Year")
     private Date date;
 
-    public int getId() {
-        return id;
+    public int getAcc_id() {
+        return acc_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setAcc_id(int acc_id) {
+        this.acc_id = acc_id;
     }
 
     public String getNumber() {

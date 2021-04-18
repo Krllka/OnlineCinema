@@ -1,14 +1,9 @@
 package backend.DAO.Intrfaces;
 
 import backend.model.SexData;
-import backend.model.SexData;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
+@Repository
+public interface SexDAO extends AbstractRepo<SexData>{
 
-public interface SexDAO {
-    List<SexData> allAccs();
-    void add(SexData  account);
-    void delete(SexData  account);
-    void edit(SexData  account);
-    SexData getById(int id);
 }
