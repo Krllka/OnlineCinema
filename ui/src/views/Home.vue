@@ -1,7 +1,9 @@
 <template>
   <div>
     <h2 class="header">Домашняя страница</h2>
-    <button class="btn" @click="$router.push('/catalog')">Перейти к каталогу фильмов</button>
+    <button class="btn" @click="$router.push('/catalog')">
+      Перейти к каталогу фильмов
+    </button>
   </div>
 </template>
 
