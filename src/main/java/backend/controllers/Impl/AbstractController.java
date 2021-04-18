@@ -32,7 +32,7 @@ public abstract class AbstractController<E extends AbstractEntity, S extends Abs
 
        }catch (Exception ex){
 
-            inputAcc.setId(-1);
+            inputAcc.setId("-1");
             return inputAcc;
        }
 

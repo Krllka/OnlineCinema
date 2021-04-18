@@ -14,4 +14,5 @@ public class AccountDataServiceImpl extends AbsctractService<AccountData, AccDAO
     AccountDataServiceImpl(AccDAOimpl dao ){
         super(dao);
     }
+
 }

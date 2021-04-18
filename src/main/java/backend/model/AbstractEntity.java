@@ -9,18 +9,18 @@ public abstract class AbstractEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    private int id;
+    private String id;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
     public  AbstractEntity(){
     }
-    public AbstractEntity(int id){
+    public AbstractEntity(String id){
         this.id = id;
     }
 }

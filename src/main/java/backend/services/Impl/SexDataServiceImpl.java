@@ -19,4 +19,7 @@ public class SexDataServiceImpl extends AbsctractService<SexData, SexDAOImpl>
     SexDataServiceImpl(SexDAOImpl dao ){
         super(dao);
     }
+
+
+
 }

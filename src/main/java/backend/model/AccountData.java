@@ -8,9 +8,9 @@ import java.sql.Date;
 @Table( name = "accounts")
 public class AccountData extends AbstractEntity {
 
-    @Column(name = "Name")
+    @Column(name = "Login")
     private String name;
-    @Column(name  = "BitrthDay")
+    @Column(name  = "BirthDay")
     private Date age;
     @Column(name  = "Sex_ID")
     private int Sex;
@@ -64,7 +64,7 @@ public class AccountData extends AbstractEntity {
     }
 
     public AccountData(int id, String name) {
-        super(id);
+        super(String.valueOf(id));
         this.name = name;
     }
 
