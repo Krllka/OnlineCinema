@@ -12,5 +12,5 @@ public interface AbstractServiceInterface<E extends AbstractEntity>{
     void add(E film);
     void delete(E film);
     void edit(E film);
-    E getById(int id);
+    E getById(String id);
 }

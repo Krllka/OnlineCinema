@@ -22,7 +22,7 @@ public class BankCardDAOimpl extends AbstractDAO<BankCardData>
         return session.createQuery("from BankCardData").list();
     }
     @Override
-    public BankCardData getById(int id) {
+    public BankCardData getById(String id) {
         Session session = sessionFactory.getCurrentSession();
         return session.get(BankCardData.class ,id);
     }

@@ -47,7 +47,7 @@ public abstract class AbstractDAO<E extends AbstractEntity>  implements Abstract
         session.update(film);
     }
     @Override
-    public E getById(int id) {
+    public E getById(String id) {
         Session session = sessionFactory.getCurrentSession();
         return null;
     }

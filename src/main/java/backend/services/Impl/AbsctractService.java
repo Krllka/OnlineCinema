@@ -49,7 +49,7 @@ public abstract class AbsctractService<E extends AbstractEntity, R extends Abstr
     }
 
     @Transactional
-    public E getById(int id){
+    public E getById(String id){
         return repo.getById(id);
     }
 

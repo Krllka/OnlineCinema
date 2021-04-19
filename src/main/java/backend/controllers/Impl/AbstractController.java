@@ -2,7 +2,10 @@ package backend.controllers.Impl;
 
 import backend.controllers.AbstractControllerIntrface;
 import backend.model.AbstractEntity;
+import backend.model.AccountData;
 import backend.services.Intrfaces.AbstractServiceInterface;
+import com.fasterxml.jackson.databind.util.BeanUtil;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +24,7 @@ public abstract class AbstractController<E extends AbstractEntity, S extends Abs
         return Service.allAccs();
     }
     @GetMapping("/{id}")
-    public E read(@PathVariable("id") int id) {
+    public E read(@PathVariable("id") String id) {
         return Service.getById(id);
     }
     @PostMapping
@@ -38,12 +41,14 @@ public abstract class AbstractController<E extends AbstractEntity, S extends Abs
 
     }
     @PutMapping("/{id}")
-    public E edit(@PathVariable int id,  @RequestBody E editAcc) {
-
-        return editAcc;
+    public E edit(@PathVariable("id") String id,   E editAcc) {
+        E save = Service.getById(id);
+        BeanUtils.copyProperties(editAcc, save, "id");
+        Service.edit(save);
+        return save;
     }
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable("id") int id) {
+    public void delete(@PathVariable("id") String id) {
         Service.delete(Service.getById(id));
     }
 

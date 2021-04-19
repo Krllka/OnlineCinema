@@ -24,7 +24,7 @@ implements SexDAO {
         return session.createQuery("from SexData").list();
     }
     @Override
-    public SexData getById(int id) {
+    public SexData getById(String id) {
         Session session = sessionFactory.getCurrentSession();
         return session.get(SexData.class ,id);
     }

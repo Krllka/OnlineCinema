@@ -26,7 +26,7 @@ public class AccDAOimpl extends AbstractDAO<AccountData>
                 "from (accounts  left join sex on accounts.Sex_ID = sex.ID) ").list();
     }
     @Override
-    public AccountData getById(int id) {
+    public AccountData getById(String id) {
         Session session = sessionFactory.getCurrentSession();
         return session.get(AccountData.class ,id);
     }
