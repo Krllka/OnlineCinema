@@ -42,14 +42,24 @@ public abstract class AbstractController<E extends AbstractEntity, S extends Abs
     }
     @PutMapping("/{id}")
     public E edit(@PathVariable("id") String id,   E editAcc) {
-        E save = Service.getById(id);
-        BeanUtils.copyProperties(editAcc, save, "id");
-        Service.edit(save);
+        E save = null;
+        try{
+             save = Service.getById(id);
+            BeanUtils.copyProperties(editAcc, save, "id");
+            Service.edit(save);
+        }catch (IllegalArgumentException ex){
+
+        }
+
         return save;
     }
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") String id) {
-        Service.delete(Service.getById(id));
+        try{
+            Service.delete(Service.getById(id));
+        }catch(IllegalArgumentException ex){
+
+        }
     }
 
 }
