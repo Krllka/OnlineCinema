@@ -1,6 +1,8 @@
 package backend.model;
 
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import javax.persistence.*;
 import java.sql.Date;
 
@@ -13,7 +15,7 @@ public class AccountData extends AbstractEntity {
     @Column(name  = "BirthDay")
     private Date age;
     @Column(name  = "Sex_ID")
-    private int Sex;
+    private String Sex;
     @Column(name  = "mail")
     private String mail;
     @Column(name  = "password")
@@ -35,11 +37,11 @@ public class AccountData extends AbstractEntity {
         this.name = name;
     }
 
-    public int getSex() {
+    public String getSex() {
         return Sex;
     }
 
-    public void setSex(int sex) {
+    public void setSex(String sex) {
         Sex = sex;
     }
 

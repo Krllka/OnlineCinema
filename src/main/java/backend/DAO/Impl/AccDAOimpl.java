@@ -21,9 +21,8 @@ public class AccDAOimpl extends AbstractDAO<AccountData>
     @Override
     public List<AccountData> allAccs() {
         Session session = super.sessionFactory.getCurrentSession();
-
-        return session.createSQLQuery("Select accounts.ID, accounts.Login, accounts.mail, accounts.password, sex.Name\n" +
-                "from (accounts  left join sex on accounts.Sex_ID = sex.ID) ").list();
+        List<AccountData> list = session.createQuery("from AccountData").list();
+        return list;
     }
     @Override
     public AccountData getById(String id) {
