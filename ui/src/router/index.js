@@ -1,18 +1,26 @@
 import VueRouter from "vue-router";
 
-import Catalog from "@/views/Catalog";
-import Home from "@/views/Home";
+import PageHome from "@/views/PageHome";
+import PageCatalog from "@/views/PageCatalog";
+import PageUserCabinet from "@/views/PageUserCabinet";
 
 export default new VueRouter({
   mode: "history",
   routes: [
     {
       path: "/",
-      component: Home,
+      name: "home",
+      component: PageHome,
     },
     {
       path: "/catalog",
-      component: Catalog,
+      name: "catalog",
+      component: PageCatalog,
+    },
+    {
+      path: "/profile",
+      name: "profile",
+      component: PageUserCabinet,
     },
   ],
 });
