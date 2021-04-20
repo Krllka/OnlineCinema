@@ -16,6 +16,9 @@ export default {
   components: {
     TheHeader,
   },
+  created() {
+    document.title = "Онлайн кинотеатр";
+  },
 };
 </script>
 

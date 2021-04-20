@@ -15,6 +15,9 @@ export default {
   components: {
     TheHeader,
   },
+  created() {
+    document.title = "Личный кабинет";
+  },
 };
 </script>
 
