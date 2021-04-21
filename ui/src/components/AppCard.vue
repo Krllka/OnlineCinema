@@ -1,7 +1,21 @@
 <template>
   <div class="card">
     <div class="card__body">
-      <img :src="cardData.poster" :alt="cardData.name" class="card__poster" />
+      <img
+        v-if="!imgError"
+        :src="cardData.poster"
+        :alt="cardData.name"
+        class="card__poster"
+        @error="imgError = !imgError"
+        height="300"
+      />
+      <img
+        v-else
+        src="../assets/default-placeholder.png"
+        alt="Обложка не загружена"
+        class="card__poster"
+        height="300"
+      />
       <div class="card__info">
         <h3 class="card__header">
           {{ cardData.name }}
@@ -36,6 +50,11 @@ export default {
       type: Object,
       default: () => {},
     },
+  },
+  data() {
+    return {
+      imgError: false,
+    };
   },
 };
 </script>
