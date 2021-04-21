@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.rowset.serial.SerialArray;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -56,6 +57,7 @@ public class ProductsController extends AbstractController<ProductsData, Product
             String uuidFile = UUID.randomUUID().toString();
             String resultFilename = uuidFile + "." + file.getOriginalFilename();
             productsData.setPoster(resultFilename);
+            super.create(productsData);
         }
         return "";
     }
