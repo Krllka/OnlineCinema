@@ -3,9 +3,8 @@ package backend.controllers.Impl;
 import backend.model.ProductsData;
 import backend.services.Impl.AccountDataServiceImpl;
 import backend.services.Impl.ProductsDataServiceImpl;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @CrossOrigin(origins = { "http://localhost:3000", "http://localhost:4200", "http://localhost:8081" })
 @RestController
@@ -15,5 +14,8 @@ public class ProductsController extends AbstractController<ProductsData, Product
     public ProductsController(ProductsDataServiceImpl Service) {
         super(Service);
     }
+
+
+
 
 }

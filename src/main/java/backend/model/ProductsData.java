@@ -31,6 +31,14 @@ public class ProductsData extends AbstractEntity {
     @Column(name = "Rating")
     private double  rate;
 
+    public int getAge_restr_id() {
+        return age_restr_id;
+    }
+
+    public void setAge_restr_id(int age_restr_id) {
+        this.age_restr_id = age_restr_id;
+    }
+
     public double getRate() {
         return rate;
     }
@@ -63,13 +71,7 @@ public class ProductsData extends AbstractEntity {
         this.durat = durat;
     }
 
-    public int getRating_id() {
-        return age_restr_id;
-    }
 
-    public void setRating_id(int age_restr_id) {
-        this.age_restr_id = age_restr_id;
-    }
 
     public int getViewsCount() {
         return viewsCount;
