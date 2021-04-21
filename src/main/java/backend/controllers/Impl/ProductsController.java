@@ -4,12 +4,15 @@ import backend.model.ProductsData;
 import backend.services.Impl.ProductsDataServiceImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.UUID;
 
 
 @CrossOrigin(origins = { "http://localhost:3000", "http://localhost:4200", "http://localhost:8081" })
@@ -33,8 +36,6 @@ public class ProductsController extends AbstractController<ProductsData, Product
 
             response.setContentType("image/jpeg");
 
-
-
             try {
                 Files.copy(file,  response.getOutputStream());
                 response.getOutputStream().flush();
@@ -43,5 +44,18 @@ public class ProductsController extends AbstractController<ProductsData, Product
         }
     }
 
+    public String upLoadFile(@RequestParam("file") MultipartFile file){
+
+        if(file != null){
+            File uploadDir = new File(upDir);
+            if(!uploadDir.exists())
+                uploadDir.mkdir();
+
+            String uuidFile = UUID.randomUUID().toString();
+            String resultFilename = uuidFile + "." + file.getOriginalFilename();
+
+        }
+        return "";
+    }
 
 }

@@ -14,7 +14,7 @@ public class AccountData extends AbstractEntity {
     @Column(name = "Login")
     private String name;
     @Column(name  = "BirthDay")
-    @JsonFormat(shape =  JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    @JsonFormat(shape =  JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy")
     private Date age;
     @Column(name  = "Sex_ID")
     private String Sex;

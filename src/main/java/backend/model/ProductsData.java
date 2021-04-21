@@ -17,7 +17,7 @@ public class ProductsData extends AbstractEntity {
     @Column(name = "Name")
     private String name;
     @Column(name = "DateRelese")
-    @JsonFormat(shape =  JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    @JsonFormat(shape =  JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy")
     private Date releseDate;
     @Column(name = "Duration")
     private int durat;
