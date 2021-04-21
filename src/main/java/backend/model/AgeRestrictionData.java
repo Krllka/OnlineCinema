@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Rating")
-public class RatingData extends AbstractEntity{
+public class AgeRestrictionData extends AbstractEntity{
     @Column(name = "Name")
     String name;
     @Column(name = "Description")

@@ -15,8 +15,8 @@ public class ProductsData extends AbstractEntity {
     private Date releseDate;
     @Column(name = "Duration")
     private int durat;
-    @Column(name = "Rating_ID")
-    private int rating_id;
+    @Column(name = "age_restriction_ID")
+    private int age_restr_id;
     @Column(name = "Views")
     private int viewsCount;
     @Column(name = "TrailerFile")
@@ -25,6 +25,16 @@ public class ProductsData extends AbstractEntity {
     private String  poster;
     @Column(name = "Price")
     private double price;
+    @Column(name = "Rating")
+    private double  rate;
+
+    public double getRate() {
+        return rate;
+    }
+
+    public void setRate(double rate) {
+        this.rate = rate;
+    }
 
     public String getName() {
         return name;
@@ -51,11 +61,11 @@ public class ProductsData extends AbstractEntity {
     }
 
     public int getRating_id() {
-        return rating_id;
+        return age_restr_id;
     }
 
-    public void setRating_id(int rating_id) {
-        this.rating_id = rating_id;
+    public void setRating_id(int age_restr_id) {
+        this.age_restr_id = age_restr_id;
     }
 
     public int getViewsCount() {

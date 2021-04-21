@@ -19,8 +19,9 @@ public class ProductsDAOimpl extends AbstractDAO<ProductsData>
     @Override
     public List<ProductsData> allAccs() {
         Session session = super.sessionFactory.getCurrentSession();
+        List<ProductsData> list = session.createQuery("From ProductsData").list();
 
-        return session.createQuery("From ProductsData").list();
+        return list;
     }
     @Override
     public ProductsData getById(String id) {
