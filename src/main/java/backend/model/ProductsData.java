@@ -1,5 +1,7 @@
 package backend.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -12,6 +14,7 @@ public class ProductsData extends AbstractEntity {
     @Column(name = "Name")
     private String name;
     @Column(name = "DateRelese")
+    @JsonFormat(shape =  JsonFormat.Shape.STRING, pattern = "yyyy")
     private Date releseDate;
     @Column(name = "Duration")
     private int durat;
