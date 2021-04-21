@@ -1,7 +1,7 @@
 <template>
   <div>
     <label>
-      <input class="input" :placeholder="placeholder" />
+      <input class="input" required :placeholder="placeholder" @input="$emit('input', $event.target.value)"/>
     </label>
   </div>
 </template>
@@ -9,6 +9,9 @@
 <script>
 export default {
   name: "AppInput",
+  data() {
+    return {};
+  },
   props: {
     placeholder: {
       type: String,
