@@ -1,10 +1,13 @@
 package backend.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.awt.*;
+import java.io.File;
 import java.sql.Date;
 
 @Entity
@@ -25,7 +28,7 @@ public class ProductsData extends AbstractEntity {
     @Column(name = "TrailerFile")
     private String trailer;
     @Column(name = "PosterFile")
-    private String  poster;
+    private String poster;
     @Column(name = "Price")
     private double price;
     @Column(name = "Rating")

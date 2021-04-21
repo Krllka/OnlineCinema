@@ -2,7 +2,6 @@ package backend.controllers.Impl;
 
 import backend.model.ProductsData;
 import backend.services.Impl.ProductsDataServiceImpl;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,22 +22,24 @@ public class ProductsController extends AbstractController<ProductsData, Product
     }
     @Value("${upload.path}")
     String upDir;
+    Path downDir =Paths.get("D:/FILES/RENDER/DOWN");
 
     @RequestMapping(value = "/files/{file_name:.+}", method = RequestMethod.GET)
-    public void getFile(@PathVariable("file_name") String fileName, HttpServletResponse response) {
-        // Прежде всего стоит проверить, если необходимо, авторизован ли пользователь и имеет достаточно прав на скачивание файла. Если нет, то выбрасываем здесь Exception
+    public void getFile(@PathVariable("file_name") String fileName, HttpServletResponse response) throws IOException {
 
-        //Авторизованные пользователи смогут скачать файл
         Path file = Paths.get(upDir, fileName);
+
         if (Files.exists(file)){
-            response.setHeader("Content-disposition", "attachment;filename=" + fileName);
-            response.setContentType("application/vnd.ms-excel");
+
+            response.setContentType("image/jpeg");
+
+
 
             try {
-                Files.copy(file, response.getOutputStream());
+                Files.copy(file,  response.getOutputStream());
                 response.getOutputStream().flush();
             } catch (IOException e) {
-                            }
+                   }
         }
     }
 
