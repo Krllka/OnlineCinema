@@ -17,7 +17,21 @@
         height="300"
       />
       <div class="card__info">
-        <h3 class="card__header">
+        <div v-if="isAdmin" class="card__header-wrapper">
+          <h3 class="card__header">
+            {{ cardData.name }}
+          </h3>
+          <div v-if="isAdmin" class="card__admin-panel">
+            <img src="../assets/draw.png" alt="Edit" class="card__edit" />
+            <img
+              src="../assets/cancel.png"
+              alt="Edit"
+              class="card__remove"
+              @click="$emit('deleteCard')"
+            />
+          </div>
+        </div>
+        <h3 v-else class="card__header">
           {{ cardData.name }}
         </h3>
         <div class="card-row">
@@ -35,7 +49,7 @@
         <div class="card-row">
           <div class="card-row__header">Рейтинг:</div>
           <div class="card-row__value">
-            {{ cardData.rating_id }}
+            {{ cardData.age_restriction_id }}
           </div>
         </div>
         <div class="card-row">
@@ -65,6 +79,10 @@ export default {
       type: Object,
       default: () => {},
     },
+    isAdmin: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -80,7 +98,10 @@ export default {
   border: 1px solid #333333;
   border-radius: 6px;
   padding: 10px;
-
+  &__header-wrapper {
+    display: flex;
+    justify-content: space-between;
+  }
   &__body {
     display: flex;
     justify-content: space-between;
@@ -108,6 +129,23 @@ export default {
     border-bottom: 1px solid #a8a8a8;
     &__header {
       color: #a8a8a8;
+    }
+  }
+  &__admin-panel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 50px;
+  }
+  &__edit,
+  &__remove {
+    height: 20px;
+    padding: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.3s all;
+    &:hover {
+      background-color: #d0d0d0;
     }
   }
 }
