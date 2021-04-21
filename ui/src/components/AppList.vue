@@ -1,29 +1,24 @@
 <template>
   <div class="container">
-    <div v-if="!items" class="error-message">
-      Ошибка! Не удалось загрузить каталог.
+    <h2 v-if="items.length">Фильмы, доступные к просмотру:</h2>
+    <ul v-if="items.length">
+      <li v-for="(item, index) in items" :key="index">
+        <app-card
+          :cardData="item"
+          :isAdmin="isAdmin"
+          @deleteCard="deleteMovie(item.id)"
+        />
+      </li>
+    </ul>
+    <div v-else-if="!items.length && isAdmin" class="empty-message">
+      Каталог пуст. Чтобы добавить фильм, кликните на кнопку ниже:
     </div>
-    <div v-else class="content">
-      <h2 v-if="items.length">Фильмы, доступные к просмотру:</h2>
-      <ul v-if="items.length">
-        <li v-for="(item, index) in items" :key="index">
-          <app-card
-              :cardData="item"
-              :isAdmin="isAdmin"
-              @deleteCard="deleteMovie(item.id)"
-          />
-        </li>
-      </ul>
-      <div v-else-if="!items.length && isAdmin" class="empty-message">
-        Каталог пуст. Чтобы добавить фильм, кликните на кнопку ниже:
-      </div>
-      <div v-else-if="!items.length && !isAdmin" class="empty-message">
-        Каталог пуст. Зайдите позже.
-      </div>
-      <div v-if="isAdmin" class="add-movie" @click="addMovie">
-        <div class="horizontal"></div>
-        <div class="vertical"></div>
-      </div>
+    <div v-else-if="!items.length && !isAdmin" class="empty-message">
+      Каталог пуст. Зайдите позже.
+    </div>
+    <div v-if="isAdmin" class="add-movie" @click="addMovie">
+      <div class="horizontal"></div>
+      <div class="vertical"></div>
     </div>
   </div>
 </template>
@@ -46,13 +41,32 @@ export default {
     },
   },
   methods: {
-    addMovie() {
-      console.log("Movie created");
-    },
     deleteMovie(id) {
-      axios
-        .delete(`http://localhost:8080/products/${id}`)
-        .then((response) => console.log(response));
+      const movie = this.items.find((item) => item.id === id);
+      const deleteMovie = confirm(
+        `Вы действительно хотите удалить фильм "${movie.name}"?`
+      );
+      if (deleteMovie) {
+        axios.delete(`http://localhost:8080/products/${id}`);
+        alert("Фильм удален, для отображения изменений обновите страницу");
+      }
+    },
+    addMovie() {
+      const question = confirm("Вы действительно хотите добавить фильм?");
+      if (question) {
+        const movieData = {
+          name: "Говяжий саппорт",
+          durat: 0,
+          releseDate: "2021-04-18",
+          age_restr_id: "1",
+          rate: 2.4,
+          viewsCount: "1000",
+          trailer: "Крутой",
+          poster: "Атличный",
+          price: 300,
+        };
+        axios.post("http://localhost:8080/products", movieData);
+      }
     },
   },
 };
@@ -63,7 +77,9 @@ ul {
   margin-top: 30px;
   list-style: none;
   display: flex;
-  flex-direction: column;
+  //flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -75,7 +91,7 @@ li {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0 auto;
+  margin: 0 auto 20px;
   width: 25px;
   height: 25px;
   background-color: #5d9000;

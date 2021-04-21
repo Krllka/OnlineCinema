@@ -7,14 +7,14 @@
         :alt="cardData.name"
         class="card__poster"
         @error="imgError = !imgError"
-        height="300"
+        height="200"
       />
       <img
         v-else
         src="../assets/default-placeholder.png"
         alt="Обложка не загружена"
         class="card__poster"
-        height="300"
+        height="200"
       />
       <div class="card__info">
         <div v-if="isAdmin" class="card__header-wrapper">
@@ -49,7 +49,7 @@
         <div class="card-row">
           <div class="card-row__header">Рейтинг:</div>
           <div class="card-row__value">
-            {{ cardData.age_restriction_id }}
+            {{ cardData.age_restr_id }}
           </div>
         </div>
         <div class="card-row">
@@ -94,7 +94,7 @@ export default {
 
 <style lang="scss" scoped>
 .card {
-  min-width: 600px;
+  max-width: 500px;
   border: 1px solid #333333;
   border-radius: 6px;
   padding: 10px;
@@ -118,6 +118,7 @@ export default {
     max-width: 50%;
   }
   &__info {
+    margin-left: 30px;
     min-width: 250px;
   }
   &-row {

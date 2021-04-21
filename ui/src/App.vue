@@ -20,6 +20,6 @@ export default {
 
 .container {
   margin: 0 auto;
-  width: 900px;
+  width: 1100px;
 }
 </style>
