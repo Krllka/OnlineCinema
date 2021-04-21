@@ -28,7 +28,7 @@ public abstract class AbstractController<E extends AbstractEntity, S extends Abs
         return Service.getById(id);
     }
     @PostMapping
-    public E create(@RequestBody E inputAcc) {
+    public E create(@RequestBody E inputAcc ) {
        try{
            Service.add(inputAcc);
            return inputAcc;

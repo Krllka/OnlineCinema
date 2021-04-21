@@ -1,6 +1,7 @@
 package backend.DAO.Impl;
 
 import backend.DAO.Intrfaces.ProductDAO;
+import backend.model.AgeRestrictionData;
 import backend.model.ProductsData;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,8 @@ public class ProductsDAOimpl extends AbstractDAO<ProductsData>
     @Override
     public List<ProductsData> allAccs() {
         Session session = super.sessionFactory.getCurrentSession();
-        List<ProductsData> list = session.createQuery("From ProductsData").list();
+        List<ProductsData> list = session.createQuery("From ProductsData ").list();
+
 
         return list;
     }

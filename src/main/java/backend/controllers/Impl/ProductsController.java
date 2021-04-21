@@ -40,11 +40,13 @@ public class ProductsController extends AbstractController<ProductsData, Product
                 Files.copy(file,  response.getOutputStream());
                 response.getOutputStream().flush();
             } catch (IOException e) {
-                   }
+
+            }
         }
     }
-
-    public String upLoadFile(@RequestParam("file") MultipartFile file){
+    @PostMapping("/add")
+    public String create(@RequestBody ProductsData productsData,
+                         @RequestParam("file") MultipartFile file){
 
         if(file != null){
             File uploadDir = new File(upDir);
@@ -53,7 +55,7 @@ public class ProductsController extends AbstractController<ProductsData, Product
 
             String uuidFile = UUID.randomUUID().toString();
             String resultFilename = uuidFile + "." + file.getOriginalFilename();
-
+            productsData.setPoster(resultFilename);
         }
         return "";
     }

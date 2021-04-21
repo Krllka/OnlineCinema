@@ -22,7 +22,7 @@ public class ProductsData extends AbstractEntity {
     @Column(name = "Duration")
     private int durat;
     @Column(name = "age_restriction_ID")
-    private int age_restr_id;
+    private String age_restr_id;
     @Column(name = "Views")
     private int viewsCount;
     @Column(name = "TrailerFile")
@@ -34,11 +34,11 @@ public class ProductsData extends AbstractEntity {
     @Column(name = "Rating")
     private double  rate;
 
-    public int getAge_restr_id() {
+    public String getAge_restr_id() {
         return age_restr_id;
     }
 
-    public void setAge_restr_id(int age_restr_id) {
+    public void setAge_restr_id(String age_restr_id) {
         this.age_restr_id = age_restr_id;
     }
 
