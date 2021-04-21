@@ -1,6 +1,9 @@
 <template>
   <div class="container">
-    <h2 v-if="items.length">Фильмы, доступные к просмотру:</h2>
+    <div class="header-wrapper">
+      <h2 v-if="items.length">Фильмы, доступные к просмотру:</h2>
+      <button class="btn" @click="$emit('addItem')">Добавить фильм</button>
+    </div>
     <ul v-if="items.length">
       <li v-for="(item, index) in items" :key="index">
         <app-card
@@ -16,7 +19,7 @@
     <div v-else-if="!items.length && !isAdmin" class="empty-message">
       Каталог пуст. Зайдите позже.
     </div>
-    <div v-if="isAdmin" class="add-movie" @click="addMovie">
+    <div v-if="isAdmin" class="add-movie" @click="$emit('addItem')">
       <div class="horizontal"></div>
       <div class="vertical"></div>
     </div>
@@ -51,28 +54,36 @@ export default {
         alert("Фильм удален, для отображения изменений обновите страницу");
       }
     },
-    addMovie() {
-      const question = confirm("Вы действительно хотите добавить фильм?");
-      if (question) {
-        const movieData = {
-          name: "Говяжий саппорт",
-          durat: 0,
-          releseDate: "2021-04-18",
-          age_restr_id: "1",
-          rate: 2.4,
-          viewsCount: "1000",
-          trailer: "Крутой",
-          poster: "Атличный",
-          price: 300,
-        };
-        axios.post("http://localhost:8080/products", movieData);
-      }
-    },
+    // addMovie() {
+    //   const question = confirm("Вы действительно хотите добавить фильм?");
+    //   if (question) {
+    //     const movieData = {
+    //       name: "Говяжий саппорт",
+    //       durat: 0,
+    //       releseDate: "2021-04-18",
+    //       age_restr_id: "1",
+    //       rate: 2.4,
+    //       viewsCount: "1000",
+    //       trailer: "Крутой",
+    //       poster: "Атличный",
+    //       price: 300,
+    //     };
+    //     axios.post("http://localhost:8080/products", movieData);
+    //   }
+    // },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.header-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+.btn {
+  padding: 8px;
+  cursor: pointer;
+}
 ul {
   margin-top: 30px;
   list-style: none;

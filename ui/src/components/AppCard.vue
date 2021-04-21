@@ -125,7 +125,7 @@ export default {
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
-    padding: 10px 0;
+    padding: 10px 0 5px;
     font-size: 15px;
     border-bottom: 1px solid #a8a8a8;
     &__header {
