@@ -4,7 +4,6 @@
     <ul>
       <li v-for="(item, index) in items" :key="index">
         <app-card :cardData="item" />
-        {{ item }}
       </li>
     </ul>
   </div>
@@ -28,5 +27,12 @@ export default {
 ul {
   margin-top: 30px;
   list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+li {
+  margin-bottom: 30px;
 }
 </style>
