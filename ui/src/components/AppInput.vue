@@ -1,7 +1,13 @@
 <template>
   <div>
     <label>
-      <input class="input" required :placeholder="placeholder" @input="$emit('input', $event.target.value)"/>
+      <input
+        class="input"
+        required
+        :placeholder="inputData.placeholder"
+        :type="inputData.type"
+        @input="$emit('input', $event.target.value)"
+      />
     </label>
   </div>
 </template>
@@ -13,9 +19,9 @@ export default {
     return {};
   },
   props: {
-    placeholder: {
-      type: String,
-      default: "Введите данные",
+    inputData: {
+      type: Object,
+      default: () => {},
     },
   },
 };

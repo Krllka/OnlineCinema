@@ -9,7 +9,7 @@
         :title="modalTitle"
       >
         <div v-for="(item, index) in inputData" :key="index" class="form">
-          <app-input :placeholder="item.placeholder" v-model="item.value" />
+          <app-input :inputData="item" v-model="item.value" />
         </div>
       </app-modal>
       <app-list :items="moviesList" :isAdmin="isAdmin" @addItem="addMovie" />
@@ -37,38 +37,51 @@ export default {
       inputData: [
         {
           placeholder: "Название фильма",
+          type: "text",
           key: "name",
           value: "",
         },
         {
           placeholder: "Продолжительность фильма",
+          type: "number",
           key: "durat",
-          inputValue: "",
+          value: "",
         },
         {
           placeholder: "Год производства",
+          type: "date",
           key: "releseDate",
-          inputValue: "",
+          value: "",
         },
         {
           placeholder: "Рейтинг",
+          type: "number",
           key: "age_restr_id",
-          inputValue: "",
+          value: "",
         },
         {
           placeholder: "Оценка",
+          type: "number",
           key: "rate",
-          inputValue: "",
+          value: "",
         },
         {
           placeholder: "Цена",
+          type: "number",
           key: "price",
-          inputValue: "",
+          value: "",
         },
         {
           placeholder: "Количество просмотров",
+          type: "number",
           key: "viewsCount",
-          inputValue: "",
+          value: "",
+        },
+        {
+          placeholder: "Загрузите обложку фильма",
+          type: "file",
+          key: "poster",
+          value: "",
         },
       ],
     };
@@ -91,20 +104,20 @@ export default {
       this.isModalVisible = false;
     },
     createMovie() {
-      const allValuesEntered = this.inputData.every(item => item.value);
+      const allValuesEntered = this.inputData.every((item) => item.value);
       if (allValuesEntered) {
         const requestBody = {};
         this.inputData.forEach((item) => {
           requestBody[item.key] = item.value;
         });
         axios
-            .post("http://localhost:8080/products", requestBody)
-            .then((response) => console.log(response))
-            .catch((error) => console.log(error))
-            .finally(() => {
-              this.isModalVisible = false;
-            });
-      } else alert('Вы не указали все данные о фильме');
+          .post("http://localhost:8080/products", requestBody)
+          .then((response) => console.log(response))
+          .catch((error) => console.log(error))
+          .finally(() => {
+            this.isModalVisible = false;
+          });
+      } else alert("Вы не указали все данные о фильме");
     },
   },
 };

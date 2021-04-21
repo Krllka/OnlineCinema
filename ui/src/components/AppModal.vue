@@ -14,7 +14,9 @@
     </div>
     <div class="modal__footer">
       <button class="modal__close" @click="$emit('closeModal')">Закрыть</button>
-      <button class="modal__submit" @click="$emit('createMovie')">Сохранить</button>
+      <button class="modal__submit" @click="$emit('createMovie')">
+        Сохранить
+      </button>
     </div>
   </div>
 </template>
