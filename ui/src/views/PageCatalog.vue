@@ -29,7 +29,7 @@ export default {
   components: { AppInput, AppList, TheHeader, AppModal },
   data() {
     return {
-      moviesList: null,
+      moviesList: [],
       isAdmin: true,
       isModalVisible: false,
       modalTitle: "",
