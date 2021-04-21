@@ -20,7 +20,7 @@ public class AgeRestrictionDAOimpl extends AbstractDAO<AgeRestrictionData>
     public List<AgeRestrictionData> allAccs() {
         Session session = super.sessionFactory.getCurrentSession();
 
-        return session.createSQLQuery("SELECT * From rating").list();
+        return session.createQuery(" From AgeRestrictionData").list();
     }
     @Override
     public AgeRestrictionData getById(String id) {

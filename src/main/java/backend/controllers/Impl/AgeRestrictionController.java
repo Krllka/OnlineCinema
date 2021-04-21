@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(origins = { "http://localhost:3000", "http://localhost:4200", "http://localhost:8081" })
 @RestController
-@RequestMapping("rating")
-public class RatingController extends AbstractController<AgeRestrictionData, AgeRestrictionDataServiceImpl> {
-    public RatingController(AgeRestrictionDataServiceImpl Service) {
+@RequestMapping("age_restriction")
+public class AgeRestrictionController extends AbstractController<AgeRestrictionData, AgeRestrictionDataServiceImpl> {
+    public AgeRestrictionController(AgeRestrictionDataServiceImpl Service) {
         super(Service);
     }
 }

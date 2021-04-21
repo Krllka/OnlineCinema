@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Rating")
+@Table(name = "age_restriction")
 public class AgeRestrictionData extends AbstractEntity{
     @Column(name = "Name")
     String name;
