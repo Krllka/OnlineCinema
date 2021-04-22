@@ -10,7 +10,7 @@
           :cardData="item"
           :isAdmin="isAdmin"
           @deleteCard="deleteMovie(item.id)"
-          @editCard="$emit('editItem', item.id)"
+          @editCard="$emit('editItem', item)"
         />
       </li>
     </ul>

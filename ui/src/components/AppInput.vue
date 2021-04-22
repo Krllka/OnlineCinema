@@ -6,6 +6,7 @@
         required
         :placeholder="inputData.placeholder"
         :type="inputData.type"
+        :value="inputData.value"
         @input="$emit('input', $event.target.value)"
       />
     </label>
@@ -23,6 +24,10 @@ export default {
       type: Object,
       default: () => {},
     },
+    editedMovie: {
+      type: Object,
+      default: () => {},
+    }
   },
 };
 </script>
