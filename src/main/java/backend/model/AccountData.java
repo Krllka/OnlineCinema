@@ -16,8 +16,9 @@ public class AccountData extends AbstractEntity {
     @Column(name  = "BirthDay")
     @JsonFormat(shape =  JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy")
     private Date age;
-    @Column(name  = "Sex_ID")
-    private String Sex;
+    @ManyToOne
+    @JoinColumn(name = "sex_ID", foreignKey = @ForeignKey(name = "fk_Accouts_Sex"))
+    private SexData Sex;
     @Column(name  = "mail")
     private String mail;
     @Column(name  = "password")
@@ -39,11 +40,12 @@ public class AccountData extends AbstractEntity {
         this.name = name;
     }
 
+
     public String getSex() {
-        return Sex;
+        return Sex.getName();
     }
 
-    public void setSex(String sex) {
+    public void setSex(SexData sex) {
         Sex = sex;
     }
 

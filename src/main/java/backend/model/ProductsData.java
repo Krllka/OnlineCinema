@@ -3,9 +3,7 @@ package backend.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.awt.*;
 import java.io.File;
 import java.sql.Date;
@@ -21,8 +19,9 @@ public class ProductsData extends AbstractEntity {
     private Date releseDate;
     @Column(name = "Duration")
     private int durat;
-    @Column(name = "age_restriction_ID")
-    private String age_restr_id;
+    @ManyToOne
+    @JoinColumn(name = "age_restriction_ID", foreignKey = @ForeignKey(name = "fk_Products_Raring1"))
+    private AgeRestrictionData age_restr_id;
     @Column(name = "Views")
     private int viewsCount;
     @Column(name = "TrailerFile")
@@ -35,10 +34,10 @@ public class ProductsData extends AbstractEntity {
     private double  rate;
 
     public String getAge_restr_id() {
-        return age_restr_id;
+        return age_restr_id.getName();
     }
 
-    public void setAge_restr_id(String age_restr_id) {
+    public void setAge_restr_id(AgeRestrictionData age_restr_id) {
         this.age_restr_id = age_restr_id;
     }
 
