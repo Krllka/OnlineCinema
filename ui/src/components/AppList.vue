@@ -50,7 +50,7 @@ export default {
         `Вы действительно хотите удалить фильм "${movie.name}"?`
       );
       if (deleteMovie) {
-        axios.delete(`http://localhost:8080/products/${id}`);
+        axios.delete(`http://localhost:8081/products/${id}`);
         alert("Фильм удален, для отображения изменений обновите страницу");
       }
     },

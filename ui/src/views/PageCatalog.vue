@@ -11,6 +11,10 @@
         <div v-for="(item, index) in inputData" :key="index" class="form">
           <app-input :inputData="item" v-model="item.value" />
         </div>
+        <label>
+          Обложка фильма:
+          <input type="file" @change="addFile" />
+        </label>
       </app-modal>
       <app-list :items="moviesList" :isAdmin="isAdmin" @addItem="addMovie" />
     </div>
@@ -33,7 +37,7 @@ export default {
       isAdmin: true,
       isModalVisible: false,
       modalTitle: "",
-      isButtonDisabled: false,
+      selectedFile: null,
       inputData: [
         {
           placeholder: "Название фильма",
@@ -77,19 +81,13 @@ export default {
           key: "viewsCount",
           value: "",
         },
-        {
-          placeholder: "Загрузите обложку фильма",
-          type: "file",
-          key: "poster",
-          value: "",
-        },
       ],
     };
   },
   created() {
     document.title = "Каталог фильмов";
     axios
-      .get("http://localhost:8080/products")
+      .get("http://localhost:8081/products")
       .then((response) => {
         this.moviesList = response.data;
       })
@@ -110,8 +108,10 @@ export default {
         this.inputData.forEach((item) => {
           requestBody[item.key] = item.value;
         });
+        requestBody.poster = this.selectedFile.name; // Имя файла
+        requestBody.file = this.selectedFile; // файл с картинкой
         axios
-          .post("http://localhost:8080/products", requestBody)
+          .post("http://localhost:8081/products", requestBody)
           .then((response) => console.log(response))
           .catch((error) => console.log(error))
           .finally(() => {
@@ -119,8 +119,16 @@ export default {
           });
       } else alert("Вы не указали все данные о фильме");
     },
+    addFile(event) {
+      this.selectedFile = event.target.files[0];
+      console.log(this.selectedFile);
+    },
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+label {
+  font-size: 14px;
+}
+</style>
