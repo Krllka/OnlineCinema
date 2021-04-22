@@ -2,7 +2,7 @@
   <div class="container">
     <div class="header-wrapper">
       <h2 v-if="items.length">Фильмы, доступные к просмотру:</h2>
-      <button class="btn" @click="$emit('addItem')">Добавить фильм</button>
+      <button class="btn button" @click="$emit('addItem')">Добавить фильм</button>
     </div>
     <ul v-if="items.length">
       <li v-for="(item, index) in items" :key="index">
@@ -112,6 +112,7 @@ li {
   transition: 0.3s all;
   &:hover {
     background-color: #81c700;
+    box-shadow: 0 0 15px rgba(0, 0, 0, .5);
   }
   .horizontal {
     width: 16px;

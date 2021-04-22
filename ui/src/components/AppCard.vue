@@ -11,7 +11,7 @@
       />
       <img
         v-else
-        src="../assets/default-placeholder.png"
+        src="../assets/images/default-placeholder.png"
         alt="Обложка не загружена"
         class="card__poster"
         height="200"
@@ -23,13 +23,13 @@
           </h3>
           <div v-if="isAdmin" class="card__admin-panel">
             <img
-              src="../assets/draw.png"
+              src="../assets/images/draw.png"
               alt="Edit"
               class="card__edit"
               @click="$emit('editCard')"
             />
             <img
-              src="../assets/cancel.png"
+              src="../assets/images/cancel.png"
               alt="Edit"
               class="card__remove"
               @click="$emit('deleteCard')"
@@ -99,18 +99,29 @@ export default {
 
 <style lang="scss" scoped>
 .card {
-  max-width: 500px;
+  min-width: 500px;
+  //max-width: 500px;
   border: 1px solid #333333;
   border-radius: 6px;
   padding: 10px;
+  background: linear-gradient(149deg, rgba(181,175,178,1) 0%, rgba(180,163,137,1) 100%);
+  cursor: pointer;
+  transition: 0.3s all;
+  &:hover {
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
+  }
   &__header-wrapper {
     display: flex;
     justify-content: space-between;
   }
+  &__poster {
+    border-radius: 6px;
+    border: 2px solid rgba(180, 163, 137, 1);
+  }
   &__body {
     display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid #6d6d6d;
+    justify-content: space-around;
+    border-bottom: 1px solid black;
     padding-bottom: 10px;
   }
   &__footer {
@@ -132,9 +143,10 @@ export default {
     margin-top: 10px;
     padding: 10px 0 5px;
     font-size: 15px;
-    border-bottom: 1px solid #a8a8a8;
+    border-bottom: 1px solid black;
     &__header {
-      color: #a8a8a8;
+      color: black;
+      font-weight: 500;
     }
   }
   &__admin-panel {

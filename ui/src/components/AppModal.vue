@@ -3,7 +3,7 @@
     <div class="modal__header">
       <span class="modal__title">{{ title }}</span>
       <img
-        src="../assets/cancel.png"
+        src="../assets/images/cancel.png"
         alt="Cancel"
         class="modal__remove"
         @click="$emit('closeModal')"
@@ -13,8 +13,8 @@
       <slot></slot>
     </div>
     <div class="modal__footer">
-      <button class="modal__close" @click="$emit('closeModal')">Закрыть</button>
-      <button class="modal__submit" @click="$emit('createMovie')">
+      <button class="modal__close button" @click="$emit('closeModal')">Закрыть</button>
+      <button class="modal__submit button" @click="$emit('createMovie')">
         Сохранить
       </button>
     </div>
@@ -40,8 +40,8 @@ export default {
   top: 100px;
   left: 40vw;
   width: 400px;
-  box-shadow: 0 0 17px 0 #a3a3a3;
-  background: #ffffff;
+  box-shadow: 0 0 30px 0 black;
+  background: linear-gradient(112deg, rgba(181,175,178,1) 0%, rgba(180,163,137,1) 100%);
   z-index: 10;
   &__header,
   &__footer {

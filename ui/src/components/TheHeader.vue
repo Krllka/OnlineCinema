@@ -6,7 +6,7 @@
         <ul class="menu__list">
           <li class="menu__item">
             <button
-              class="menu__btn"
+              class="menu__btn button"
               @click="$router.push({ name: 'catalog' })"
               :disabled="$route.name === 'catalog'"
             >
@@ -15,7 +15,7 @@
           </li>
           <li class="menu__item">
             <button
-              class="menu__btn"
+              class="menu__btn button"
               @click="$router.push({ name: 'profile' })"
               :disabled="$route.name === 'profile'"
             >
@@ -55,6 +55,7 @@ header {
     font-size: 36px;
     color: #333;
     cursor: pointer;
+    transition: 0.3s all;
     &:hover {
       color: #6d6d6d;
     }

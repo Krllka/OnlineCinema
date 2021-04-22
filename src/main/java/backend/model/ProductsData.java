@@ -64,7 +64,7 @@ public class ProductsData extends AbstractEntity {
     }
 
     public void setReleseDate(Date releseDate) {
-        this.releseDate = releseDate.;
+        this.releseDate = releseDate;
     }
 
     public int getDurat() {

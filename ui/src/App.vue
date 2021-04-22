@@ -11,15 +11,5 @@ export default {
 </script>
 
 <style>
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-}
 
-.container {
-  margin: 0 auto;
-  width: 1100px;
-}
 </style>

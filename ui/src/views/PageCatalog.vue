@@ -12,9 +12,9 @@
           <app-input :inputData="item" v-model="item.value" />
         </div>
         <label>
-          Обложка фильма:
-          <input type="file" @change="addFile" />
-          <button @click="submitFile">Загрузить файл</button>
+          <span class="label">Обложка фильма:</span>
+          <input class="custom-file-input" type="file" @change="addFile" />
+          <!--          <button class="button" @click="submitFile">Загрузить файл</button>-->
         </label>
       </app-modal>
 
@@ -28,9 +28,9 @@
           <app-input :inputData="item" v-model="item.value" />
         </div>
         <label>
-          Обложка фильма:
-          <input type="file" @change="addFile" />
-          <button @click="submitFile">Загрузить файл</button>
+          <span class="label">Обложка фильма:</span>
+          <input class="custom-file-input" type="file" @change="addFile" />
+          <!--          <button class="button" @click="submitFile">Загрузить файл</button>-->
         </label>
         <!--        <app-input :editedMovie="editedMovie" :input-data="inputData[0]" v-model="editedMovie.name"></app-input>-->
       </app-modal>
@@ -130,6 +130,7 @@ export default {
     addMovie() {
       this.modalTitle = "Добавить фильм";
       this.isModalVisible = true;
+      this.inputData.forEach((item) => (item.value = ""));
     },
     closeModal() {
       this.isModalVisible = false;
@@ -145,6 +146,7 @@ export default {
         requestBody.poster = this.file.name; // Имя файла
         // formData.append('file', this.selectedFile);
         // requestBody.file = this.selectedFile; // файл с картинкой
+        this.submitFile();
         axios
           .post("http://localhost:8081/products", requestBody)
           .then((response) => console.log(response))
@@ -191,6 +193,7 @@ export default {
       this.editedMovie.price = this.inputData[5].value;
       this.editedMovie.viewsCount = this.inputData[6].value;
       this.editedMovie.poster = this.file.name;
+      this.submitFile();
       axios
         .put(
           `http://localhost:8081/products/${this.editedMovie.id}`,
@@ -212,6 +215,17 @@ label {
 }
 button {
   padding: 5px;
+  cursor: pointer;
+}
+.label {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.custom-file-input {
   cursor: pointer;
 }
 </style>
