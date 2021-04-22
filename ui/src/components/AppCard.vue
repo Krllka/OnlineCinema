@@ -22,7 +22,12 @@
             {{ cardData.name }}
           </h3>
           <div v-if="isAdmin" class="card__admin-panel">
-            <img src="../assets/draw.png" alt="Edit" class="card__edit" />
+            <img
+              src="../assets/draw.png"
+              alt="Edit"
+              class="card__edit"
+              @click="$emit('editCard')"
+            />
             <img
               src="../assets/cancel.png"
               alt="Edit"
@@ -47,7 +52,7 @@
           </div>
         </div>
         <div class="card-row">
-          <div class="card-row__header">Рейтинг:</div>
+          <div class="card-row__header">Возрастное ограничение:</div>
           <div class="card-row__value">
             {{ cardData.age_restr_id }}
           </div>

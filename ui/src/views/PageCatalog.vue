@@ -14,9 +14,15 @@
         <label>
           Обложка фильма:
           <input type="file" @change="addFile" />
+          <button @click="submitFile">Загрузить файл</button>
         </label>
       </app-modal>
-      <app-list :items="moviesList" :isAdmin="isAdmin" @addItem="addMovie" />
+      <app-list
+        :items="moviesList"
+        :isAdmin="isAdmin"
+        @addItem="addMovie"
+        @editItem="editMovie"
+      />
     </div>
   </div>
 </template>
@@ -34,10 +40,11 @@ export default {
   data() {
     return {
       moviesList: [],
+      ageRestriction: [],
       isAdmin: true,
       isModalVisible: false,
       modalTitle: "",
-      selectedFile: null,
+      file: null,
       inputData: [
         {
           placeholder: "Название фильма",
@@ -58,7 +65,7 @@ export default {
           value: "",
         },
         {
-          placeholder: "Рейтинг",
+          placeholder: "Возрастное ограничение",
           type: "number",
           key: "age_restr_id",
           value: "",
@@ -92,6 +99,14 @@ export default {
         this.moviesList = response.data;
       })
       .catch((error) => console.log(error));
+
+    // В будущем, возможно, понадобится
+    // axios
+    //   .get("http://localhost:8081/age_restriction")
+    //   .then((response) => {
+    //     this.ageRestriction = response.data;
+    //   })
+    //   .catch((error) => console.log(error));
   },
   methods: {
     addMovie() {
@@ -105,13 +120,15 @@ export default {
       const allValuesEntered = this.inputData.every((item) => item.value);
       if (allValuesEntered) {
         const requestBody = {};
+        // const formData = new FormData();
         this.inputData.forEach((item) => {
           requestBody[item.key] = item.value;
         });
-        requestBody.poster = this.selectedFile.name; // Имя файла
-        requestBody.file = this.selectedFile; // файл с картинкой
+        requestBody.poster = this.file.name; // Имя файла
+        // formData.append('file', this.selectedFile);
+        // requestBody.file = this.selectedFile; // файл с картинкой
         axios
-          .post("http://localhost:8081/products/add", requestBody)
+          .post("http://localhost:8081/products", requestBody)
           .then((response) => console.log(response))
           .catch((error) => console.log(error))
           .finally(() => {
@@ -120,8 +137,21 @@ export default {
       } else alert("Вы не указали все данные о фильме");
     },
     addFile(event) {
-      this.selectedFile = event.target.files[0];
-      console.log(this.selectedFile);
+      this.file = event.target.files[0];
+      console.log(this.file);
+    },
+    submitFile() {
+      const formData = new FormData();
+      formData.append("file", this.file);
+      axios
+        .post("http://localhost:8081/products/add", formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        })
+        .then((response) => console.log(response))
+        .catch((error) => console.log(error));
+    },
+    editMovie(id) {
+      console.log(id);
     },
   },
 };
@@ -130,5 +160,8 @@ export default {
 <style scoped>
 label {
   font-size: 14px;
+}
+button {
+  padding: 5px;
 }
 </style>
