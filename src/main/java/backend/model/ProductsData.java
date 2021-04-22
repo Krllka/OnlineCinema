@@ -20,7 +20,7 @@ public class ProductsData extends AbstractEntity {
     @Column(name = "Duration")
     private int durat;
     @ManyToOne
-    @JoinColumn(name = "age_restriction_ID", foreignKey = @ForeignKey(name = "fk_Products_Raring1"))
+    @JoinColumn(name = "age_restriction_ID", foreignKey = @ForeignKey(name = "fk_Products_Raring1") )
     private AgeRestrictionData age_restr_id;
     @Column(name = "Views")
     private int viewsCount;
@@ -37,8 +37,10 @@ public class ProductsData extends AbstractEntity {
         return age_restr_id.getName();
     }
 
-    public void setAge_restr_id(AgeRestrictionData age_restr_id) {
-        this.age_restr_id = age_restr_id;
+    public void setAge_restr_id(String age_restr_id) {
+        this.age_restr_id = new AgeRestrictionData(age_restr_id);
+        this.age_restr_id.setName(age_restr_id);
+
     }
 
     public double getRate() {

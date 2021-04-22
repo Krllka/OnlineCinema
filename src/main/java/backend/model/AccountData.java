@@ -45,8 +45,9 @@ public class AccountData extends AbstractEntity {
         return Sex.getName();
     }
 
-    public void setSex(SexData sex) {
-        Sex = sex;
+    public void setSex(String sex) {
+        this.Sex = new SexData(sex);
+        this.Sex.setName(sex);
     }
 
     public String getMail() {

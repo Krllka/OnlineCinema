@@ -17,4 +17,7 @@ public class SexData  extends AbstractEntity{
     public void setName(String name) {
         this.name = name;
     }
+
+    public SexData(String id){ super(id);}
+    public SexData(){}
 }

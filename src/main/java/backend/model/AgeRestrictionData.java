@@ -28,4 +28,7 @@ public class AgeRestrictionData extends AbstractEntity{
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public AgeRestrictionData(String id){ super(id);}
+    public AgeRestrictionData(){}
 }
