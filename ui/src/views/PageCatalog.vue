@@ -111,7 +111,7 @@ export default {
         requestBody.poster = this.selectedFile.name; // Имя файла
         requestBody.file = this.selectedFile; // файл с картинкой
         axios
-          .post("http://localhost:8081/products", requestBody)
+          .post("http://localhost:8081/products/add", requestBody)
           .then((response) => console.log(response))
           .catch((error) => console.log(error))
           .finally(() => {

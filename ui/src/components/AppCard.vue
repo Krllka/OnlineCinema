@@ -3,7 +3,7 @@
     <div class="card__body">
       <img
         v-if="!imgError"
-        :src="cardData.poster"
+        :src="`http://localhost:8080/products/files/${cardData.poster}`"
         :alt="cardData.name"
         class="card__poster"
         @error="imgError = !imgError"
