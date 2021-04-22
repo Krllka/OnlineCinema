@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Date;
 import java.util.UUID;
 
 
@@ -46,8 +47,8 @@ public class ProductsController extends AbstractController<ProductsData, Product
         }
     }
     @PostMapping("/add")
-    public String create(@RequestBody ProductsData productsData,
-                         @RequestParam("file") MultipartFile file){
+    public String create(@RequestParam("file") MultipartFile file) throws IOException {
+        ProductsData prodData = new ProductsData();
 
         if(file != null){
             File uploadDir = new File(upDir);
@@ -56,8 +57,11 @@ public class ProductsController extends AbstractController<ProductsData, Product
 
             String uuidFile = UUID.randomUUID().toString();
             String resultFilename = uuidFile + "." + file.getOriginalFilename();
-            productsData.setPoster(resultFilename);
-            super.create(productsData);
+            prodData.setPoster(resultFilename);
+
+            file.transferTo(new File(upDir +"/" + resultFilename));
+
+            super.create(prodData);
         }
         return "";
     }
