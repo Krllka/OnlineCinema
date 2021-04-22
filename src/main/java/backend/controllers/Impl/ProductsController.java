@@ -47,7 +47,7 @@ public class ProductsController extends AbstractController<ProductsData, Product
         }
     }
     @PostMapping("/add")
-    public String create(@RequestParam("file") MultipartFile file) throws IOException {
+    public String upLoadFile(@RequestParam("file") MultipartFile file) throws IOException {
         ProductsData prodData = new ProductsData();
 
         if(file != null){
