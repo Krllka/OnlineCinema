@@ -55,13 +55,10 @@ public class ProductsController extends AbstractController<ProductsData, Product
             if(!uploadDir.exists())
                 uploadDir.mkdir();
 
-            String uuidFile = UUID.randomUUID().toString();
-            String resultFilename = uuidFile + "." + file.getOriginalFilename();
-            prodData.setPoster(resultFilename);
 
+            String resultFilename =  file.getOriginalFilename();
             file.transferTo(new File(upDir +"/" + resultFilename));
 
-            super.create(prodData);
         }
         return "";
     }
