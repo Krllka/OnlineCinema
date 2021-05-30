@@ -1,6 +1,6 @@
 <template>
   <div>
-    <the-header/>
+    <the-header />
     <div class="container">
       <h2 class="header">Добро пожаловать в онлайн кинотеатр!</h2>
       <p class="text">Для выбора фильма перейдите в раздел "Каталог"</p>
