@@ -27,7 +27,7 @@ export default {
     editedMovie: {
       type: Object,
       default: () => {},
-    }
+    },
   },
 };
 </script>
