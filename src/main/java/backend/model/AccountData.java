@@ -70,11 +70,6 @@ public class AccountData extends AbstractEntity {
         super();
     }
 
-    public AccountData(int id, String name) {
-        super(String.valueOf(id));
-        this.name = name;
-    }
-
 
 
 

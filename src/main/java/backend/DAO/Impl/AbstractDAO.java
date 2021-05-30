@@ -2,7 +2,6 @@ package backend.DAO.Impl;
 
 import backend.DAO.Intrfaces.AbstractRepo;
 import backend.model.AbstractEntity;
-import backend.model.AccountData;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +24,8 @@ public abstract class AbstractDAO<E extends AbstractEntity>  implements Abstract
     @Override
     public List<E> allAccs() {
         Session session = sessionFactory.getCurrentSession();
-
-        return session.createQuery("from "+this.getClass()).list();
+        List<E>  list = session.createQuery("from "+ AbstractEntity.class).list();
+        return list;
     }
 
     @Override
@@ -49,6 +48,7 @@ public abstract class AbstractDAO<E extends AbstractEntity>  implements Abstract
     @Override
     public E getById(String id) {
         Session session = sessionFactory.getCurrentSession();
-        return null;
+        E get = (E) session.get(AbstractEntity.class, id);
+        return get;
     }
 }
