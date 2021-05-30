@@ -24,7 +24,7 @@ public class ProductsController extends AbstractController<ProductsData, Product
     }
     @Value("${upload.path}")
     String upDir;
-    Path downDir =Paths.get("D:/FILES/RENDER/DOWN");
+
 
     @RequestMapping(value = "/files/{file_name:.+}", method = RequestMethod.GET)
     public void getFile(@PathVariable("file_name") String fileName, HttpServletResponse response) throws IOException {
