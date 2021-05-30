@@ -1,12 +1,10 @@
 package backend.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
-import java.awt.*;
-import java.io.File;
 import java.sql.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "products")
@@ -22,6 +20,7 @@ public class ProductsData extends AbstractEntity {
     @ManyToOne
     @JoinColumn(name = "age_restriction_ID", foreignKey = @ForeignKey(name = "fk_Products_Raring1") )
     private AgeRestrictionData age_restr_id;
+
     @Column(name = "Views")
     private int viewsCount;
     @Column(name = "TrailerFile")
@@ -108,4 +107,7 @@ public class ProductsData extends AbstractEntity {
     public void setPrice(double price) {
         this.price = price;
     }
+
+
+
 }

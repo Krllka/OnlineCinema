@@ -48,9 +48,9 @@ public class ProductsController extends AbstractController<ProductsData, Product
         ProductsData prodData = new ProductsData();
 
         if(file != null){
-            File uploadDir = new File(upDir);
+            File uploadDir = new File( upDir);
             if(!uploadDir.exists())
-                uploadDir.mkdir();
+                System.out.println(uploadDir.mkdir());;
 
 
             String resultFilename =  file.getOriginalFilename();
@@ -58,6 +58,7 @@ public class ProductsController extends AbstractController<ProductsData, Product
 
         }
         return "";
+
     }
 
 }
