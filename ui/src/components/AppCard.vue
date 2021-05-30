@@ -104,11 +104,6 @@ export default {
   border: 1px solid #333333;
   border-radius: 6px;
   padding: 10px;
-  background: linear-gradient(
-    149deg,
-    rgba(181, 175, 178, 1) 0%,
-    rgba(180, 163, 137, 1) 100%
-  );
   cursor: pointer;
   transition: 0.3s all;
   &:hover {
@@ -120,7 +115,6 @@ export default {
   }
   &__poster {
     border-radius: 6px;
-    border: 2px solid rgba(180, 163, 137, 1);
   }
   &__body {
     display: flex;

@@ -174,7 +174,6 @@ export default {
       this.modalTitle = "Редактировать фильм";
       this.isModalVisible = true;
       this.editedMovie = movie;
-      console.log(this.editedMovie);
       this.inputData[0].value = this.editedMovie.name;
       this.inputData[1].value = this.editedMovie.durat;
       this.inputData[2].value = this.editedMovie.releseDate;
@@ -213,10 +212,12 @@ export default {
 label {
   font-size: 14px;
 }
+
 button {
   padding: 5px;
   cursor: pointer;
 }
+
 .label {
   display: block;
   margin-top: 10px;

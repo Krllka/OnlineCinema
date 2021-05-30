@@ -43,11 +43,9 @@ export default {
   left: 40vw;
   width: 400px;
   box-shadow: 0 0 30px 0 black;
-  background: linear-gradient(
-    112deg,
-    rgba(181, 175, 178, 1) 0%,
-    rgba(180, 163, 137, 1) 100%
-  );
+  background: white;
+  border-radius: 6px;
+  border: 2px solid black;
   z-index: 10;
   &__header,
   &__footer {
