@@ -5,22 +5,14 @@
         <h1 class="menu__header" @click="clickHandler">Онлайн кинотеатр</h1>
         <ul class="menu__list">
           <li class="menu__item">
-            <button
-              class="menu__btn button"
-              @click="$router.push({ name: 'catalog' })"
-              :disabled="$route.name === 'catalog'"
+            <router-link to="catalog" class="menu__link"
+              >Каталог фильмов</router-link
             >
-              Каталог фильмов
-            </button>
           </li>
           <li class="menu__item">
-            <button
-              class="menu__btn button"
-              @click="$router.push({ name: 'profile' })"
-              :disabled="$route.name === 'profile'"
+            <router-link to="profile" class="menu__link"
+              >Личный кабинет</router-link
             >
-              Личный кабинет
-            </button>
           </li>
         </ul>
       </nav>
@@ -64,6 +56,7 @@ header {
     list-style: none;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 300px;
     font-size: 20px;
   }
@@ -74,6 +67,21 @@ header {
     padding: 5px;
     &:disabled {
       color: rgba(51, 51, 51, 0.51);
+    }
+  }
+  &__link {
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+    font-size: 15px;
+    padding: 5px;
+    border: 1px solid transparent;
+    transition: 0.3s all;
+    &:hover {
+      border: 1px solid black;
+    }
+    &:active {
+      color: #6d6d6d;
     }
   }
 }
