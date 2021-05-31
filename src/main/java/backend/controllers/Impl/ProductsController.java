@@ -1,5 +1,6 @@
 package backend.controllers.Impl;
 
+import backend.controllers.AbstractControllerIntrface;
 import backend.model.ProductsData;
 import backend.services.Impl.ProductsDataServiceImpl;
 import org.springframework.beans.factory.annotation.Value;
@@ -48,7 +49,8 @@ public class ProductsController extends AbstractController<ProductsData, Product
         ProductsData prodData = new ProductsData();
 
         if(file != null){
-            File uploadDir = new File( upDir);
+
+            File uploadDir = new File(AbstractControllerIntrface.class.getResource("").getPath()+"/Uploads");
             if(!uploadDir.exists())
                 System.out.println(uploadDir.mkdir());;
 
