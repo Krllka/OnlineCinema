@@ -26,7 +26,7 @@ public class ProductsDAOimpl extends AbstractDAO<ProductsData>
     public void delete(ProductsData film) {
         Session session = sessionFactory.getCurrentSession();
         session.delete(film);
-        session.createQuery("delete from author_book where author_id=film.getID()").list();
+      //  session.createSQLQuery("$DELETE FROM author_book WHERE author_id={film.getId()}").list();
 
     }
 
