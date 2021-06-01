@@ -23,8 +23,8 @@ public class ProductsController extends AbstractController<ProductsData, Product
     public ProductsController(ProductsDataServiceImpl Service) {
         super(Service);
     }
-    //@Value("${upload.path}")
-    String upDir = AbstractControllerIntrface.class.getResource("").getPath()+"/Uploads";
+    @Value("${upload.path}")
+    String upDir;
 
 
     @RequestMapping(value = "/files/{file_name:.+}", method = RequestMethod.GET)
