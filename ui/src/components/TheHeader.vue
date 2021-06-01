@@ -30,6 +30,7 @@ export default {};
 .header {
   padding: 15px 0;
   border-bottom: 1px solid black;
+  margin-bottom: 20px;
   .container {
     display: flex;
     justify-content: space-between;
