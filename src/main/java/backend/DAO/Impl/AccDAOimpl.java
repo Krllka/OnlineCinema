@@ -21,6 +21,13 @@ public class AccDAOimpl extends AbstractDAO<AccountData>
     public void setSessionFactory(LocalSessionFactoryBean sessionFactory) {
         super.setSessionFactory(sessionFactory);
     }
+
+    @Override
+    public void add(AccountData film) {
+        Session session = sessionFactory.getCurrentSession();
+        film.setAdmin(false);
+        session.save(film);
+    }
     @Override
     public List<AccountData> allAccs() {
         Session session = super.sessionFactory.getCurrentSession();
