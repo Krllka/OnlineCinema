@@ -6,11 +6,11 @@
   cursor: pointer;
   outline: none;
   transition: 0.3s all;
-  &:hover {
+  &:hover:enabled {
     background-color: black;
     color: white;
   }
-  &:focus {
+  &:focus:enabled {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   }
 }

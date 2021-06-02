@@ -16,12 +16,12 @@
               inputFail:
                 !signInResponse.exist &&
                 !signInData.loginFocus &&
-                !signInData.login,
+                !signInData.name,
             }"
             @focus="signInData.loginFocus = true"
             @focusout="signInData.loginFocus = false"
             required
-            v-model="signInData.login"
+            v-model="signInData.name"
           />
         </label>
         <label class="label">
@@ -45,7 +45,7 @@
             v-model="signInData.password"
           />
         </label>
-        <button class="button login" @click="signIn">Войти</button>
+        <button class="button login" @click="signIn(signInData)">Войти</button>
       </div>
       <div class="form__footer">
         Еще не зарегистрированы? Нажмите
@@ -60,7 +60,7 @@
           type="text"
           class="input"
           required
-          v-model="signUpData.login"
+          v-model="signUpData.name"
         />
       </label>
       <label class="label">
@@ -69,9 +69,21 @@
           ref="email"
           type="email"
           class="input"
-          required
-          v-model="signUpData.email"
+          v-model="signUpData.mail"
         />
+      </label>
+      <label class="label">
+        Пол:
+        <select class="select" v-model="signUpData.sex" required>
+          <option selected disabled value="Не выбрано">Не выбрано</option>
+          <option
+            v-for="(gender, index) in genders"
+            :key="index"
+            :value="gender.id"
+          >
+            {{ gender.name }}
+          </option>
+        </select>
       </label>
       <label class="label">
         Пароль:
@@ -83,7 +95,13 @@
           v-model="signUpData.password"
         />
       </label>
-      <button class="button register">Зарегистрироваться</button>
+      <button
+        :disabled="!signUpFormCompleted"
+        class="button register"
+        @click="singUp"
+      >
+        Зарегистрироваться
+      </button>
       <div class="form__footer">
         Уже зарегистрированы? Выполните
         <span @click="loginForm = !loginForm" class="form__link">вход</span>.
@@ -101,7 +119,7 @@ export default {
     return {
       loginForm: true,
       signInData: {
-        login: "",
+        name: "",
         password: "",
         loginFocus: false,
         passwordFocus: false,
@@ -110,20 +128,34 @@ export default {
         exist: "no data",
         access: "no data",
         admin: "no data",
+        id: "no data",
       },
       signUpData: {
-        login: "",
-        email: "",
+        name: "",
+        mail: "",
+        sex: "",
         password: "",
       },
+      genders: null,
     };
   },
+  created() {
+    axios
+      .get("http://localhost:8081/sex")
+      .then((response) => {
+        this.genders = response.data.sort((a, b) => a.id - b.id);
+      })
+      .catch((error) => console.log(error));
+  },
+  computed: {
+    signUpFormCompleted() {
+      return Object.values(this.signUpData).every((item) => item.length > 0);
+    },
+  },
   methods: {
-    signIn() {
+    signIn(data) {
       axios
-        .get(
-          `http://localhost:8081/accounts/${this.signInData.login}/${this.signInData.password}`
-        )
+        .get(`http://localhost:8081/accounts/${data.name}/${data.password}`)
         .then((response) => {
           this.signInResponse = response.data;
         })
@@ -131,15 +163,30 @@ export default {
           console.log(error);
         })
         .finally(() => {
-          this.signInData.login = "";
-          this.signInData.password = "";
+          data.name = "";
+          data.password = "";
           this.signInDataValidation();
         });
     },
     signInDataValidation() {
       if (this.signInResponse.access) {
-        console.log("Access Granted");
-      } else console.log("Access denied");
+        console.log("access");
+        this.$emit("signIn", this.signInResponse);
+      }
+    },
+    singUp() {
+      const requestBody = {};
+      Object.assign(requestBody, this.signUpData);
+      axios
+        .post("http://localhost:8081/accounts", requestBody)
+        .then((response) => {
+          console.log(response);
+          if (response.status === 200) {
+            console.log("Successful!");
+            this.signIn(this.signUpData);
+          }
+        })
+        .catch((error) => console.log(error));
     },
   },
 };
@@ -163,9 +210,23 @@ export default {
     display: block;
   }
 
+  .label {
+    margin: 20px 0;
+  }
+
   .input {
     width: 100%;
     margin: 5px 0;
+  }
+
+  .select {
+    display: block;
+    width: 100%;
+    height: 30px;
+    margin: 5px 0;
+    outline: none;
+    border: 1px solid black;
+    border-radius: 3px;
   }
 
   .inputFail {
