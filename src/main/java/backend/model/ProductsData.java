@@ -31,6 +31,11 @@ public class ProductsData extends AbstractEntity {
     @Column(name = "Rating")
     private double  rate;
 
+    public ProductsData(String id){
+        super(id);
+    }
+    public ProductsData(){}
+
     public String getAge_restr_id() {
         return age_restr_id.getName();
     }

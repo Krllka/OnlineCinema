@@ -28,7 +28,7 @@ public class AccountData extends AbstractEntity {
 
     public  AccountData(){}
     public  AccountData(String str){
-        this.setId(str);
+        super(str);
     }
 
     public Date getAge() {

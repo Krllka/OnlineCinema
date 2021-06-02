@@ -2,7 +2,7 @@ package backend.DAO.Impl;
 
 import backend.DAO.Intrfaces.LibraryDAO;
 import backend.model.Library;
-import backend.model.Order;
+import backend.model.ProductsData;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,6 @@ public class LibraryDAOimpl extends AbstractDAO<Library>
     @Override
     public List<Library> allAccs() {
         Session session = super.sessionFactory.getCurrentSession();
-
         return session.createQuery("from Library").list();
     }
     @Override
@@ -29,11 +28,11 @@ public class LibraryDAOimpl extends AbstractDAO<Library>
         Session session = sessionFactory.getCurrentSession();
         return session.get(Library.class ,id);
     }
-    public Order getByLogin(String client){
+    public List<ProductsData> getByLogin(String client){
         Session session = sessionFactory.getCurrentSession();
-        Query<Order> query = session.createQuery("FROM Order o where o.client.name = :client");
+        Query<ProductsData> query = session.createQuery("SELECT ProductsData FROM Library o where o.client.name = :client");
         query.setParameter("client", client);
-        Order ord = query.getSingleResult();
+        List<ProductsData> ord = query.list();
         return ord;
     }
 }
