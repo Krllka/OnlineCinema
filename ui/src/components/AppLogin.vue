@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="login__header">Войдите или авторизируйтесь:</div>
+    <div class="login__header">Войдите или зарегистрируйтесь:</div>
     <form v-if="loginForm" class="form auth" @submit.prevent>
       <div class="form__main">
         <label class="label">
