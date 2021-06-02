@@ -17,7 +17,7 @@ public class OrderController extends  AbstractController<Order, OrderServiceImpl
     @Override
     @GetMapping("/{name}")
     public Order read(@PathVariable("name") String login) {
-        return super.Service.getById(login);
+        return super.Service.getByLogin(login);
     }
 
 }

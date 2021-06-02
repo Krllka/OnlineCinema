@@ -10,18 +10,27 @@ public class Order extends AbstractEntity{
     private Date date;
     @Column(name = "TotalPrice")
     private double price;
-    @Column(name = "Accouts_ID")
-    private String client;
+    @ManyToOne
+    @JoinColumn(name = "Accouts_ID", foreignKey = @ForeignKey(name = "fk_Orders_Accouts1_idx") )
+    private AccountData client;
     @ManyToOne
     @JoinColumn(name = "OrderStatus_ID", foreignKey = @ForeignKey(name = "fk_Orders_Order Status1_idx") )
     private OrderStatus status;
 
-    public Date getAcc_ID() {
+    public Date getDate() {
         return date;
     }
 
-    public void setAcc_ID(Date acc_ID) {
-        this.date = acc_ID;
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void setClient(AccountData client) {
+        this.client = client;
+    }
+
+    public void setStatus(OrderStatus status) {
+        this.status = status;
     }
 
     public double getPrice() {
@@ -33,11 +42,12 @@ public class Order extends AbstractEntity{
     }
 
     public String getClient() {
-        return client;
+        return client.getName();
     }
 
     public void setClient(String client) {
-        this.client = client;
+        this.client = new AccountData(client);
+        this.client.setName(client);
     }
 
     public String getStatus() {

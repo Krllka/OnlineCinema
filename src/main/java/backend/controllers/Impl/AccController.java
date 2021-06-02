@@ -2,11 +2,9 @@ package backend.controllers.Impl;
 
 import backend.model.AccountData;
 import backend.model.SexData;
+import backend.response.Response;
 import backend.services.Impl.AccountDataServiceImpl;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,6 +16,17 @@ public class AccController extends  AbstractController<AccountData, AccountDataS
     public  AccController(AccountDataServiceImpl Service) {
         super(Service);
     }
+
+
+
+    @GetMapping("/{login}/{pass}")
+    public Response read(@PathVariable("login") String login ,@PathVariable("pass") String pass) {
+        return Service.tryAuth(login, pass);
+    }
+
+
+
+
 
 }
 
