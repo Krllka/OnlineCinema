@@ -67,7 +67,7 @@
         Адрес электронной почты:
         <input
           ref="email"
-          type="email"
+          type="text"
           class="input"
           v-model="signUpData.mail"
         />
@@ -95,6 +95,9 @@
           v-model="signUpData.password"
         />
       </label>
+      <div v-if="signUpFail" class="message">
+        Ошибка. Такой пользователь уже существует!
+      </div>
       <button
         :disabled="!signUpFormCompleted"
         class="button register"
@@ -137,6 +140,7 @@ export default {
         password: "",
       },
       genders: null,
+      signUpFail: false,
     };
   },
   created() {
@@ -181,9 +185,12 @@ export default {
         .post("http://localhost:8081/accounts", requestBody)
         .then((response) => {
           console.log(response);
-          if (response.status === 200) {
+          console.log(typeof response.data);
+          if (response.data) {
             console.log("Successful!");
             this.signIn(this.signUpData);
+          } else {
+            this.signUpFail = true;
           }
         })
         .catch((error) => console.log(error));
@@ -227,11 +234,22 @@ export default {
     outline: none;
     border: 1px solid black;
     border-radius: 3px;
+    transition: 0.3s all;
+    &:focus {
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
   }
 
   .inputFail {
     border: 1px solid red;
     box-shadow: 0 0 10px rgba(208, 0, 0, 0.5);
+  }
+
+  .message {
+    margin: 10px 0;
+    font-size: 15px;
+    color: red;
+    text-align: center;
   }
 
   .labelFail {
