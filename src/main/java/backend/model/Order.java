@@ -17,6 +17,8 @@ public class Order extends AbstractEntity{
     @JoinColumn(name = "OrderStatus_ID", foreignKey = @ForeignKey(name = "fk_Orders_Order Status1_idx") )
     private OrderStatus status;
 
+    public Order(){}
+    public Order(String id) {super(id);}
     public Date getDate() {
         return date;
     }
