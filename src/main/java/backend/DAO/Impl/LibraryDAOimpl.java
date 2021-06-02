@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Repository
@@ -28,11 +30,16 @@ public class LibraryDAOimpl extends AbstractDAO<Library>
         Session session = sessionFactory.getCurrentSession();
         return session.get(Library.class ,id);
     }
+
     public List<ProductsData> getByLogin(String client){
         Session session = sessionFactory.getCurrentSession();
-        Query<ProductsData> query = session.createQuery("SELECT ProductsData FROM Library o where o.client.name = :client");
+        Query<Library> query = session.createQuery("FROM Library o where o.client.name = :client");
         query.setParameter("client", client);
-        List<ProductsData> ord = query.list();
-        return ord;
+        List<Library> ord = query.list();
+        List<ProductsData> prods = new ArrayList<>();
+        for (Library item: ord) {
+            prods.add(item.getProuctObj());
+        }
+        return prods;
     }
 }

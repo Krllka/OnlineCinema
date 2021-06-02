@@ -23,6 +23,7 @@ public class Library extends AbstractEntity{
         this.client.setName(client);
     }
 
+    public ProductsData getProuctObj(){ return this.product; }
     public String getProduct() {
         return product.getName();
     }
