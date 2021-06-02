@@ -67,30 +67,37 @@ export default {
   border-radius: 6px;
   padding: 10px;
   width: 50%;
+
   .label,
   .input {
     display: block;
   }
+
   .input {
     width: 100%;
     margin: 5px 0;
   }
+
   .button {
     display: block;
     width: 20%;
     margin: 10px auto;
   }
+
   .register {
     width: 30%;
   }
+
   &__footer {
     margin-top: 20px;
     text-align: center;
   }
+
   &__link {
     cursor: pointer;
     border-bottom: 2px solid black;
     transition: 0.3s all;
+
     &:hover {
       color: rgba(0, 0, 0, 0.5);
       border-bottom: 2px solid rgba(0, 0, 0, 0.5);
