@@ -1,10 +1,10 @@
 <template>
   <div class="container">
     <h2 v-if="moviesList.length" class="header">Каталог фильмов и сериалов:</h2>
-    <span v-else-if="!moviesList" class="empty"
-      >Каталог пуст. Зайдите позже</span
-    >
-    <app-list :items="moviesList" />
+    <div v-else-if="!moviesList" class="empty">
+      Каталог пуст! Зайдите позже.
+    </div>
+    <app-list v-if="moviesList" :items="moviesList" />
   </div>
 </template>
 
@@ -25,7 +25,7 @@ export default {
   created() {
     document.title = "Онлайн-кинотеатр | Каталог";
     axios
-      .get("https://online-kino.herokuapp.com/products")
+      .get("http://localhost:8081/products")
       .then((response) => {
         this.moviesList = response.data;
       })
@@ -43,6 +43,8 @@ export default {
 }
 
 .empty {
+  margin-top: 40vh;
+  font-size: 32px;
   text-align: center;
 }
 </style>
