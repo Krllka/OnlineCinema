@@ -45,7 +45,7 @@
             v-model="signInData.password"
           />
         </label>
-        <button class="button login" @click="signIn">Войти</button>
+        <button class="button login" @click="signIn(signInData)">Войти</button>
       </div>
       <div class="form__footer">
         Еще не зарегистрированы? Нажмите
@@ -69,7 +69,6 @@
           ref="email"
           type="email"
           class="input"
-          required
           v-model="signUpData.mail"
         />
       </label>
@@ -96,7 +95,11 @@
           v-model="signUpData.password"
         />
       </label>
-      <button class="button register" @click="singUp">
+      <button
+        :disabled="!signUpFormCompleted"
+        class="button register"
+        @click="singUp"
+      >
         Зарегистрироваться
       </button>
       <div class="form__footer">
@@ -144,12 +147,15 @@ export default {
       })
       .catch((error) => console.log(error));
   },
+  computed: {
+    signUpFormCompleted() {
+      return Object.values(this.signUpData).every((item) => item.length > 0);
+    },
+  },
   methods: {
-    signIn() {
+    signIn(data) {
       axios
-        .get(
-          `http://localhost:8081/accounts/${this.signInData.name}/${this.signInData.password}`
-        )
+        .get(`http://localhost:8081/accounts/${data.name}/${data.password}`)
         .then((response) => {
           this.signInResponse = response.data;
         })
@@ -157,23 +163,29 @@ export default {
           console.log(error);
         })
         .finally(() => {
-          this.signInData.name = "";
-          this.signInData.password = "";
+          data.name = "";
+          data.password = "";
           this.signInDataValidation();
         });
     },
     signInDataValidation() {
       if (this.signInResponse.access) {
+        console.log("access");
         this.$emit("signIn", this.signInResponse);
       }
     },
     singUp() {
       const requestBody = {};
       Object.assign(requestBody, this.signUpData);
-      console.log(requestBody);
       axios
         .post("http://localhost:8081/accounts", requestBody)
-        .then((response) => console.log(response))
+        .then((response) => {
+          console.log(response);
+          if (response.status === 200) {
+            console.log("Successful!");
+            this.signIn(this.signUpData);
+          }
+        })
         .catch((error) => console.log(error));
     },
   },
