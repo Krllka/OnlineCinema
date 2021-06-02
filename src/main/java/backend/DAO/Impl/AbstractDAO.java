@@ -2,10 +2,13 @@ package backend.DAO.Impl;
 
 import backend.DAO.Intrfaces.AbstractRepo;
 import backend.model.AbstractEntity;
+import backend.model.ProductsData;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.persistence.MappedSuperclass;
 import java.util.List;
@@ -51,4 +54,11 @@ public abstract class AbstractDAO<E extends AbstractEntity>  implements Abstract
         E get = (E) session.get(AbstractEntity.class, id);
         return get;
     }
+
+    public List<E> readByLogin(@PathVariable("name") String login) {
+        Session session = sessionFactory.getCurrentSession();
+        List<E>  list = session.createQuery("from "+ AbstractEntity.class).list();
+        return list;
+    }
+
 }
