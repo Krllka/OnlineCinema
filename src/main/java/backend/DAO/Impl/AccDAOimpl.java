@@ -39,9 +39,14 @@ public class AccDAOimpl extends AbstractDAO<AccountData>
         query.setParameter("client", client);
         AccountData ord = query.getSingleResult();
         Response resp =  new Response();
-        if(ord != null & ord.chekPass(pass)){
-            resp.setAcces(true);
-            resp.setAdmin(ord.getAdmin());
+        if(ord != null){
+            resp.setExist(true);
+            if(ord.chekPass(pass))
+            {
+                resp.setAccess(true);
+                resp.setAdmin(ord.getAdmin());
+                resp.setId(ord.getId());
+            }
         }
 
         return resp;

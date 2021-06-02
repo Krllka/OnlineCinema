@@ -5,6 +5,7 @@ import backend.controllers.AbstractControllerIntrface;
 import backend.model.Library;
 import backend.model.ProductsData;
 import backend.services.Impl.LibraryServiceImpl;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,7 +21,12 @@ public class LibraryController extends AbstractController<Library, LibraryServic
 
     @GetMapping("/get/{name}")
     public List<ProductsData> readByLogin(@PathVariable("name") String login) {
-        return  Service.getByLogin(login);
+
+        try {
+            return  Service.getByLogin(login);
+        }catch (Exception ex){
+            return null;
+        }
     }
 
 }
