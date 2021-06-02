@@ -6,6 +6,7 @@
       :userData="userData"
       :isAdmin="isAdmin"
       @signIn="signIn($event)"
+      @logOut="logOut"
     ></router-view>
   </div>
 </template>
@@ -41,6 +42,12 @@ export default {
           .then((response) => (this.userData = response.data))
           .catch((error) => console.log(error));
       }
+    },
+    logOut() {
+      this.isAuthorized = false;
+      this.isAdmin = false;
+      this.userId = null;
+      this.userData = {};
     },
   },
 };

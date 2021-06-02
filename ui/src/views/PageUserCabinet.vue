@@ -1,18 +1,20 @@
 <template>
   <div class="container">
     <app-login v-if="!isAuthorized" @signIn="signIn($event)" />
-    <h3 v-else class="header">Привет, {{ userData.name }}</h3>
+    <app-user-profile v-else :userData="userData" @logOut="$emit('logOut')" />
   </div>
 </template>
 
 <script>
 // import axios from "axios";
 import AppLogin from "@/components/AppLogin";
+import AppUserProfile from "@/components/AppUserProfile";
 
 export default {
   name: "PageUserCabinet",
   components: {
     AppLogin,
+    AppUserProfile,
   },
   props: {
     isAuthorized: {
