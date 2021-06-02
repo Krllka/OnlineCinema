@@ -12,7 +12,7 @@ import java.util.List;
 public abstract class AbstractController<E extends AbstractEntity, S extends AbstractServiceInterface<E>>
         implements AbstractControllerIntrface<E> {
 
-    private S Service;
+    protected S Service;
     @Autowired
     public AbstractController(S Service) {
         this.Service = Service;
