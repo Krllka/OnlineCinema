@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import axios from "axios";
+// import axios from "axios";
 import AppLogin from "@/components/AppLogin";
 
 export default {
@@ -14,28 +14,26 @@ export default {
   components: {
     AppLogin,
   },
+  props: {
+    isAuthorized: {
+      type: Boolean,
+      default: false,
+    },
+    userData: {
+      type: Object,
+      default: () => {},
+    },
+    isAdmin: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
-    return {
-      isAuthorized: false,
-      isAdmin: false,
-      userId: null,
-      userData: {},
-    };
+    return {};
   },
   methods: {
     signIn(response) {
-      this.isAuthorized = response.access;
-      this.isAdmin = response.admin;
-      this.userId = response.id;
-      this.getPersonalData();
-    },
-    getPersonalData() {
-      if (this.userId) {
-        axios
-          .get(`http://localhost:8081/accounts/${this.userId}`)
-          .then((response) => (this.userData = response.data))
-          .catch((error) => console.log(error));
-      }
+      this.$emit("signIn", response);
     },
   },
 };
