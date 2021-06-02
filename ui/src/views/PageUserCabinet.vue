@@ -1,11 +1,21 @@
 <template>
   <div class="container">
-    <h1>This is user cabinet</h1>
+    <app-login />
   </div>
 </template>
 
 <script>
-export default {};
+import AppLogin from "@/components/AppLogin";
+
+export default {
+  name: "PageUserCabinet",
+  components: {
+    AppLogin,
+  },
+  data() {
+    return {};
+  },
+};
 </script>
 
-<style scoped></style>
+<style scoped lang="scss"></style>
