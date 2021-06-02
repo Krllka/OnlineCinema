@@ -1,24 +1,21 @@
 <template>
-  <div>
-    <the-header />
-    <div class="container">
-      <h2>This is user cabinet</h2>
-    </div>
+  <div class="container">
+    <app-login />
   </div>
 </template>
 
 <script>
-import TheHeader from "@/components/TheHeader";
+import AppLogin from "@/components/AppLogin";
 
 export default {
   name: "PageUserCabinet",
   components: {
-    TheHeader,
+    AppLogin,
   },
-  created() {
-    document.title = "Личный кабинет";
+  data() {
+    return {};
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped lang="scss"></style>

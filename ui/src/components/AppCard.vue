@@ -1,76 +1,45 @@
 <template>
   <div class="card">
+    <h3 class="card__header">{{ cardData.name }}</h3>
     <div class="card__body">
       <img
         v-if="!imgError"
-        :src="`https://online-kino.herokuapp.com/products/files/${cardData.poster}`"
+        :src="`http://localhost:8080/products/files/${cardData.poster}`"
         :alt="cardData.name"
-        class="card__poster"
+        class="card__img"
         @error="imgError = !imgError"
-        height="200"
       />
       <img
         v-else
         src="../assets/images/default-placeholder.png"
-        alt="Обложка не загружена"
-        class="card__poster"
-        height="200"
+        alt="Обложка не найдена"
+        class="card__img"
       />
       <div class="card__info">
-        <div v-if="isAdmin" class="card__header-wrapper">
-          <h3 class="card__header">
-            {{ cardData.name }}
-          </h3>
-          <div v-if="isAdmin" class="card__admin-panel">
-            <img
-              src="../assets/images/draw.png"
-              alt="Edit"
-              class="card__edit"
-              @click="$emit('editCard')"
-            />
-            <img
-              src="../assets/images/cancel.png"
-              alt="Edit"
-              class="card__remove"
-              @click="$emit('deleteCard')"
-            />
-          </div>
+        <div class="card__row">
+          <span class="card__title">Продолжительность</span>
+          <span class="card__value">{{ cardData.durat }}</span>
         </div>
-        <h3 v-else class="card__header">
-          {{ cardData.name }}
-        </h3>
-        <div class="card-row">
-          <div class="card-row__header">Продолжительность:</div>
-          <div class="card-row__value">
-            {{ `${cardData.durat} мин` }}
-          </div>
+        <div class="card__row">
+          <span class="card__title">Год релиза</span>
+          <span class="card__value">{{ cardData.releseDate }}</span>
         </div>
-        <div class="card-row">
-          <div class="card-row__header">Год производства:</div>
-          <div class="card-row__value">
-            {{ cardData.releseDate }}
-          </div>
+        <div class="card__row">
+          <span class="card__title">Возрастное ограничение</span>
+          <span class="card__value">{{ cardData.age_restr_id }}</span>
         </div>
-        <div class="card-row">
-          <div class="card-row__header">Возрастное ограничение:</div>
-          <div class="card-row__value">
-            {{ cardData.age_restr_id }}
-          </div>
-        </div>
-        <div class="card-row">
-          <div class="card-row__header">Оценка:</div>
-          <div class="card-row__value">
-            {{ `${cardData.rate}/10` }}
-          </div>
+        <div class="card__row">
+          <span class="card__title">Оценка</span>
+          <span class="card__value">{{ cardData.rate }}/10</span>
         </div>
       </div>
     </div>
     <div class="card__footer">
       <div class="card__price">
-        {{ `Цена: ${cardData.price} руб` }}
+        <span class="card__title">Цена:</span> {{ cardData.price }}
       </div>
       <div class="card__views">
-        {{ `Просмотров: ${cardData.viewsCount}` }}
+        <span class="card__title">Просмотров:</span> {{ cardData.viewsCount }}
       </div>
     </div>
   </div>
@@ -84,10 +53,6 @@ export default {
       type: Object,
       default: () => {},
     },
-    isAdmin: {
-      type: Boolean,
-      default: false,
-    },
   },
   data() {
     return {
@@ -97,72 +62,54 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped lang="scss">
 .card {
-  min-width: 500px;
-  //max-width: 500px;
-  border: 1px solid #333333;
+  width: 500px;
+  border: 1px solid black;
   border-radius: 6px;
-  padding: 10px;
   cursor: pointer;
   transition: 0.3s all;
   &:hover {
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   }
-  &__header-wrapper {
-    display: flex;
-    justify-content: space-between;
-  }
-  &__poster {
-    border-radius: 6px;
+  &__header {
+    font-size: 15px;
+    font-weight: 700;
+    border-bottom: 1px solid black;
+    padding: 10px;
   }
   &__body {
     display: flex;
-    justify-content: space-around;
-    border-bottom: 1px solid black;
-    padding-bottom: 10px;
+    padding: 10px;
   }
-  &__footer {
-    margin-top: 10px;
-    display: flex;
-    justify-content: space-between;
-  }
-  &__price,
-  &__views {
-    max-width: 50%;
+  &__img {
+    max-height: 200px;
+    border: 1px solid black;
+    border-radius: 6px;
   }
   &__info {
-    margin-left: 30px;
-    min-width: 250px;
-  }
-  &-row {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    margin-top: 10px;
-    padding: 10px 0 5px;
-    font-size: 15px;
-    border-bottom: 1px solid black;
-    &__header {
-      color: black;
-      font-weight: 500;
-    }
-  }
-  &__admin-panel {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 50px;
-  }
-  &__edit,
-  &__remove {
-    height: 20px;
+    width: 100%;
     padding: 5px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: 0.3s all;
-    &:hover {
-      background-color: #d0d0d0;
-    }
+  }
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-left: 10px;
+    padding-bottom: 3px;
+    border-bottom: 1px solid black;
+  }
+  &__title {
+    color: rgba(0, 0, 0, 0.5);
+  }
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-top: 1px solid black;
   }
 }
 </style>

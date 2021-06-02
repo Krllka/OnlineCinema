@@ -1,18 +1,20 @@
 <template>
-  <header>
+  <header class="header">
     <div class="container">
+      <router-link to="/">Онлайн-кинотеатр</router-link>
       <nav class="menu">
-        <h1 class="menu__header" @click="clickHandler">Онлайн кинотеатр</h1>
         <ul class="menu__list">
           <li class="menu__item">
-            <router-link to="catalog" class="menu__link"
-              >Каталог фильмов</router-link
-            >
+            <router-link to="/">Каталог</router-link>
           </li>
           <li class="menu__item">
-            <router-link to="profile" class="menu__link"
-              >Личный кабинет</router-link
-            >
+            <router-link to="/library">Библиотека</router-link>
+          </li>
+          <li class="menu__item">
+            <router-link to="/orders">Заказы</router-link>
+          </li>
+          <li class="menu__item">
+            <router-link to="/profile">Мой профиль</router-link>
           </li>
         </ul>
       </nav>
@@ -21,67 +23,41 @@
 </template>
 
 <script>
-export default {
-  name: "TheHeader",
-  methods: {
-    clickHandler() {
-      if (this.$route.name !== "home") {
-        this.$router.push({ name: "home" });
-      }
-    },
-  },
-};
+export default {};
 </script>
 
-<style lang="scss" scoped>
-header {
-  border-bottom: 1px solid;
+<style scoped lang="scss">
+.header {
+  padding: 15px 0;
+  border-bottom: 1px solid black;
   margin-bottom: 20px;
-}
-.menu {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  margin: 30px 15px;
-  &__header {
-    font-size: 36px;
-    color: #333;
-    cursor: pointer;
-    transition: 0.3s all;
-    &:hover {
-      color: #6d6d6d;
-    }
-  }
-  &__list {
-    list-style: none;
+  .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 300px;
-    font-size: 20px;
-  }
-  &__btn {
-    color: #333333;
-    cursor: pointer;
-    height: 35px;
-    padding: 5px;
-    &:disabled {
-      color: rgba(51, 51, 51, 0.51);
+    & > a {
+      cursor: pointer;
+      font-size: 36px;
+      font-weight: 700;
+      transition: 0.3s all;
+      &:hover {
+        color: rgba(0, 0, 0, 0.5);
+      }
     }
   }
-  &__link {
-    text-decoration: none;
-    color: black;
-    cursor: pointer;
-    font-size: 15px;
-    padding: 5px;
-    border: 1px solid transparent;
-    transition: 0.3s all;
-    &:hover {
-      border: 1px solid black;
+  .menu {
+    &__list {
+      display: flex;
+      justify-content: space-between;
+      width: 25vw;
     }
-    &:active {
-      color: #6d6d6d;
+    &__item a {
+      font-size: 17px;
+      transition: 0.3s all;
+      &:hover {
+        color: rgba(0, 0, 0, 0.5);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+      }
     }
   }
 }

@@ -1,5 +1,5 @@
 module.exports = {
   devServer: {
-    proxy: "https://online-kino.herokuapp.com/",
+    proxy: "http://localhost:8080/",
   },
 };
