@@ -137,8 +137,9 @@ export default {
         });
     },
     signInDataValidation() {
-      // if (this.signInResponse.access) {
-      // }
+      if (this.signInResponse.access) {
+        console.log("Access Granted");
+      } else console.log("Access denied");
     },
   },
 };
