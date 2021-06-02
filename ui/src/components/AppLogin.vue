@@ -137,11 +137,8 @@ export default {
         });
     },
     signInDataValidation() {
-      if (typeof this.signInResponse === "object") {
-        console.log(this.signInResponse);
-      } else if (typeof this.signInResponse === "string") {
-        console.log(this.signInResponse);
-      }
+      // if (this.signInResponse.access) {
+      // }
     },
   },
 };
