@@ -21,7 +21,13 @@ public class AccController extends  AbstractController<AccountData, AccountDataS
 
     @GetMapping("/{login}/{pass}")
     public Response read(@PathVariable("login") String login ,@PathVariable("pass") String pass) {
-        return Service.tryAuth(login, pass);
+       try {
+           return Service.tryAuth(login, pass);
+
+       }catch (Exception ex){
+           return new Response();
+       }
+
     }
 
 
