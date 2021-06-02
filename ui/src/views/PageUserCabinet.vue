@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <app-login />
+    <app-login v-if="!isAuthorized" @signIn="signIn($event)" />
   </div>
 </template>
 
@@ -13,7 +13,18 @@ export default {
     AppLogin,
   },
   data() {
-    return {};
+    return {
+      isAuthorized: false,
+      isAdmin: false,
+      userId: null,
+    };
+  },
+  methods: {
+    signIn(response) {
+      this.isAuthorized = response.access;
+      this.isAdmin = response.admin;
+      this.userId = response.id;
+    },
   },
 };
 </script>
