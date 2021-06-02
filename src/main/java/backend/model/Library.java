@@ -1,34 +1,35 @@
 package backend.model;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "basketnlibrary")
 public class Library extends AbstractEntity{
 
-    @Column(name = "Accouts_ID")
-    private String acc_ID;
-    @Column(name = "Products_ID")
-    private String prod_ID;
+    @ManyToOne
+    @JoinColumn(name = "Accouts_ID", foreignKey = @ForeignKey(name = "fk_Accouts_has_Products_Accouts1_idx") )
+    private AccountData client;
+    @ManyToOne
+    @JoinColumn(name = "Products_ID", foreignKey = @ForeignKey(name = "fk_BasketNLibrary_Products1_idx") )
+    private ProductsData product;
     @Column(name = "purchased")
     private Boolean purchased;
 
-    public String getAcc_ID() {
-        return acc_ID;
+    public String getClient() {
+        return client.getName();
     }
 
-    public void setAcc_ID(String acc_ID) {
-        this.acc_ID = acc_ID;
+    public void setClient(String client) {
+        this.client = new AccountData(client);
+        this.client.setName(client);
     }
 
-    public String getProd_ID() {
-        return prod_ID;
+    public String getProduct() {
+        return product.getName();
     }
 
-    public void setProd_ID(String prod_ID) {
-        this.prod_ID = prod_ID;
+    public void setProduct(String product) {
+        this.product = new ProductsData(product);
+        this.product.setName(product);
     }
 
     public Boolean getPurchased() {
