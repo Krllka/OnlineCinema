@@ -7,8 +7,6 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -34,7 +32,7 @@ public class OrderDAOimpl extends AbstractDAO<Order>
     }
     public Order getByLogin(String client){
         Session session = sessionFactory.getCurrentSession();
-        Query<Order> query = session.createQuery("FROM Order o where o.client = :client");
+        Query<Order> query = session.createQuery("FROM Order o where o.client.name = :client");
         query.setParameter("client", client);
         Order ord = query.getSingleResult();
         return ord;

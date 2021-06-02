@@ -26,6 +26,11 @@ public class AccountData extends AbstractEntity {
     @Column(name  = "admin")
     private Boolean admin;
 
+    public  AccountData(){}
+    public  AccountData(String str){
+        this.setId(str);
+    }
+
     public Date getAge() {
         return age;
     }
@@ -68,11 +73,7 @@ public class AccountData extends AbstractEntity {
         this.password = password;
     }
 
-    public AccountData() {
-        super();
-    }
-
-
+    public Boolean chekPass(String pass){ return this.password.equals(pass);}
 
     public void setSex(SexData sex) {
         Sex = sex;

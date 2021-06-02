@@ -2,8 +2,11 @@ package backend.DAO.Impl;
 
 import backend.DAO.Intrfaces.AccDAO;
 import backend.model.AccountData;
+import backend.model.Order;
+import backend.response.Response;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
@@ -29,5 +32,20 @@ public class AccDAOimpl extends AbstractDAO<AccountData>
         Session session = sessionFactory.getCurrentSession();
         return session.get(AccountData.class ,id);
     }
+
+    public Response tryAuth(String client, String pass){
+        Session session = sessionFactory.getCurrentSession();
+        Query<AccountData> query = session.createQuery("FROM AccountData o where o.name = :client");
+        query.setParameter("client", client);
+        AccountData ord = query.getSingleResult();
+        Response resp =  new Response();
+        if(ord != null & ord.chekPass(pass)){
+            resp.setAcces(true);
+            resp.setAdmin(ord.getAdmin());
+        }
+
+        return resp;
+    }
+
 }
 
