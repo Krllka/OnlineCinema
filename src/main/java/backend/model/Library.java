@@ -1,7 +1,11 @@
 package backend.model;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "basketnlibrary")
 public class Library extends AbstractEntity{
 
     @Column(name = "Accouts_ID")

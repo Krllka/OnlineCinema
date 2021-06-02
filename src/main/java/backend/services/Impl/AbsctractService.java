@@ -18,7 +18,7 @@ public abstract class AbsctractService<E extends AbstractEntity, R extends Abstr
         implements AbstractServiceInterface<E> {
 
 
-    private R repo;
+    protected R repo;
 
     @Autowired
     public AbsctractService(R repo) {
