@@ -1,12 +1,16 @@
 <template>
   <div class="container">
     <app-login v-if="!isAuthorized" @signIn="signIn($event)" />
-    <app-user-profile v-else :userData="userData" @logOut="$emit('logOut')" />
+    <app-user-profile
+      v-else
+      :userData="userData"
+      @showAdminPanel="$emit('showAdminPanel')"
+      @logOut="$emit('logOut')"
+    />
   </div>
 </template>
 
 <script>
-// import axios from "axios";
 import AppLogin from "@/components/AppLogin";
 import AppUserProfile from "@/components/AppUserProfile";
 

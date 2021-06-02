@@ -1,12 +1,17 @@
 <template>
   <div id="app">
-    <the-header></the-header>
+    <the-header
+      :isAdmin="isAdmin"
+      :isAdminPanel="isAdminPanel"
+      @hideAdminPanel="isAdminPanel = false"
+    ></the-header>
     <router-view
       :isAuthorized="isAuthorized"
       :userData="userData"
       :isAdmin="isAdmin"
       @signIn="signIn($event)"
       @logOut="logOut"
+      @showAdminPanel="isAdminPanel = true"
     ></router-view>
   </div>
 </template>
@@ -24,6 +29,7 @@ export default {
     return {
       isAuthorized: false,
       isAdmin: false,
+      isAdminPanel: false,
       userId: null,
       userData: {},
     };

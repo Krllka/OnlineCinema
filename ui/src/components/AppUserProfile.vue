@@ -2,8 +2,8 @@
   <div class="container">
     <div class="user__header">
       <h3 class="header">Привет, {{ userData.name }}</h3>
-      <router-link v-if="userData.admin" class="admin__link" to="/admin"
-        >Панель администратора</router-link
+      <a v-if="userData.admin" @click="openAdminPanel" class="admin__link"
+        >Панель администратора</a
       >
     </div>
     <button class="button logout" @click="$emit('logOut')">
@@ -21,6 +21,12 @@ export default {
       default: () => {},
     },
   },
+  methods: {
+    openAdminPanel() {
+      this.$router.push("/catalog-admin");
+      this.$emit("showAdminPanel");
+    },
+  },
 };
 </script>
 
@@ -33,6 +39,7 @@ export default {
 
 .admin__link {
   border-bottom: 2px solid black;
+  cursor: pointer;
   transition: 0.5s all;
   &:hover {
     border-bottom: 2px solid rgba(0, 0, 0, 0.5);

@@ -4,7 +4,8 @@ import PageCatalog from "@/views/PageCatalog";
 import PageUserCabinet from "@/views/PageUserCabinet";
 import PageLibrary from "@/views/PageLibrary";
 import PageOrders from "@/views/PageOrders";
-import PageAdmin from "@/views/PageAdmin";
+import PageAdminCatalog from "@/views/PageAdminCatalog";
+import PageAdminUsers from "@/views/PageAdminUsers";
 
 Vue.use(VueRouter);
 
@@ -30,9 +31,14 @@ const routes = [
     component: PageOrders,
   },
   {
-    path: "/admin",
-    name: "Admin Panel",
-    component: PageAdmin,
+    path: "/catalog-admin",
+    name: "Admin Catalog",
+    component: PageAdminCatalog,
+  },
+  {
+    path: "/users",
+    name: "Users Management",
+    component: PageAdminUsers,
   },
 ];
 
