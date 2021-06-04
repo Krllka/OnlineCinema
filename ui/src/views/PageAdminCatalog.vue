@@ -6,20 +6,87 @@
         type="search"
         class="input search"
         placeholder="Поиск фильмов..."
+        v-model="search"
       />
     </div>
+    <app-data-table
+      :dataHeaders="moviesData"
+      :dataList="moviesList"
+      :filter="search"
+    />
   </div>
 </template>
 
 <script>
-export default {};
+import AppDataTable from "@/components/AppDataTable";
+import axios from "axios";
+
+export default {
+  name: "PageAdminCatalog",
+  components: {
+    AppDataTable,
+  },
+  data() {
+    return {
+      search: "",
+      moviesList: [],
+      moviesData: [
+        {
+          key: "name",
+          value: "Название фильма",
+        },
+        {
+          key: "id",
+          value: "ID фильма",
+        },
+        {
+          key: "releseDate",
+          value: "Год релиза",
+        },
+        {
+          key: "durat",
+          value: "Продолжительность",
+        },
+        {
+          key: "age_restr_id",
+          value: "Возрастное ограничение",
+        },
+        {
+          key: "viewsCount",
+          value: "Просмотры",
+        },
+        {
+          key: "rate",
+          value: "Оценка",
+        },
+        {
+          key: "price",
+          value: "Цена",
+        },
+      ],
+    };
+  },
+  created() {
+    axios
+      .get("http://localhost:8081/products")
+      .then((response) => {
+        this.moviesList = response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+        this.moviesList = 0;
+      });
+  },
+};
 </script>
 
 <style scoped lang="scss">
 .input {
   margin-left: 50px;
 }
-.add:hover {
-  background-color: green;
+.add {
+  &:hover:enabled {
+    background-color: green;
+  }
 }
 </style>

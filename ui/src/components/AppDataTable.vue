@@ -1,0 +1,83 @@
+<template>
+  <table class="table">
+    <thead class="table__head">
+      <tr class="table__row">
+        <th
+          v-for="(header, index) in dataHeaders"
+          :key="index"
+          class="table__header"
+        >
+          {{ header.value }}
+        </th>
+      </tr>
+    </thead>
+    <tbody class="table__body">
+      <tr
+        v-for="(item, index) in filteredList"
+        :key="index"
+        class="table__row data"
+      >
+        <td
+          v-for="(column, index) in dataHeaders"
+          :key="index"
+          class="table__cell"
+        >
+          <slot :name="column.key" :movie="item" :index="index">
+            {{ item[column.key] }}
+          </slot>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</template>
+
+<script>
+export default {
+  name: "AppDataTable",
+  props: {
+    dataList: {
+      type: Array,
+      default: () => [],
+    },
+    dataHeaders: {
+      type: Array,
+      default: () => [],
+    },
+    filter: {
+      type: String,
+      default: "",
+    },
+  },
+  computed: {
+    filteredList() {
+      const search = this.filter.toLowerCase();
+      return this.dataList.filter((item) => {
+        if (Object.values(item).join("").toLowerCase().includes(search))
+          return item;
+      });
+    },
+  },
+};
+</script>
+
+<style scoped lang="scss">
+.table {
+  margin: 20px auto;
+  width: 100%;
+  border-collapse: collapse;
+  &__header {
+    text-align: left;
+  }
+  &__header,
+  &__cell {
+    padding: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+  }
+  &__row.data {
+    cursor: pointer;
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+  }
+}
+</style>
