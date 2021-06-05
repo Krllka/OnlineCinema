@@ -1,34 +1,40 @@
 <template>
   <div class="container">
-    <div class="panel">
-      <button class="button add">Добавить фильм</button>
-      <input
-        type="search"
-        class="input search"
-        placeholder="Поиск фильмов..."
-        v-model="search"
+    <app-loader v-if="loading" :animation="'rectangle'" />
+    <div v-else>
+      <div class="panel">
+        <button class="button add">Добавить фильм</button>
+        <input
+          type="search"
+          class="input search"
+          placeholder="Поиск фильмов..."
+          v-model="search"
+        />
+      </div>
+      <app-data-table
+        :dataHeaders="moviesData"
+        :dataList="moviesList"
+        :filter="search"
       />
     </div>
-    <app-data-table
-      :dataHeaders="moviesData"
-      :dataList="moviesList"
-      :filter="search"
-    />
   </div>
 </template>
 
 <script>
 import AppDataTable from "@/components/AppDataTable";
+import AppLoader from "@/components/AppLoader";
 import axios from "axios";
 
 export default {
   name: "PageAdminCatalog",
   components: {
     AppDataTable,
+    AppLoader,
   },
   data() {
     return {
       search: "",
+      loading: true,
       moviesList: [],
       moviesData: [
         {
@@ -71,6 +77,7 @@ export default {
       .get("http://localhost:8081/products")
       .then((response) => {
         this.moviesList = response.data;
+        this.loading = false;
       })
       .catch((error) => {
         console.log(error);

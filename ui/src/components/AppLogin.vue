@@ -45,7 +45,14 @@
             v-model="signInData.password"
           />
         </label>
-        <button class="button login" @click="signIn(signInData)">Войти</button>
+        <button
+          class="button login"
+          :disabled="loading"
+          @click="signIn(signInData)"
+        >
+          <span v-if="!loading">Войти</span>
+          <app-loader v-else :animation="'ring'" />
+        </button>
       </div>
       <div class="form__footer">
         Еще не зарегистрированы? Нажмите
@@ -99,11 +106,12 @@
         Ошибка. Такой пользователь уже существует!
       </div>
       <button
-        :disabled="!signUpFormCompleted"
+        :disabled="!signUpFormCompleted || loading"
         class="button register"
         @click="singUp"
       >
-        Зарегистрироваться
+        <span v-if="!loading">Зарегистрироваться</span>
+        <app-loader v-else :animation="'ring'" />
       </button>
       <div class="form__footer">
         Уже зарегистрированы? Выполните
@@ -115,9 +123,13 @@
 
 <script>
 import axios from "axios";
+import AppLoader from "@/components/AppLoader";
 
 export default {
   name: "AppLogin",
+  components: {
+    AppLoader,
+  },
   data() {
     return {
       loginForm: true,
@@ -141,6 +153,7 @@ export default {
       },
       genders: null,
       signUpFail: false,
+      loading: false,
     };
   },
   created() {
@@ -158,10 +171,12 @@ export default {
   },
   methods: {
     signIn(data) {
+      this.loading = true;
       axios
         .get(`http://localhost:8081/accounts/${data.name}/${data.password}`)
         .then((response) => {
           this.signInResponse = response.data;
+          this.loading = false;
         })
         .catch((error) => {
           console.log(error);
@@ -174,7 +189,6 @@ export default {
     },
     signInDataValidation() {
       if (this.signInResponse.access) {
-        console.log("access");
         this.$emit("signIn", this.signInResponse);
       }
     },
@@ -184,10 +198,7 @@ export default {
       axios
         .post("http://localhost:8081/accounts", requestBody)
         .then((response) => {
-          console.log(response);
-          console.log(typeof response.data);
           if (response.data) {
-            console.log("Successful!");
             this.signIn(this.signUpData);
           } else {
             this.signUpFail = true;

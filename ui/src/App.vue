@@ -54,7 +54,6 @@ export default {
       this.isAdmin = false;
       this.userId = null;
       this.userData = {};
-      this.$router.push("/");
     },
   },
 };

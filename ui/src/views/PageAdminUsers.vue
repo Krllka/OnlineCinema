@@ -1,33 +1,39 @@
 <template>
   <div class="container">
-    <div class="panel">
-      <input
-        type="search"
-        class="input search"
-        placeholder="Поиск пользователей..."
-        v-model="search"
+    <app-loader v-if="loading" :animation="'rectangle'" />
+    <div v-else>
+      <div class="panel">
+        <input
+          type="search"
+          class="input search"
+          placeholder="Поиск пользователей..."
+          v-model="search"
+        />
+      </div>
+      <app-data-table
+        :data-headers="usersData"
+        :data-list="usersList"
+        :filter="search"
       />
     </div>
-    <app-data-table
-      :data-headers="usersData"
-      :data-list="usersList"
-      :filter="search"
-    ></app-data-table>
   </div>
 </template>
 
 <script>
 import AppDataTable from "@/components/AppDataTable";
+import AppLoader from "@/components/AppLoader";
 import axios from "axios";
 
 export default {
   name: "PageAdminUsers",
   components: {
     AppDataTable,
+    AppLoader,
   },
   data() {
     return {
       search: "",
+      loading: true,
       usersList: [],
       usersData: [
         {
@@ -66,6 +72,7 @@ export default {
           else item.admin = "Нет";
         });
         this.usersList = response.data;
+        this.loading = false;
       })
       .catch((error) => {
         console.log(error);

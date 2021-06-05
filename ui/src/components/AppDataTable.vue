@@ -64,7 +64,9 @@ export default {
 .table {
   margin: 20px auto;
   width: 100%;
-  border-collapse: collapse;
+  border-spacing: 0;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 3px;
   &__header {
     text-align: left;
   }
@@ -72,6 +74,10 @@ export default {
   &__cell {
     padding: 10px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+    overflow-wrap: break-word;
+  }
+  &__row:last-child > &__cell {
+    border-bottom: none;
   }
   &__row.data {
     cursor: pointer;
