@@ -1,20 +1,23 @@
 <template>
   <div class="container">
-    <app-loader v-if="loading" :animation="'rectangle'" />
+    <div v-if="!isAdmin" class="message">Доступ запрещен.</div>
     <div v-else>
-      <div class="panel">
-        <input
-          type="search"
-          class="input search"
-          placeholder="Поиск пользователей..."
-          v-model="search"
+      <app-loader v-if="loading" :animation="'rectangle'" />
+      <div v-else>
+        <div class="panel">
+          <input
+            type="search"
+            class="input search"
+            placeholder="Поиск пользователей..."
+            v-model="search"
+          />
+        </div>
+        <app-data-table
+          :data-headers="usersData"
+          :data-list="usersList"
+          :filter="search"
         />
       </div>
-      <app-data-table
-        :data-headers="usersData"
-        :data-list="usersList"
-        :filter="search"
-      />
     </div>
   </div>
 </template>
@@ -29,6 +32,12 @@ export default {
   components: {
     AppDataTable,
     AppLoader,
+  },
+  props: {
+    isAdmin: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -82,4 +91,11 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+.message {
+  margin-top: 25vh;
+  text-align: center;
+  font-size: 30px;
+  font-weight: 700;
+}
+</style>
