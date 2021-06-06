@@ -122,7 +122,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import AppLoader from "@/components/AppLoader";
 
 export default {
@@ -157,7 +156,7 @@ export default {
     };
   },
   created() {
-    axios
+    this.axios
       .get("http://localhost:8081/sex")
       .then((response) => {
         this.genders = response.data.sort((a, b) => a.id - b.id);

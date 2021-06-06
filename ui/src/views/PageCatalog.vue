@@ -14,7 +14,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import AppList from "@/components/AppList";
 import AppLoader from "@/components/AppLoader";
 
@@ -32,7 +31,7 @@ export default {
   },
   created() {
     document.title = "Онлайн-кинотеатр | Каталог";
-    axios
+    this.axios
       .get("http://localhost:8081/products")
       .then((response) => {
         this.moviesList = response.data;

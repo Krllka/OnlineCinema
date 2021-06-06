@@ -18,7 +18,6 @@
 
 <script>
 import TheHeader from "@/components/TheHeader";
-import axios from "axios";
 
 export default {
   name: "App",
@@ -43,7 +42,7 @@ export default {
     },
     getPersonalData() {
       if (this.userId) {
-        axios
+        this.axios
           .get(`http://localhost:8081/accounts/${this.userId}`)
           .then((response) => (this.userData = response.data))
           .catch((error) => console.log(error));
