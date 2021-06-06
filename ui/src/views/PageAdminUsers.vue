@@ -25,7 +25,6 @@
 <script>
 import AppDataTable from "@/components/AppDataTable";
 import AppLoader from "@/components/AppLoader";
-import axios from "axios";
 
 export default {
   name: "PageAdminUsers",
@@ -73,7 +72,7 @@ export default {
     };
   },
   created() {
-    axios
+    this.axios
       .get("http://localhost:8081/accounts")
       .then((response) => {
         response.data.map((item) => {

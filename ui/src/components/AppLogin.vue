@@ -122,7 +122,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import AppLoader from "@/components/AppLoader";
 
 export default {
@@ -157,7 +156,7 @@ export default {
     };
   },
   created() {
-    axios
+    this.axios
       .get("http://localhost:8081/sex")
       .then((response) => {
         this.genders = response.data.sort((a, b) => a.id - b.id);
@@ -172,7 +171,7 @@ export default {
   methods: {
     signIn(data) {
       this.loading = true;
-      axios
+      this.axios
         .get(`http://localhost:8081/accounts/${data.name}/${data.password}`)
         .then((response) => {
           this.signInResponse = response.data;
@@ -195,7 +194,7 @@ export default {
     singUp() {
       const requestBody = {};
       Object.assign(requestBody, this.signUpData);
-      axios
+      this.axios
         .post("http://localhost:8081/accounts", requestBody)
         .then((response) => {
           if (response.data) {
