@@ -1,13 +1,20 @@
 package backend.DAO.Impl;
 
 import backend.DAO.Intrfaces.OrderDAO;
+import backend.model.Library;
 import backend.model.Order;
+import backend.model.ProductsInOrder;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -38,6 +45,57 @@ public class OrderDAOimpl extends AbstractDAO<Order>
         return ord;
     }
 
+    public void add(String id) {
+        Session session = sessionFactory.getCurrentSession();
+        Order order = new Order();
+        order.setDate(new Date(System.currentTimeMillis()));
+        order.setClient(id);
+        order.setStatus(String.valueOf(1));
+        ProductsInOrder purchase = new ProductsInOrder();
+        double total = 0;
+        Query<Library> query  = session.createQuery("from Library o where o.client.id = :id");
+        query.setParameter("id", id);
+        List<Library> list = query.list();
+        session.save(order);
+        for (Library item: list) {
+            purchase = new ProductsInOrder();
+            purchase.setOrder(order.getId());
+            total += item.getProductObj().getPrice();
+            purchase.setPrice(item.getProductObj().getPrice());
+            purchase.setProduct(item.getProductObj());
+
+            session.save(purchase);
+        }
+        order.setPrice(total);
+        session.save(order);
+    }
+    @Override
+    public void edit(Order film) {
+        Session session = sessionFactory.getCurrentSession();
+        session.update(film);
+        String id = film.getClientObj().getId();
+        Query<Library> query  = session.createQuery("from Library o where o.client.id = :id");
+        query.setParameter("id", id);
+        List<Library> list = query.list();
+        for (Library item:list) {
+            item.setPurchased(true);
+            session.save(item);
+        }
+
+    }
+    @Override
+    public void delete(Order film) {
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(film);
+        String id = film.getClientObj().getId();
+        Query<Library> query  = session.createQuery("from Library o where o.client.id = :id");
+        query.setParameter("id", id);
+        List<Library> list = query.list();
+        for (Library item:list) {
+            if(id == item.getClientObj().getId() && !item.getPurchased())
+                session.delete(item);
+        }
+    }
 
 
 }

@@ -1,6 +1,7 @@
 package backend.model;
 
 
+import backend.View.Views;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -10,19 +11,23 @@ import java.sql.Date;
 @Entity
 @Table( name = "accounts")
 public class AccountData extends AbstractEntity {
-
+    @JsonView(Views.Entity.class)
     @Column(name = "Login")
     private String name;
     @Column(name  = "BirthDay")
-    //@JsonFormat(shape =  JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy")
+    @JsonView(Views.Entity.class)
     private Date age;
+    @JsonView(Views.Entity.class)
     @ManyToOne
     @JoinColumn(name = "sex_ID", foreignKey = @ForeignKey(name = "fk_Accouts_Sex"))
     private SexData Sex;
+    @JsonView(Views.Entity.class)
     @Column(name  = "mail")
     private String mail;
+    @JsonView(Views.Entity.class)
     @Column(name  = "password")
     private String password;
+    @JsonView(Views.Entity.class)
     @Column(name  = "admin")
     private Boolean admin;
 

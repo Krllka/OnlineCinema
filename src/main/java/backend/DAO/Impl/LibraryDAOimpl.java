@@ -10,7 +10,6 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 @Repository
@@ -38,7 +37,7 @@ public class LibraryDAOimpl extends AbstractDAO<Library>
         List<Library> ord = query.list();
         List<ProductsData> prods = new ArrayList<>();
         for (Library item: ord) {
-            prods.add(item.getProuctObj());
+            prods.add(item.getProductObj());
         }
         return prods;
     }

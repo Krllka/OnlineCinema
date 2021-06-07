@@ -19,5 +19,9 @@ public class OrderServiceImpl extends AbsctractService<Order, OrderDAOimpl>
     public Order getByLogin(String login){
         return super.repo.getByLogin(login);
     }
+    @Transactional
+    public  void add(String id){
+        repo.add(id);
+    }
 
 }

@@ -14,6 +14,14 @@ public class ProductsInOrder extends AbstractEntity{
     @Column(name = "Price")
     private double price;
 
+    public  ProductsInOrder(){
+        super();
+    }
+    public  ProductsInOrder(String id){
+        super(id);
+    }
+
+
     public String getOrder() {
         return order.getId();
     }
@@ -29,6 +37,9 @@ public class ProductsInOrder extends AbstractEntity{
 
         this.product = new ProductsData(product);
         this.product.setName(product);
+    }
+    public void setProduct(ProductsData  product) {
+            this.product = product;
     }
 
     public double getPrice() {

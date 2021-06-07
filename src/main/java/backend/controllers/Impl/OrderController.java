@@ -20,4 +20,12 @@ public class OrderController extends  AbstractController<Order, OrderServiceImpl
         return super.Service.getByLogin(login);
     }
 
+    @PostMapping("/{id}")
+    public String generateOrder(@PathVariable("id") String inputAcc ) {
+
+            Service.add(inputAcc);
+            return "Успешно";
+
+    }
+
 }

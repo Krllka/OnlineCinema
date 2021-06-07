@@ -1,12 +1,15 @@
 package backend.controllers.Impl;
 
+import backend.View.Views;
 import backend.controllers.AbstractControllerIntrface;
 import backend.model.AbstractEntity;
 import backend.services.Intrfaces.AbstractServiceInterface;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.Entity;
 import java.util.List;
 
 public abstract class AbstractController<E extends AbstractEntity, S extends AbstractServiceInterface<E>>
@@ -17,6 +20,7 @@ public abstract class AbstractController<E extends AbstractEntity, S extends Abs
     public AbstractController(S Service) {
         this.Service = Service;
     }
+  //  @JsonView(Views.Entity.class)
     @GetMapping
     public List<E> allAccs() {
         return Service.allAccs();

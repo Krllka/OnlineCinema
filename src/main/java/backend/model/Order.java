@@ -1,18 +1,25 @@
 package backend.model;
 
+import backend.View.Views;
+import com.fasterxml.jackson.annotation.JsonView;
+
 import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
 @Table(name = "orders")
 public class Order extends AbstractEntity{
+    @JsonView(Views.Entity.class)
     @Column(name = "Date")
     private Date date;
+    @JsonView(Views.Entity.class)
     @Column(name = "TotalPrice")
     private double price;
+    @JsonView(Views.Entity.class)
     @ManyToOne
     @JoinColumn(name = "Accouts_ID", foreignKey = @ForeignKey(name = "fk_Orders_Accouts1_idx") )
     private AccountData client;
+    @JsonView(Views.Entity.class)
     @ManyToOne
     @JoinColumn(name = "OrderStatus_ID", foreignKey = @ForeignKey(name = "fk_Orders_Order Status1_idx") )
     private OrderStatus status;
@@ -45,6 +52,10 @@ public class Order extends AbstractEntity{
 
     public String getClient() {
         return client.getName();
+    }
+
+    public AccountData getClientObj() {
+        return client;
     }
 
     public void setClient(String client) {
