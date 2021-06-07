@@ -13,6 +13,11 @@ public class GenreData extends AbstractEntity{
     @Column(name  = "Description")
     private String description;
 
+    public GenreData(String str){
+        super(str);
+    }
+    public GenreData(){}
+
     public String getName() {
         return name;
     }

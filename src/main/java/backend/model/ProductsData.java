@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "products")
@@ -20,6 +21,7 @@ public class ProductsData extends AbstractEntity {
     @JoinColumn(name = "age_restriction_ID", foreignKey = @ForeignKey(name = "fk_Products_Raring1") )
     private AgeRestrictionData age_restr_id;
 
+
     @Column(name = "Views")
     private int viewsCount;
     @Column(name = "TrailerFile")
@@ -35,6 +37,20 @@ public class ProductsData extends AbstractEntity {
     @Column(name = "Rating")
     private double  rate;
 
+    transient private List<GenreData> genres;
+
+    public List<GenreData> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(List<GenreData> genres) {
+        this.genres = genres;
+    }
+
+    public void addGenre(GenreData genre){
+        if(this.genres != null)
+            this.genres.add(genre);
+    }
 
     public ProductsData(String id){
         super(id);
