@@ -30,7 +30,7 @@ public class ProductsDAOimpl extends AbstractDAO<ProductsData>
             currID = item.getId();
             item.setGenres(new ArrayList<GenreData>());
             Query<ProductsGenresData> query  = session.createQuery("from ProductsGenresData o where o.prod.id = :currID");
-            query.setParameter("id", currID);
+            query.setParameter("currID", currID);
             List<ProductsGenresData> arr = query.list();
             for (ProductsGenresData genres: arr) {
                 item.addGenre(genres.getGenre());
