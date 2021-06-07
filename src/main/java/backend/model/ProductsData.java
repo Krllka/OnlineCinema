@@ -38,6 +38,33 @@ public class ProductsData extends AbstractEntity {
     private double  rate;
 
     transient private List<GenreData> genres;
+    transient private List<ProdByData> actors;
+    transient private List<Awards> awards;
+
+    public List<Awards> getAwards() {
+        return awards;
+    }
+
+    public void setAwards(List<Awards> awards) {
+        this.awards = awards;
+    }
+    public void addAward(Awards aw) {
+        if (this.awards != null)
+            this.awards.add(aw);
+
+    }
+        public List<ProdByData> getActors() {
+        return actors;
+    }
+
+    public void setActors(List<ProdByData> actors) {
+        this.actors = actors;
+    }
+
+    public void addGenre(GenreData genre){
+        if(this.genres != null)
+            this.genres.add(genre);
+    }
 
     public List<GenreData> getGenres() {
         return genres;
@@ -47,9 +74,9 @@ public class ProductsData extends AbstractEntity {
         this.genres = genres;
     }
 
-    public void addGenre(GenreData genre){
-        if(this.genres != null)
-            this.genres.add(genre);
+    public void addActor(ProdByData actor){
+        if(this.actors != null)
+            this.actors.add(actor);
     }
 
     public ProductsData(String id){
