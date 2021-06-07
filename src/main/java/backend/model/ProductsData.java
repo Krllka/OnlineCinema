@@ -24,6 +24,10 @@ public class ProductsData extends AbstractEntity {
     private int viewsCount;
     @Column(name = "TrailerFile")
     private String trailer;
+    @Column(name = "country")
+    private String country;
+    @Column(name = "description")
+    private String decription;
     @Column(name = "PosterFile")
     private String poster;
     @Column(name = "Price")
@@ -36,6 +40,23 @@ public class ProductsData extends AbstractEntity {
         super(id);
     }
     public ProductsData(){}
+
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getDecription() {
+        return decription;
+    }
+
+    public void setDecription(String decription) {
+        this.decription = decription;
+    }
 
     public String getAge_restr_id() {
         return age_restr_id.getName();

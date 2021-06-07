@@ -2,10 +2,8 @@ package backend.DAO.Impl;
 
 import backend.DAO.Intrfaces.AccDAO;
 import backend.model.AccountData;
-import backend.model.Order;
 import backend.response.Response;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
