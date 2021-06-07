@@ -23,7 +23,12 @@
         <app-modal-window
           v-if="isModalVisible"
           @closeModalWindow="closeModalWindow"
-        />
+        >
+          <template v-slot:title>Добавить фильм</template>
+          <template v-slot:body>
+            <app-movie-form />
+          </template>
+        </app-modal-window>
       </div>
     </div>
   </div>
@@ -33,6 +38,7 @@
 import AppDataTable from "@/components/AppDataTable";
 import AppLoader from "@/components/AppLoader";
 import AppModalWindow from "@/components/AppModalWindow";
+import AppMovieForm from "@/components/AppMovieForm";
 
 export default {
   name: "PageAdminCatalog",
@@ -40,6 +46,7 @@ export default {
     AppDataTable,
     AppLoader,
     AppModalWindow,
+    AppMovieForm,
   },
   props: {
     isAdmin: {

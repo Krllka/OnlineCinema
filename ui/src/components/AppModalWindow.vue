@@ -2,16 +2,15 @@
   <div class="window-container" @click.prevent.self="$emit('closeModalWindow')">
     <div class="modal">
       <div class="modal__header">
-        <div class="modal__title">{{ title }}</div>
+        <div class="modal__title">
+          <slot name="title">Диалоговое окно</slot>
+        </div>
         <div class="modal__close" @click="$emit('closeModalWindow')">
           &#10006;
         </div>
       </div>
       <div class="modal__body">
-        <slot></slot>
-      </div>
-      <div class="modal__footer">
-        <slot></slot>
+        <slot name="body"></slot>
       </div>
     </div>
   </div>
@@ -20,12 +19,6 @@
 <script>
 export default {
   name: "AppModalWindow",
-  props: {
-    title: {
-      type: String,
-      default: "Диалоговое окно",
-    },
-  },
 };
 </script>
 
@@ -44,9 +37,6 @@ export default {
 }
 
 .modal {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   width: 50vw;
   height: 90vh;
   background-color: white;
