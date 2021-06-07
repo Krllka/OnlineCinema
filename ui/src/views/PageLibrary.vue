@@ -5,7 +5,12 @@
 </template>
 
 <script>
-export default {};
+export default {
+  name: "PageLibrary",
+  created() {
+    document.title = "Библиотека";
+  },
+};
 </script>
 
 <style scoped></style>

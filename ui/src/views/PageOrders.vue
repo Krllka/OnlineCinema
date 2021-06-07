@@ -5,7 +5,12 @@
 </template>
 
 <script>
-export default {};
+export default {
+  name: "PageOrders",
+  created() {
+    document.title = "Заказы";
+  },
+};
 </script>
 
 <style scoped></style>

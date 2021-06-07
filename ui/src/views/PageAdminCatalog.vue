@@ -81,6 +81,7 @@ export default {
     };
   },
   created() {
+    document.title = "Управление каталогом";
     this.axios
       .get("http://localhost:8081/products")
       .then((response) => {

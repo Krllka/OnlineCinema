@@ -30,7 +30,7 @@ export default {
     };
   },
   created() {
-    document.title = "Онлайн-кинотеатр | Каталог";
+    document.title = "Каталог";
     this.axios
       .get("http://localhost:8081/products")
       .then((response) => {

@@ -72,6 +72,7 @@ export default {
     };
   },
   created() {
+    document.title = "Аккаунты";
     this.axios
       .get("http://localhost:8081/accounts")
       .then((response) => {

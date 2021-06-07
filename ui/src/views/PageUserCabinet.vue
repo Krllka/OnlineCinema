@@ -42,6 +42,9 @@ export default {
       default: false,
     },
   },
+  created() {
+    document.title = "Личный кабинет";
+  },
   methods: {
     signIn(response) {
       this.$emit("signIn", response);

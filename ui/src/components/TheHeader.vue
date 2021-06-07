@@ -32,7 +32,7 @@
               >
             </li>
             <li class="menu__item">
-              <router-link to="/users">Список пользователей</router-link>
+              <router-link to="/users">Аккаунты</router-link>
             </li>
             <li class="menu__item">
               <a @click="closeAdminPanel">Назад в профиль</a>
