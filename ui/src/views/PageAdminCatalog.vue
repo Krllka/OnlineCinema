@@ -5,7 +5,9 @@
       <app-loader v-if="loading" :animation="'rectangle'" />
       <div v-else>
         <div class="panel">
-          <button class="button add">Добавить фильм</button>
+          <button class="button add" @click="openModalWindow">
+            Добавить фильм
+          </button>
           <input
             type="search"
             class="input search"
@@ -18,6 +20,10 @@
           :dataList="moviesList"
           :filter="search"
         />
+        <app-modal-window
+          v-if="isModalVisible"
+          @closeModalWindow="closeModalWindow"
+        />
       </div>
     </div>
   </div>
@@ -26,12 +32,14 @@
 <script>
 import AppDataTable from "@/components/AppDataTable";
 import AppLoader from "@/components/AppLoader";
+import AppModalWindow from "@/components/AppModalWindow";
 
 export default {
   name: "PageAdminCatalog",
   components: {
     AppDataTable,
     AppLoader,
+    AppModalWindow,
   },
   props: {
     isAdmin: {
@@ -43,6 +51,7 @@ export default {
     return {
       search: "",
       loading: true,
+      isModalVisible: false,
       moviesList: [],
       moviesData: [
         {
@@ -92,6 +101,14 @@ export default {
         console.log(error);
         this.moviesList = 0;
       });
+  },
+  methods: {
+    openModalWindow() {
+      this.isModalVisible = true;
+    },
+    closeModalWindow() {
+      this.isModalVisible = false;
+    },
   },
 };
 </script>

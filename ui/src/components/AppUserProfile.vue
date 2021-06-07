@@ -2,7 +2,7 @@
   <div class="container">
     <div class="user__header">
       <h3 class="header">Привет, {{ userData.name }}</h3>
-      <a v-if="userData.admin" @click="openAdminPanel" class="admin__link"
+      <a v-if="userData.admin" @click="openAdminPanel" class="link"
         >Панель администратора</a
       >
     </div>
@@ -35,16 +35,6 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.admin__link {
-  border-bottom: 2px solid black;
-  cursor: pointer;
-  transition: 0.5s all;
-  &:hover {
-    border-bottom: 2px solid rgba(0, 0, 0, 0.5);
-    color: rgba(0, 0, 0, 0.5);
-  }
 }
 
 .button {
