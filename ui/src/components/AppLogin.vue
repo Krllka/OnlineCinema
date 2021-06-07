@@ -56,7 +56,7 @@
       </div>
       <div class="form__footer">
         Еще не зарегистрированы? Нажмите
-        <span @click="loginForm = !loginForm" class="form__link">здесь</span>.
+        <span @click="loginForm = !loginForm" class="link">здесь</span>.
       </div>
     </form>
     <form v-else class="form register" @submit.prevent>
@@ -115,7 +115,7 @@
       </button>
       <div class="form__footer">
         Уже зарегистрированы? Выполните
-        <span @click="loginForm = !loginForm" class="form__link">вход</span>.
+        <span @click="loginForm = !loginForm" class="link">вход</span>.
       </div>
     </form>
   </div>
@@ -282,7 +282,7 @@ export default {
     text-align: center;
   }
 
-  &__link {
+  .link {
     cursor: pointer;
     border-bottom: 2px solid black;
     transition: 0.3s all;

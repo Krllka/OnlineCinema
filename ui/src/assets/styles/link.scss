@@ -1,0 +1,10 @@
+.link {
+  cursor: pointer;
+  border-bottom: 2px solid black;
+  transition: 0.3s all;
+
+  &:hover {
+    color: rgba(0, 0, 0, 0.5);
+    border-bottom: 2px solid rgba(0, 0, 0, 0.5);
+  }
+}
