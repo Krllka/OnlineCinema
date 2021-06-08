@@ -1,8 +1,6 @@
 package backend.controllers.Impl;
 
-import backend.model.BankCardData;
 import backend.model.RightsData;
-import backend.services.Impl.BankCardDataServiceImpl;
 import backend.services.Impl.RightsDataServiceImpl;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
