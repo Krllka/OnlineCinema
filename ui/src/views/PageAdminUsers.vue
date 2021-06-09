@@ -14,8 +14,9 @@
         </div>
         <app-data-table
           :data-headers="usersData"
-          :data-list="usersList"
+          :data-list="renderUsers"
           :filter="search"
+          @deleteItem="deleteUser"
         />
       </div>
     </div>
@@ -87,6 +88,24 @@ export default {
         console.log(error);
         this.usersList = 0;
       });
+  },
+  methods: {
+    deleteUser(user) {
+      this.axios
+        .delete(`http://localhost:8080/accounts/${user.id}`)
+        .then(() => {
+          let userIndex = this.usersList.findIndex(
+            (item) => item.id === user.id
+          );
+          this.usersList.splice(userIndex, 1);
+        })
+        .catch((error) => console.log(error));
+    },
+  },
+  computed: {
+    renderUsers() {
+      return this.usersList;
+    },
   },
 };
 </script>
