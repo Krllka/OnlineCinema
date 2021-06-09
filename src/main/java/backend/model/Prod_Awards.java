@@ -8,16 +8,22 @@ public class Prod_Awards extends AbstractEntity{
 
     @ManyToOne
     @JoinColumn(name = "Products_ID", foreignKey = @ForeignKey(name = "fk_Products_has_Awards_Products1_idx") )
-    private GenreData prod;
+    private ProductsData prod;
     @ManyToOne
     @JoinColumn(name = "Awards_ID", foreignKey = @ForeignKey(name = "fk_Products_has_Awards_Awards1_idx") )
     private Awards award;
 
-    public GenreData getProd() {
+    public Prod_Awards(){}
+    public Prod_Awards(Awards award, ProductsData prod){
+        this.award = award;
+        this.prod = prod;
+    }
+
+    public ProductsData getProd() {
         return prod;
     }
 
-    public void setProd(GenreData prod) {
+    public void setProd(ProductsData prod) {
         this.prod = prod;
     }
 

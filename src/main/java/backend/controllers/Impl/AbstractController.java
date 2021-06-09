@@ -17,7 +17,6 @@ public abstract class AbstractController<E extends AbstractEntity, S extends Abs
     public AbstractController(S Service) {
         this.Service = Service;
     }
-  //  @JsonView(Views.Entity.class)
     @GetMapping
     public List<E> allAccs() {
         return Service.allAccs();
@@ -36,7 +35,6 @@ public abstract class AbstractController<E extends AbstractEntity, S extends Abs
 
             return null;
        }
-
     }
     @PutMapping("/{id}")
     public E edit(@PathVariable("id") String id,   E editAcc) {

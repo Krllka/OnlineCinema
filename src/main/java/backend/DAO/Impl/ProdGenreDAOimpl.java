@@ -43,4 +43,22 @@ public class ProdGenreDAOimpl extends AbstractDAO<ProductsGenresData>{
         }
         session.save(film);
     }
+
+    public static boolean tryAdd(Session session, ProductsGenresData film){
+        String currID = film.getProd().getId();
+        Query<ProductsGenresData> query  = session.createQuery("from ProductsGenresData o where o.prod.id = :currID");
+        query.setParameter("currID", currID);
+        List<ProductsGenresData> list = query.list();
+        for (ProductsGenresData item: list) {
+            if(item.equals(film)) {
+                System.out.println("-----------------");
+                System.out.println(item.equals(film));
+                System.out.println("-----------------");
+                return false;
+            }
+        }
+        session.save(film);
+        return true;
+    }
+
 }

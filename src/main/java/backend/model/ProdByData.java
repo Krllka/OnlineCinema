@@ -24,6 +24,7 @@ public class ProdByData extends AbstractEntity{
         return prod;
     }
 
+
     public void setProd(String prod) {
         this.prod = new ProductsData(prod);
         this.prod.setName(prod);

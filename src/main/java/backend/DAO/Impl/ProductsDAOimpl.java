@@ -58,13 +58,31 @@ public class ProductsDAOimpl extends AbstractDAO<ProductsData>
         return list;
     }
     @Override
-    public void delete(ProductsData film) {
+    public void delete(ProductsData item) {
         Session session = sessionFactory.getCurrentSession();
-        session.delete(film);
-
+        session.delete(item);
     }
 
+    @Override
+    public void add(ProductsData film) {
+        Session session = sessionFactory.getCurrentSession();
+        session.save(film);
+        for (GenreData item: film.getGenres()) {
 
+           ProdGenreDAOimpl.tryAdd(session, new ProductsGenresData(item, film));
+
+        }
+        for (Awards item: film.getAwards()) {
+
+            session.save(new Prod_Awards(item, film));
+
+        }
+        for (ProdByData item: film.getActors()) {
+            item.setProd(film.getId());
+            session.save(item);
+        }
+
+    }
 
     @Override
     public ProductsData getById(String id) {

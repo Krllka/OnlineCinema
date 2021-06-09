@@ -16,6 +16,12 @@ public class ProductsGenresData extends AbstractEntity{
     @JoinColumn(name = "Products_ID", foreignKey = @ForeignKey(name = "fk_Products_has_Genre_Products1_idx") )
     private ProductsData prod;
 
+    public  ProductsGenresData(){}
+    public  ProductsGenresData(GenreData genre, ProductsData prod){
+        this.genre = genre;
+        this.prod = prod;
+    }
+
     public GenreData getGenre() {
         return genre;
     }

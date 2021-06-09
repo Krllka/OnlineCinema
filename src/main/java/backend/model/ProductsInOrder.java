@@ -10,7 +10,7 @@ public class ProductsInOrder extends AbstractEntity{
     private Order order;
     @ManyToOne
     @JoinColumn(name = "Products_ID", foreignKey = @ForeignKey(name = "fk_Orders_has_Products_Products1_idx") )
-    private ProductsData product;
+    private ProductsData prod;
     @Column(name = "Price")
     private double price;
 
@@ -30,16 +30,16 @@ public class ProductsInOrder extends AbstractEntity{
     }
 
     public String getProduct() {
-        return product.getName();
+        return prod.getName();
     }
 
-    public void setProduct(String  product) {
+    public void setProduct(String  prod) {
 
-        this.product = new ProductsData(product);
-        this.product.setName(product);
+        this.prod = new ProductsData(prod);
+        this.prod.setName(prod);
     }
-    public void setProduct(ProductsData  product) {
-            this.product = product;
+    public void setProduct(ProductsData  prod) {
+            this.prod = prod;
     }
 
     public double getPrice() {
