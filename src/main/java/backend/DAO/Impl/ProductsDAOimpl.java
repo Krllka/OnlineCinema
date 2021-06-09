@@ -67,20 +67,23 @@ public class ProductsDAOimpl extends AbstractDAO<ProductsData>
     public void add(ProductsData film) {
         Session session = sessionFactory.getCurrentSession();
         session.save(film);
-        for (GenreData item: film.getGenres()) {
+        if( film.getGenres() != null )
+            for (GenreData item : film.getGenres()) {
 
-           ProdGenreDAOimpl.tryAdd(session, new ProductsGenresData(item, film));
+                ProdGenreDAOimpl.tryAdd(session, new ProductsGenresData(item, film));
 
-        }
-        for (Awards item: film.getAwards()) {
+            }
+        if( film.getAwards() != null )
+            for (Awards item : film.getAwards()) {
 
-            session.save(new Prod_Awards(item, film));
+                session.save(new Prod_Awards(item, film));
 
-        }
-        for (ProdByData item: film.getActors()) {
-            item.setProd(film.getId());
-            session.save(item);
-        }
+            }
+        if( film.getActors() != null )
+            for (ProdByData item : film.getActors()) {
+                item.setProd(film.getId());
+                session.save(item);
+            }
 
     }
 

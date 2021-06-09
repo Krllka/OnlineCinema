@@ -27,14 +27,14 @@ public abstract class AbstractController<E extends AbstractEntity, S extends Abs
     }
     @PostMapping
     public E create(@RequestBody E inputAcc ) {
-       try{
+       //try{
            Service.add(inputAcc);
            return inputAcc;
 
-       }catch (Exception ex){
-
-            return null;
-       }
+    //  }catch (Exception ex){
+    //
+    ////       return null;
+    //   }
     }
     @PutMapping("/{id}")
     public E edit(@PathVariable("id") String id,   E editAcc) {
