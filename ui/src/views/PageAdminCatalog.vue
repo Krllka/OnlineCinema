@@ -24,9 +24,9 @@
           v-if="isModalVisible"
           @closeModalWindow="closeModalWindow"
         >
-          <template v-slot:title>Добавить фильм</template>
-          <template v-slot:body>
-            <app-movie-form />
+          <template #title>Добавить фильм</template>
+          <template #body>
+            <app-movie-form @addMovie="addMovie" />
           </template>
         </app-modal-window>
       </div>
@@ -115,6 +115,13 @@ export default {
     },
     closeModalWindow() {
       this.isModalVisible = false;
+    },
+    addMovie(movieData) {
+      this.axios
+        .post("http://localhost:8081/products", movieData)
+        .then((response) => console.log(response))
+        .catch((error) => console.log(error));
+      this.closeModalWindow();
     },
   },
 };

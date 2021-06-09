@@ -1,5 +1,5 @@
 <template>
-  <div class="window-container" @click.prevent.self="$emit('closeModalWindow')">
+  <div class="window-container" @click.self="$emit('closeModalWindow')">
     <div class="modal">
       <div class="modal__header">
         <div class="modal__title">
@@ -37,11 +37,14 @@ export default {
 }
 
 .modal {
-  width: 50vw;
-  height: 90vh;
+  width: 70%;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
   background-color: white;
   border: 1px solid black;
   border-radius: 6px;
+  z-index: 100;
   &__header {
     display: flex;
     justify-content: space-between;
@@ -57,12 +60,11 @@ export default {
     }
   }
   &__header,
-  &__body,
-  &__footer {
+  &__body {
     padding: 10px;
   }
-  &__footer {
-    border-top: 1px solid black;
+  &__body {
+    flex-grow: 1;
   }
 }
 </style>
