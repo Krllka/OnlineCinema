@@ -41,6 +41,13 @@ public class ProductsData extends AbstractEntity {
     transient private List<ProdByData> actors;
     transient private List<Awards> awards;
 
+
+    public ProductsData(String id){
+        super(id);
+    }
+    public ProductsData(){}
+
+
     public List<Awards> getAwards() {
         return awards;
     }
@@ -79,10 +86,6 @@ public class ProductsData extends AbstractEntity {
             this.actors.add(actor);
     }
 
-    public ProductsData(String id){
-        super(id);
-    }
-    public ProductsData(){}
 
 
     public String getCountry() {

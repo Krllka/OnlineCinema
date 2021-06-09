@@ -1,7 +1,7 @@
 package backend.controllers.Impl;
 
 import backend.model.Prod_Awards;
-import backend.services.Prod_AwardsService;
+import backend.services.Impl.Prod_AwardsService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

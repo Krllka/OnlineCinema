@@ -14,16 +14,16 @@ public class ProdByData extends AbstractEntity{
     @Column(name  = "Birth")
     private Date age;
     @ManyToOne
-    @JoinColumn(name = "professions_ID", foreignKey = @ForeignKey(name = "fk_Prod.By_professions1_idx"))
-    private ProfessionsData prof;
+    @JoinColumn(name = "Actors_ID", foreignKey = @ForeignKey(name = "fk_Prod.By_actorss1"))
+    private Actors prof;
     @ManyToOne
     @JoinColumn(name = "Products_ID", foreignKey = @ForeignKey(name = "fk_Prod.By_Products1_idx"))
     private ProductsData prod;
+
     @JsonIgnore
     public ProductsData getProd() {
         return prod;
     }
-
 
     public void setProd(String prod) {
         this.prod = new ProductsData(prod);
@@ -46,12 +46,12 @@ public class ProdByData extends AbstractEntity{
         this.age = age;
     }
 
-    public ProfessionsData getProf() {
+    public Actors getProf() {
         return prof;
     }
 
     public void setProf(String prof) {
-        this.prof = new ProfessionsData(prof);
+        this.prof = new Actors(prof);
         this.prof.setName(prof);
     }
 
