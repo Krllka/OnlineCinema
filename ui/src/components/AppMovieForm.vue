@@ -1,96 +1,107 @@
 <template>
   <div class="form">
-    <div class="input-group">
-      <div class="input-row">
-        <app-input
-          :input-title="'Название фильма'"
-          :input-type="'text'"
-          v-model="movieData.name"
-        />
-        <div class="select-wrapper">
-          <p class="title">Жанр:</p>
-          <v-select
-            multiple
-            label="name"
-            :options="genres"
-            class="select"
-            v-model="movieData.genres"
+    <app-loader v-if="loading" :animation="'rectangle'" />
+    <div v-else>
+      <div class="input-group">
+        <div class="input-row">
+          <app-input
+            :input-title="'Название фильма'"
+            :input-type="'text'"
+            v-model="movieData.name"
+          />
+
+          <div class="select-wrapper">
+            <p class="title">Жанр:</p>
+            <v-select
+              multiple
+              label="name"
+              :options="genres"
+              class="select"
+              v-model="movieData.genres"
+            />
+          </div>
+
+          <app-input
+            :input-title="'Дата выхода'"
+            :input-type="'date'"
+            v-model="movieData.releseDate"
+          />
+
+          <app-input
+            :input-title="'Длительность'"
+            :input-type="'number'"
+            v-model="movieData.durat"
+          />
+
+          <app-input
+            :input-title="'Цена'"
+            :input-type="'number'"
+            v-model="movieData.price"
           />
         </div>
-        <app-input
-          :input-title="'Дата выхода'"
-          :input-type="'date'"
-          v-model="movieData.releseDate"
-        />
-        <app-input
-          :input-title="'Длительность'"
-          :input-type="'number'"
-          v-model="movieData.durat"
-        />
-        <app-input
-          :input-title="'Цена'"
-          :input-type="'number'"
-          v-model="movieData.price"
-        />
-      </div>
-      <div class="input-row">
-        <app-input
-          :input-title="'Рейтинг'"
-          :input-type="'number'"
-          v-model="movieData.rate"
-        />
-        <app-input
-          :input-title="'Страна'"
-          :input-type="'text'"
-          v-model="movieData.country"
-        />
-        <app-select
-          :select-title="'Возрастное ограничение'"
-          :select-options="ratings"
-          v-model="movieData.age_restr_id"
-          @change="selectOption"
-        />
-        <div class="select-wrapper">
-          <p class="title">Актеры:</p>
-          <v-select
-            multiple
-            label="name"
-            :options="actors"
-            class="select"
-            v-model="movieData.actors"
+        <div class="input-row">
+          <app-input
+            :input-title="'Рейтинг'"
+            :input-type="'number'"
+            v-model="movieData.rate"
+          />
+
+          <app-input
+            :input-title="'Страна'"
+            :input-type="'text'"
+            v-model="movieData.country"
+          />
+
+          <app-select
+            :select-title="'Возрастное ограничение'"
+            :select-options="ratings"
+            v-model="movieData.age_restr_id"
+            @change="selectOption"
+          />
+
+          <div class="select-wrapper">
+            <p class="title">Актеры:</p>
+            <v-select
+              multiple
+              label="prof"
+              :options="actors"
+              class="select"
+              v-model="movieData.actors"
+            />
+          </div>
+
+          <app-input
+            :input-title="'Количество просмотров'"
+            :input-type="'number'"
+            v-model="movieData.viewsCount"
           />
         </div>
-        <app-input
-          :input-title="'Количество просмотров'"
-          :input-type="'number'"
-          v-model="movieData.viewsCount"
-        />
-      </div>
-      <div class="input-row">
-        <div class="input-wrapper">
-          <p class="title">Обложка фильма:</p>
-          <input type="file" @change="addFilePoster" />
-        </div>
-        <div class="input-wrapper">
-          <p class="title">Трейлер:</p>
-          <input type="file" @change="addFileTrailer" />
-        </div>
-        <div class="input-wrapper">
-          <p class="title">Видеодорожка:</p>
-          <input type="file" @change="addFileMovie" />
+        <div class="input-row">
+          <div class="input-wrapper">
+            <p class="title">Обложка фильма:</p>
+            <input type="file" @change="addFilePoster" />
+          </div>
+          <div class="input-wrapper">
+            <p class="title">Трейлер:</p>
+            <input type="file" @change="addFileTrailer" />
+          </div>
+          <div class="input-wrapper">
+            <p class="title">Видеодорожка:</p>
+            <input type="file" @change="addFileMovie" />
+          </div>
         </div>
       </div>
-    </div>
-    <div class="textarea-wrapper">
-      <p class="title">Описание фильма:</p>
-      <textarea
-        class="textarea input"
-        v-model="movieData.decription"
-      ></textarea>
-    </div>
-    <div class="button-wrapper">
-      <button class="button clear" type="reset">Сброс</button>
-      <button class="button submit" @click="addMovie">Сохранить</button>
+      <div class="textarea-wrapper">
+        <p class="title">Описание фильма:</p>
+        <textarea
+          class="textarea input"
+          v-model="movieData.decription"
+        ></textarea>
+      </div>
+      <button v-if="!editMode" class="button submit" @click="addMovie">
+        Сохранить
+      </button>
+      <button v-else class="button submit" @click="editMovie">Сохранить</button>
     </div>
   </div>
 </template>
@@ -98,15 +109,28 @@
 <script>
 import AppInput from "@/components/AppInput";
 import AppSelect from "@/components/AppSelect";
+import AppLoader from "@/components/AppLoader";
 
 export default {
   name: "AppMovieForm",
   components: {
+    AppLoader,
     AppInput,
     AppSelect,
   },
+  props: {
+    editMovieData: {
+      type: Object,
+      default: () => {},
+    },
+    editMode: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     return {
+      loading: true,
       ratings: [],
       genres: [],
       actors: [],
@@ -133,18 +157,35 @@ export default {
     };
   },
   created() {
+    const ratingsURL = this.axios.get("http://localhost:8081/age_restriction");
+    const genresURL = this.axios.get("http://localhost:8081/genre");
+    const actorsURL = this.axios.get("http://localhost:8081/prodBy");
     this.axios
-      .get("http://localhost:8081/age_restriction")
-      .then((response) => (this.ratings = response.data))
-      .catch((error) => console.log(error));
-    this.axios
-      .get("http://localhost:8081/genre")
-      .then((response) => (this.genres = response.data))
-      .catch((error) => console.log(error));
-    this.axios
-      .get("http://localhost:8081/prodBy")
-      .then((response) => (this.actors = response.data))
-      .catch((error) => console.log(error));
+      .all([ratingsURL, genresURL, actorsURL])
+      .then(
+        this.axios.spread((ratingsRes, genresRes, actorsRes) => {
+          this.ratings = ratingsRes.data;
+          this.genres = genresRes.data;
+          this.actors = actorsRes.data;
+          this.loading = false;
+        })
+      )
+      .catch((errors) => {
+        console.log(errors);
+        this.loading = false;
+      });
+    // this.axios
+    //   .get("http://localhost:8081/age_restriction")
+    //   .then((response) => (this.ratings = response.data))
+    //   .catch((error) => console.log(error));
+    // this.axios
+    //   .get("http://localhost:8081/genre")
+    //   .then((response) => (this.genres = response.data))
+    //   .catch((error) => console.log(error));
+    // this.axios
+    //   .get("http://localhost:8081/prodBy")
+    //   .then((response) => (this.actors = response.data))
+    //   .catch((error) => console.log(error));
   },
   methods: {
     selectOption(value) {
@@ -163,6 +204,9 @@ export default {
     },
     addMovie() {
       this.$emit("addMovie", this.movieData);
+    },
+    editMovie() {
+      this.$emit("updateMovie", this.movieData);
     },
   },
 };
@@ -189,11 +233,6 @@ export default {
 
 .textarea-wrapper {
   margin-bottom: 15px;
-}
-
-.button-wrapper {
-  display: flex;
-  justify-content: space-between;
 }
 
 .textarea {

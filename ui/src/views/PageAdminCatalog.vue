@@ -17,8 +17,10 @@
         </div>
         <app-data-table
           :dataHeaders="moviesData"
-          :dataList="moviesList"
+          :dataList="renderMovies"
           :filter="search"
+          @clickTableItem="editMovie"
+          @deleteItem="deleteMovie"
         />
         <app-modal-window
           v-if="isModalVisible"
@@ -26,7 +28,12 @@
         >
           <template #title>Добавить фильм</template>
           <template #body>
-            <app-movie-form @addMovie="addMovie" />
+            <app-movie-form
+              @addMovie="addMovie"
+              @updateMovie="updateMovie"
+              :edit-mode="editMode"
+              :edit-movie-data="movieData"
+            />
           </template>
         </app-modal-window>
       </div>
@@ -58,8 +65,11 @@ export default {
     return {
       search: "",
       loading: true,
+      editMode: false,
+      currentMovieId: 0,
       isModalVisible: false,
       moviesList: [],
+      movieData: {},
       moviesData: [
         {
           key: "name",
@@ -98,18 +108,27 @@ export default {
   },
   created() {
     document.title = "Управление каталогом";
-    this.axios
-      .get("http://localhost:8081/products")
-      .then((response) => {
-        this.moviesList = response.data;
-        this.loading = false;
-      })
-      .catch((error) => {
-        console.log(error);
-        this.moviesList = 0;
-      });
+    this.getMoviesList();
+  },
+  computed: {
+    renderMovies() {
+      return this.moviesList;
+    },
   },
   methods: {
+    getMoviesList() {
+      this.axios
+        .get("http://localhost:8081/products")
+        .then((response) => {
+          this.moviesList = response.data;
+          this.loading = false;
+        })
+        .catch((error) => {
+          console.log(error);
+          this.moviesList = 0;
+          this.loading = false;
+        });
+    },
     openModalWindow() {
       this.isModalVisible = true;
     },
@@ -119,9 +138,50 @@ export default {
     addMovie(movieData) {
       this.axios
         .post("http://localhost:8081/products", movieData)
-        .then((response) => console.log(response))
+        .then(() => {
+          this.moviesList.push(movieData);
+          // console.log(this.moviesList);
+          // console.log(movieData);
+        })
         .catch((error) => console.log(error));
+      this.getMoviesList();
       this.closeModalWindow();
+      this.loading = true;
+    },
+    editMovie(id) {
+      this.editMode = true;
+      this.axios
+        .get(`http://localhost:8081/products/${id}`)
+        .then((response) => (this.movieData = response.data));
+      this.isModalVisible = true;
+      this.currentMovieId = id;
+    },
+    updateMovie(movieData) {
+      this.axios
+        .put(`http://localhost:8081/products/${this.currentMovieId}`, movieData)
+        .then(() => {
+          let movieIndex = this.moviesList.findIndex(
+            (movie) => movie.id === this.currentMovieId
+          );
+          this.moviesList.splice(movieIndex, 1, movieData);
+        })
+        .catch((error) => console.log(error));
+      this.getMoviesList();
+      this.currentMovieId = 0;
+      this.editMode = false;
+      this.closeModalWindow();
+      this.loading = true;
+    },
+    deleteMovie(movie) {
+      this.axios
+        .delete(`http://localhost:8081/products/${movie.id}`)
+        .then(() => {
+          let movieIndex = this.moviesList.findIndex(
+            (item) => item.id === movie.id
+          );
+          this.moviesList.splice(movieIndex, 1);
+        })
+        .catch((error) => console.log(error));
     },
   },
 };

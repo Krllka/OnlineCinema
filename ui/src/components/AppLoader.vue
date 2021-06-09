@@ -36,6 +36,7 @@ export default {
   position: relative;
   width: 80px;
   height: 80px;
+  z-index: 100;
 }
 .lds-facebook div {
   display: inline-block;
@@ -75,6 +76,7 @@ export default {
   position: relative;
   width: 13px;
   height: 13px;
+  z-index: 100;
 }
 .lds-ring div {
   box-sizing: border-box;

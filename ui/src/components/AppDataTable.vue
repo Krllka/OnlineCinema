@@ -9,6 +9,7 @@
         >
           {{ header.value }}
         </th>
+        <th class="table__header"></th>
       </tr>
     </thead>
     <tbody class="table__body">
@@ -17,6 +18,7 @@
           v-for="(item, index) in filteredList"
           :key="index"
           class="table__row data"
+          @click="$emit('clickTableItem', item.id)"
         >
           <td
             v-for="(column, index) in dataHeaders"
@@ -26,6 +28,13 @@
             <slot :name="column.key" :movie="item" :index="index">
               {{ item[column.key] }}
             </slot>
+          </td>
+          <td
+            class="table__cell delete"
+            id="delete"
+            @click.stop="$emit('deleteItem', item)"
+          >
+            &#10006;
           </td>
         </tr>
       </template>
@@ -85,13 +94,26 @@ export default {
     border-bottom: 1px solid rgba(0, 0, 0, 0.5);
     overflow-wrap: break-word;
   }
+  .delete {
+    color: transparent;
+  }
   &__row:last-child > &__cell {
     border-bottom: none;
   }
   &__row.data {
     cursor: pointer;
+    transition: 0.1s all;
     &:hover {
       background-color: rgba(0, 0, 0, 0.1);
+      .table__cell.delete {
+        color: rgba(0, 0, 0, 0.5);
+      }
+    }
+  }
+  #delete {
+    transition: 0.1s all;
+    &:hover {
+      color: black;
     }
   }
   .empty {
