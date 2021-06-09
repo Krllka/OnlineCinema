@@ -11,6 +11,7 @@ public class Actors extends AbstractEntity{
     @ManyToOne
     @JoinColumn(name = "professions_ID", foreignKey = @ForeignKey(name = "fk_actors_professions_idx"))
     private ProfessionsData prof;
+
     public  Actors(){}
     public  Actors(String s){
         super(s);
@@ -24,11 +25,16 @@ public class Actors extends AbstractEntity{
         this.name = name;
     }
 
-    public ProfessionsData getSex() {
+
+    public ProfessionsData getProf() {
         return prof;
     }
 
-    public void setSex(ProfessionsData sex) {
+    public void setProf(ProfessionsData prof) {
         this.prof = prof;
+    }
+    public void setProf(String prof) {
+        this.prof = new ProfessionsData(prof);
+
     }
 }
