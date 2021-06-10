@@ -47,9 +47,6 @@ export default {
       .get("http://localhost:8081/products")
       .then((response) => {
         this.moviesList = response.data;
-        // this.moviesList.genres = this.moviesList.genres
-        //   .map((genre) => genre.name)
-        //   .join(", ");
         this.moviesList.forEach(
           (movie) =>
             (movie.genres = movie.genres.map((genre) => genre.name).join(", "))

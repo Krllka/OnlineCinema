@@ -6,9 +6,35 @@
         >Панель администратора</a
       >
     </div>
-    <button class="button logout" @click="$emit('logOut')">
-      Выйти из профиля
-    </button>
+    <div class="body">
+      <div class="user__body">
+        <div class="user__row">
+          <div class="user__title">Имя</div>
+          <div class="user__value">{{ userData.name }}</div>
+        </div>
+        <div class="user__row">
+          <div class="user__title">Эл. почта</div>
+          <div class="user__value">{{ userData.mail }}</div>
+        </div>
+        <div class="user__row">
+          <div class="user__title">Пол</div>
+          <div class="user__value">{{ userData.sex }}</div>
+        </div>
+        <div class="user__row">
+          <div class="user__title">Дата рождения</div>
+          <div class="user__value">{{ userData.age }}</div>
+        </div>
+      </div>
+      <div class="btn-group">
+        <button class="button logout" @click="$emit('logOut')">
+          Выйти из профиля
+        </button>
+        <button class="button" @click="$emit('changeUserData')">
+          Изменить данные
+        </button>
+        <button class="button">Изменить пароль</button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -31,13 +57,40 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.user__header {
+.user {
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__body {
+    width: 100%;
+    border: 1px solid black;
+    border-radius: 6px;
+    padding: 15px;
+  }
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    padding: 2px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+    margin-bottom: 10px;
+  }
+}
+
+.body {
+  margin: 15vh auto 0;
+  width: 50%;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
 }
 
-.button {
+.btn-group {
+  width: 100%;
   margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
 }
 </style>

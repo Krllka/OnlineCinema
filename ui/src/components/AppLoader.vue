@@ -32,7 +32,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 25vh auto 0;
+  margin: 25vh auto;
   position: relative;
   width: 80px;
   height: 80px;

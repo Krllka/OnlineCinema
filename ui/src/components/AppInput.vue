@@ -4,8 +4,10 @@
     <input
       v-if="inputType !== 'file'"
       :type="inputType"
+      :disabled="inputDisabled"
       @input="$emit('input', $event.target.value)"
-      :class="{ input: inputType !== 'file' }"
+      :class="{ input: inputType !== 'file', 'w-100': isWidthParent }"
+      :value="value"
     />
   </div>
 </template>
@@ -22,6 +24,18 @@ export default {
       type: String,
       default: "",
     },
+    inputDisabled: {
+      type: Boolean,
+      default: false,
+    },
+    value: {
+      type: String,
+      default: "",
+    },
+    isWidthParent: {
+      type: Boolean,
+      default: false,
+    },
   },
 };
 </script>
@@ -35,6 +49,10 @@ export default {
 .input {
   width: 170px;
   border: 1px solid rgba(60, 60, 60, 0.26);
+}
+
+.w-100 {
+  width: 100%;
 }
 
 .input-wrapper {

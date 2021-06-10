@@ -12,6 +12,7 @@
       @signIn="signIn($event)"
       @logOut="logOut"
       @showAdminPanel="isAdminPanel = true"
+      @updateUserData="updateUserData"
     ></router-view>
   </div>
 </template>
@@ -47,6 +48,9 @@ export default {
           .then((response) => (this.userData = response.data))
           .catch((error) => console.log(error));
       }
+    },
+    updateUserData(userData) {
+      this.userData = userData;
     },
     logOut() {
       this.isAuthorized = false;

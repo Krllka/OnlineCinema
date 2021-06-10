@@ -38,7 +38,6 @@ export default {
 
 .modal {
   width: 50%;
-  height: 90%;
   display: flex;
   flex-direction: column;
   background-color: white;

@@ -26,7 +26,9 @@
           v-if="isModalVisible"
           @closeModalWindow="closeModalWindow"
         >
-          <template #title>Добавить фильм</template>
+          <template #title>{{
+            editMode ? "Редактировать фильм" : "Добавить фильм"
+          }}</template>
           <template #body>
             <app-movie-form
               @addMovie="addMovie"
@@ -134,6 +136,7 @@ export default {
     },
     closeModalWindow() {
       this.isModalVisible = false;
+      this.editMode = false;
     },
     addMovie(movieData) {
       this.axios
