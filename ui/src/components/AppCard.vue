@@ -1,6 +1,15 @@
 <template>
   <div class="card" @click="$emit('openCardPage', cardData.id)">
-    <h3 class="card__header">{{ cardData.name }}</h3>
+    <div class="head">
+      <h3 class="card__header">{{ cardData.name }}</h3>
+      <button
+        v-if="isAuthorized"
+        @click.stop="$emit('addToCart', cardData.id)"
+        class="button"
+      >
+        В корзину
+      </button>
+    </div>
     <div class="card__body">
       <img
         v-if="!imgError"
@@ -53,6 +62,10 @@ export default {
       type: Object,
       default: () => {},
     },
+    isAuthorized: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -75,8 +88,16 @@ export default {
   &__header {
     font-size: 15px;
     font-weight: 700;
-    border-bottom: 1px solid black;
     padding: 10px;
+  }
+  .head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid black;
+  }
+  .button {
+    margin: 10px;
   }
   &__body {
     display: flex;

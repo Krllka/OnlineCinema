@@ -139,6 +139,7 @@ export default {
       this.editMode = false;
     },
     addMovie(movieData) {
+      console.log(movieData);
       this.axios
         .post("http://localhost:8081/products", movieData)
         .then(() => {
@@ -160,6 +161,7 @@ export default {
       this.currentMovieId = id;
     },
     updateMovie(movieData) {
+      console.log(movieData);
       this.axios
         .put(`http://localhost:8081/products/${this.currentMovieId}`, movieData)
         .then(() => {

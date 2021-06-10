@@ -8,7 +8,9 @@
       >
         <app-card
           :card-data="item"
+          :isAuthorized="isAuthorized"
           @openCardPage="$emit('openItemPage', item.id)"
+          @addToCart="$emit('addToCart', item.id)"
         />
       </li>
     </ul>
@@ -31,6 +33,10 @@ export default {
     filter: {
       type: String,
       default: "",
+    },
+    isAuthorized: {
+      type: Boolean,
+      default: false,
     },
   },
   computed: {

@@ -18,7 +18,9 @@
         v-if="moviesList"
         :items="moviesList"
         :filter="search"
+        :isAuthorized="isAuthorized"
         @openItemPage="openMoviePage"
+        @addToCart="addToCart"
       />
     </div>
   </div>
@@ -33,6 +35,16 @@ export default {
   components: {
     AppList,
     AppLoader,
+  },
+  props: {
+    isAuthorized: {
+      type: Boolean,
+      default: false,
+    },
+    userData: {
+      type: Object,
+      default: () => {},
+    },
   },
   data() {
     return {
@@ -62,6 +74,16 @@ export default {
     openMoviePage(id) {
       console.log(id);
       this.$router.push({ path: `movies/${id}` });
+    },
+    addToCart(id) {
+      const requestBody = {
+        product: id,
+        client: this.userData.id,
+      };
+      this.axios
+        .post("http://localhost:8081/library", requestBody)
+        .then((response) => console.log(response))
+        .catch((error) => console.log(error));
     },
   },
 };

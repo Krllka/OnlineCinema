@@ -95,6 +95,7 @@
         <p class="title">Описание фильма:</p>
         <textarea
           class="textarea input"
+          maxlength="120"
           v-model="movieData.decription"
         ></textarea>
       </div>

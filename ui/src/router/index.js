@@ -7,6 +7,7 @@ import PageOrders from "@/views/PageOrders";
 import PageAdminCatalog from "@/views/PageAdminCatalog";
 import PageAdminUsers from "@/views/PageAdminUsers";
 import PageMovie from "@/views/PageMovie";
+import PageCart from "@/views/PageCart";
 
 Vue.use(VueRouter);
 
@@ -30,6 +31,11 @@ const routes = [
     path: "/orders",
     name: "Orders",
     component: PageOrders,
+  },
+  {
+    path: "/cart",
+    name: "Cart",
+    component: PageCart,
   },
   {
     path: "/catalog-admin",
