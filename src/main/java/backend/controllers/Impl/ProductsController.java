@@ -46,11 +46,10 @@ public class ProductsController extends AbstractController<ProductsData, Product
     }
     @PostMapping("/add")
     public String upLoadFile(@RequestParam("file") MultipartFile file) throws IOException {
-        ProductsData prodData = new ProductsData();
 
         if(file != null){
 
-            File uploadDir = new File(AbstractControllerIntrface.class.getResource("").getPath()+"/Uploads");
+            File uploadDir = new File(upDir);
             if(!uploadDir.exists())
                 System.out.println(uploadDir.mkdir());;
 

@@ -91,6 +91,7 @@ public class ProductsDAOimpl extends AbstractDAO<ProductsData>
     public ProductsData getById(String id) {
         Session session = sessionFactory.getCurrentSession();
         ProductsData prod = session.get(ProductsData.class ,id);
+        if(prod == null) return null;
         prod.setGenres(new ArrayList<GenreData>());
 
         String currID = prod.getId();
