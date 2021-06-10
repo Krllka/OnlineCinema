@@ -63,11 +63,11 @@ public class OrderDAOimpl extends AbstractDAO<Order>
 
         return item;
     }
-    public Order getByLogin(String client){
+    public List<Order> getByLogin(String client){
         Session session = sessionFactory.getCurrentSession();
         Query<Order> query = session.createQuery("FROM Order o where o.client.name = :client");
         query.setParameter("client", client);
-        Order ord = query.getSingleResult();
+        List<Order> ord = query.list();
         return ord;
     }
 
@@ -89,7 +89,7 @@ public class OrderDAOimpl extends AbstractDAO<Order>
             total += item.getProductObj().getPrice();
             purchase.setPrice(item.getProductObj().getPrice());
             purchase.setProduct(item.getProductObj());
-
+            item.setPurchased(true);
             session.save(purchase);
         }
         order.setPrice(total);

@@ -19,11 +19,11 @@ public class LibraryController extends AbstractController<Library, LibraryServic
         super(Service);
     }
 
-    @GetMapping("/get/{name}")
-    public List<ProductsData> readByLogin(@PathVariable("name") String login) {
+    @GetMapping("/{type}/{name}")
+    public List<ProductsData> readByLogin(@PathVariable("name") String login, @PathVariable("type") String type) {
 
         try {
-            return  Service.getByLogin(login);
+            return  Service.getByLogin(login, type);
         }catch (Exception ex){
             return null;
         }

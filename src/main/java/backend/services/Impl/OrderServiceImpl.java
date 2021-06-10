@@ -6,6 +6,7 @@ import backend.services.Intrfaces.OrderService;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service("OrderService")
 @Transactional
@@ -16,7 +17,7 @@ public class OrderServiceImpl extends AbsctractService<Order, OrderDAOimpl>
         super(dao);
     }
     @Transactional
-    public Order getByLogin(String login){
+    public List<Order> getByLogin(String login){
         return super.repo.getByLogin(login);
     }
     @Transactional

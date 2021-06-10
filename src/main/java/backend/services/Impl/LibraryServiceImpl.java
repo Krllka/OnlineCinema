@@ -17,5 +17,5 @@ public class LibraryServiceImpl extends AbsctractService<Library, LibraryDAOimpl
     LibraryServiceImpl(LibraryDAOimpl dao ){
         super(dao);
     }
-    public List<ProductsData> getByLogin(String client){return repo.getByLogin(client);}
+    public List<ProductsData> getByLogin(String client,String type){return repo.getByLogin(client , type);}
 }

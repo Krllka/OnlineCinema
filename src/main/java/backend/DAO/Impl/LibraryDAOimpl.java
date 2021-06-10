@@ -30,14 +30,25 @@ public class LibraryDAOimpl extends AbstractDAO<Library>
         return session.get(Library.class ,id);
     }
 
-    public List<ProductsData> getByLogin(String client){
+    @Override
+    public void add(Library film) {
+        Session session = sessionFactory.getCurrentSession();
+        film.setPurchased(false);
+        session.save(film);
+    }
+
+    public List<ProductsData> getByLogin(String client, String type){
         Session session = sessionFactory.getCurrentSession();
         Query<Library> query = session.createQuery("FROM Library o where o.client.name = :client");
         query.setParameter("client", client);
+        boolean basket = type.equals("basket");
         List<Library> ord = query.list();
         List<ProductsData> prods = new ArrayList<>();
         for (Library item: ord) {
-            prods.add(item.getProductObj());
+            if(item.getPurchased() & !basket)
+                prods.add(item.getProductObj());
+            if(!item.getPurchased() & basket)
+                prods.add(item.getProductObj());
         }
         return prods;
     }
