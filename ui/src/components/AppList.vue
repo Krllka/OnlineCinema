@@ -1,7 +1,11 @@
 <template>
   <div>
     <ul class="list">
-      <li v-for="(item, index) in items" :key="index" class="list__item">
+      <li
+        v-for="(item, index) in filteredItems"
+        :key="index"
+        class="list__item"
+      >
         <app-card
           :card-data="item"
           @openCardPage="$emit('openItemPage', item.id)"
@@ -23,6 +27,19 @@ export default {
     items: {
       type: Array,
       default: () => [],
+    },
+    filter: {
+      type: String,
+      default: "",
+    },
+  },
+  computed: {
+    filteredItems() {
+      const search = this.filter.toLowerCase();
+      return this.items.filter((item) => {
+        if (Object.values(item).join("").toLowerCase().includes(search))
+          return item;
+      });
     },
   },
 };

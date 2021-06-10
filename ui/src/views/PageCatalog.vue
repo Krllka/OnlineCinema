@@ -2,15 +2,22 @@
   <div class="container">
     <app-loader v-if="loading" :animation="'rectangle'" />
     <div v-else>
-      <h2 v-if="moviesList.length" class="header">
-        Каталог фильмов и сериалов:
-      </h2>
+      <div v-if="moviesList.length" class="catalog">
+        <h2 class="header">Каталог фильмов:</h2>
+        <input
+          type="search"
+          class="input search"
+          placeholder="Поиск фильмов..."
+          v-model="search"
+        />
+      </div>
       <div v-else-if="!moviesList" class="empty">
         Каталог пуст! Зайдите позже.
       </div>
       <app-list
         v-if="moviesList"
         :items="moviesList"
+        :filter="search"
         @openItemPage="openMoviePage"
       />
     </div>
@@ -30,6 +37,7 @@ export default {
   data() {
     return {
       moviesList: [],
+      search: "",
       loading: true,
     };
   },
@@ -39,6 +47,13 @@ export default {
       .get("http://localhost:8081/products")
       .then((response) => {
         this.moviesList = response.data;
+        // this.moviesList.genres = this.moviesList.genres
+        //   .map((genre) => genre.name)
+        //   .join(", ");
+        this.moviesList.forEach(
+          (movie) =>
+            (movie.genres = movie.genres.map((genre) => genre.name).join(", "))
+        );
         this.loading = false;
       })
       .catch((error) => {
@@ -56,8 +71,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.header {
+.catalog {
   margin-bottom: 30px;
+}
+
+.header {
+  margin-bottom: 15px;
 }
 
 .empty {

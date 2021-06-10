@@ -17,8 +17,8 @@
       />
       <div class="card__info">
         <div class="card__row">
-          <span class="card__title">Продолжительность</span>
-          <span class="card__value">{{ cardData.durat }}</span>
+          <span class="card__title">Жанр</span>
+          <span class="card__value">{{ cardData.genres }}</span>
         </div>
         <div class="card__row">
           <span class="card__title">Год релиза</span>
