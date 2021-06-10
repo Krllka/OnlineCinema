@@ -1,9 +1,7 @@
 package backend.DAO.Impl;
 
 import backend.DAO.Intrfaces.OrderDAO;
-import backend.model.Library;
-import backend.model.Order;
-import backend.model.ProductsInOrder;
+import backend.model.*;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.BeanUtils;
@@ -29,13 +27,41 @@ public class OrderDAOimpl extends AbstractDAO<Order>
     @Override
     public List<Order> allAccs() {
         Session session = super.sessionFactory.getCurrentSession();
-        List<Order> list = session.createQuery("from Order").list();
+        List<Order> list = session.createQuery("From Order ").list();
+        String currID;
+        for (Order item: list) {
+            currID = item.getId();
+            item.setProds(new ArrayList<ProductsData>());
+
+
+            Query<ProductsInOrder> query  = session.createQuery("from ProductsInOrder o where o.order.id = :currID");
+            query.setParameter("currID", currID);
+            List<ProductsInOrder> arr = query.list();
+            for (ProductsInOrder prod: arr) {
+                item.addProds(prod.getProductObj());
+            }
+
+        }
         return list;
     }
     @Override
     public Order getById(String id) {
         Session session = sessionFactory.getCurrentSession();
-        return session.get(Order.class ,id);
+        Order item = session.get(Order.class ,id);
+        String currID;
+
+        currID = item.getId();
+        item.setProds(new ArrayList<ProductsData>());
+
+        Query<ProductsInOrder> query  = session.createQuery("from ProductsInOrder o where o.prod.id = :currID");
+        query.setParameter("currID", currID);
+        List<ProductsInOrder> arr = query.list();
+        for (ProductsInOrder prod: arr) {
+            item.addProds(prod.getProductObj());
+        }
+
+
+        return item;
     }
     public Order getByLogin(String client){
         Session session = sessionFactory.getCurrentSession();

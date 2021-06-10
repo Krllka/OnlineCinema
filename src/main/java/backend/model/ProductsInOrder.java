@@ -32,6 +32,9 @@ public class ProductsInOrder extends AbstractEntity{
     public String getProduct() {
         return prod.getName();
     }
+    public ProductsData getProductObj() {
+        return prod;
+    }
 
     public void setProduct(String  prod) {
 

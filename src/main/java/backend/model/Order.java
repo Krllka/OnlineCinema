@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "orders")
@@ -23,6 +24,20 @@ public class Order extends AbstractEntity{
     @ManyToOne
     @JoinColumn(name = "OrderStatus_ID", foreignKey = @ForeignKey(name = "fk_Orders_Order Status1_idx") )
     private OrderStatus status;
+
+    transient List<ProductsData> prods;
+
+    public List<ProductsData> getProds() {
+        return prods;
+    }
+
+    public void setProds(List<ProductsData> prods) {
+        this.prods = prods;
+    }
+    public void addProds(ProductsData prods) {
+        if(this.prods!=null)
+            this.prods.add(prods);
+    }
 
     public Order(){}
     public Order(String id) {super(id);}
