@@ -51,6 +51,20 @@ public class LibraryDAOimpl extends AbstractDAO<Library>
         session.save(film);
     }
 
+    public void deleteByLogin(String login, String prod){
+        Session session = sessionFactory.getCurrentSession();
+        Query<Library> query = session.createQuery("FROM Library o where o.client.name = :client");
+        query.setParameter("client", login);
+
+        List<Library> ord = query.list();
+        List<ProductsData> prods = new ArrayList<>();
+        for (Library item: ord) {
+            if(item.getProduct().equals(prod))
+                session.delete(item);
+        }
+
+    }
+
     public List<ProductsData> getByLogin(String client, String type){
         Session session = sessionFactory.getCurrentSession();
         Query<Library> query = session.createQuery("FROM Library o where o.client.name = :client");

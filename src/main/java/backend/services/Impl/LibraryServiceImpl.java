@@ -18,4 +18,7 @@ public class LibraryServiceImpl extends AbsctractService<Library, LibraryDAOimpl
         super(dao);
     }
     public List<ProductsData> getByLogin(String client,String type){return repo.getByLogin(client , type);}
+    public void deleteByLogin(String login, String prod){
+        repo.deleteByLogin(login, prod);
+    }
 }

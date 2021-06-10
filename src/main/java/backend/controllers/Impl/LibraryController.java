@@ -28,5 +28,15 @@ public class LibraryController extends AbstractController<Library, LibraryServic
             return null;
         }
     }
+    @DeleteMapping("/{login}/{prod}")
+    public void deleteByLogin(@PathVariable("prod") String prod, @PathVariable("login") String login) {
+
+        try {
+            Service.deleteByLogin(login, prod);
+        }catch (Exception ex){
+
+        }
+        return;
+    }
 
 }
