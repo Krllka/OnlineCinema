@@ -1,0 +1,151 @@
+<template>
+  <div class="container">
+    <app-loader v-if="loading" :animation="'rectangle'" />
+    <div v-else class="movie">
+      <h2 class="movie__title">{{ movieData.name }}</h2>
+      <div class="movie__body">
+        <img
+          v-if="!imgError"
+          :src="`http://localhost:8080/products/files/${movieData.poster}`"
+          :alt="movieData.name"
+          class="movie__img"
+          @error="imgError = !imgError"
+        />
+        <img
+          v-else
+          src="../assets/images/default-placeholder.png"
+          alt="Обложка не найдена"
+          class="movie__img"
+        />
+        <div class="movie__info">
+          <div class="movie__row">
+            <div class="row__title">Дата выхода</div>
+            <div class="row__value">{{ movieData.releseDate }}</div>
+          </div>
+          <div class="movie__row">
+            <div class="row__title">Страна</div>
+            <div class="row__value">
+              {{ movieData.country }}
+            </div>
+          </div>
+          <div class="movie__row">
+            <div class="row__title">Жанр</div>
+            <div class="row__value">
+              {{ movieData.genres }}
+            </div>
+          </div>
+          <div class="movie__row">
+            <div class="row__title">Длительность</div>
+            <div class="row__value">{{ movieData.durat }} мин</div>
+          </div>
+          <div class="movie__row">
+            <div class="row__title">Возраст</div>
+            <div class="row__value">
+              {{ movieData.age_restr_id }}
+            </div>
+          </div>
+          <div class="movie__row">
+            <div class="row__title">Актеры</div>
+            <div class="row__value">
+              {{ movieData.actors }}
+            </div>
+          </div>
+          <div class="movie__row">
+            <div class="row__title">Награды</div>
+            <div class="row__value">
+              {{ movieData.awards }}
+            </div>
+          </div>
+          <div class="movie__row">
+            <div class="row__title">Рейтинг</div>
+            <div class="row__value">{{ movieData.rate }}/10</div>
+          </div>
+        </div>
+      </div>
+      <div class="movie__description">
+        <h4 class="description__title">Описание:</h4>
+        <div class="description__value">{{ movieData.decription }}</div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import AppLoader from "@/components/AppLoader";
+
+export default {
+  name: "PageMovie",
+  components: {
+    AppLoader,
+  },
+  data() {
+    return {
+      loading: true,
+      imgError: false,
+      movieData: {},
+    };
+  },
+  created() {
+    this.axios
+      .get(`http://localhost:8081/products/${this.$route.params.id}`)
+      .then((response) => {
+        this.movieData = response.data;
+        this.movieData.genres = this.movieData.genres
+          .map((genre) => genre.name)
+          .join(", ");
+        this.movieData.actors = this.movieData.actors
+          .map((actor) => actor.prof)
+          .join(", ");
+        this.movieData.awards = this.movieData.awards
+          .map((award) => award.name)
+          .join(", ");
+        this.loading = false;
+        document.title = this.movieData.name;
+      })
+      .catch((error) => console.log(error));
+  },
+};
+</script>
+
+<style scoped lang="scss">
+.movie {
+  &__title {
+    margin-bottom: 15px;
+  }
+  &__body {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid black;
+    padding: 10px 0 30px;
+    margin-bottom: 15px;
+  }
+  &__img {
+    width: 300px;
+  }
+  &__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 50%;
+  }
+  &__row {
+    display: flex;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+    padding-bottom: 3px;
+    font-size: 14px;
+  }
+  .row {
+    &__title {
+      width: 250px;
+      color: rgba(0, 0, 0, 0.5);
+    }
+  }
+  .description__title {
+    margin-bottom: 5px;
+  }
+  .description__value {
+    font-size: 20px;
+    padding: 5px;
+  }
+}
+</style>

@@ -6,6 +6,7 @@ import PageLibrary from "@/views/PageLibrary";
 import PageOrders from "@/views/PageOrders";
 import PageAdminCatalog from "@/views/PageAdminCatalog";
 import PageAdminUsers from "@/views/PageAdminUsers";
+import PageMovie from "@/views/PageMovie";
 
 Vue.use(VueRouter);
 
@@ -39,6 +40,11 @@ const routes = [
     path: "/users",
     name: "Users Management",
     component: PageAdminUsers,
+  },
+  {
+    path: "/movies/:id",
+    name: "Movie Page",
+    component: PageMovie,
   },
 ];
 

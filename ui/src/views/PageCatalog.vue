@@ -8,7 +8,11 @@
       <div v-else-if="!moviesList" class="empty">
         Каталог пуст! Зайдите позже.
       </div>
-      <app-list v-if="moviesList" :items="moviesList" />
+      <app-list
+        v-if="moviesList"
+        :items="moviesList"
+        @openItemPage="openMoviePage"
+      />
     </div>
   </div>
 </template>
@@ -41,6 +45,12 @@ export default {
         console.log(error);
         this.moviesList = 0;
       });
+  },
+  methods: {
+    openMoviePage(id) {
+      console.log(id);
+      this.$router.push({ path: `movies/${id}` });
+    },
   },
 };
 </script>

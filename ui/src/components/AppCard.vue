@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card" @click="$emit('openCardPage', cardData.id)">
     <h3 class="card__header">{{ cardData.name }}</h3>
     <div class="card__body">
       <img

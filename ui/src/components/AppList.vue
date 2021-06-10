@@ -2,7 +2,10 @@
   <div>
     <ul class="list">
       <li v-for="(item, index) in items" :key="index" class="list__item">
-        <app-card :card-data="item" />
+        <app-card
+          :card-data="item"
+          @openCardPage="$emit('openItemPage', item.id)"
+        />
       </li>
     </ul>
   </div>
