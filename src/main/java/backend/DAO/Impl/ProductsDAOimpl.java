@@ -26,7 +26,7 @@ public class ProductsDAOimpl extends AbstractDAO<ProductsData>
         for (ProductsData item: list) {
             currID = item.getId();
             item.setGenres(new ArrayList<GenreData>());
-            item.setActors(new ArrayList<ProdByData>());
+            item.setActors(new ArrayList<Actors>());
             item.setAwards(new ArrayList<Awards>());
             //--------------------------Жанры--------------------------
                 Query<ProductsGenresData> query  = session.createQuery("from ProductsGenresData o where o.prod.id = :currID");
@@ -51,7 +51,7 @@ public class ProductsDAOimpl extends AbstractDAO<ProductsData>
                 query3.setParameter("currID", currID);
                 List<ProdByData> arr3 = query3.list();
                 for (ProdByData prod: arr3) {
-                    item.addActor(prod);
+                    item.addActor(prod.getProfObj());
                 }
             //--------------------------Актёры-------------------------
         }
@@ -80,9 +80,8 @@ public class ProductsDAOimpl extends AbstractDAO<ProductsData>
 
             }
         if( film.getActors() != null )
-            for (ProdByData item : film.getActors()) {
-                item.setProd(film.getId());
-                session.save(item);
+            for (Actors item : film.getActors()) {
+                session.save(new ProdByData(item, film));
             }
 
     }
@@ -98,7 +97,7 @@ public class ProductsDAOimpl extends AbstractDAO<ProductsData>
 
         String currID = prod.getId();
         prod.setGenres(new ArrayList<GenreData>());
-        prod.setActors(new ArrayList<ProdByData>());
+        prod.setActors(new ArrayList<Actors>());
         prod.setAwards(new ArrayList<Awards>());
         //--------------------------Жанры--------------------------
         Query<ProductsGenresData> query  = session.createQuery("from ProductsGenresData o where o.prod.id = :currID");
@@ -121,7 +120,7 @@ public class ProductsDAOimpl extends AbstractDAO<ProductsData>
         query3.setParameter("currID", currID);
         List<ProdByData> arr3 = query3.list();
         for (ProdByData actr: arr3) {
-            prod.addActor(actr);
+            prod.addActor(actr.getProfObj());
         }
         //--------------------------Актёры-------------------------
 

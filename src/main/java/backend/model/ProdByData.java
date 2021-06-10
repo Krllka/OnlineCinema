@@ -17,9 +17,19 @@ public class ProdByData extends AbstractEntity{
     @JoinColumn(name = "Products_ID", foreignKey = @ForeignKey(name = "fk_Prod.By_Products1_idx"))
     private ProductsData prod;
 
+    public  ProdByData(){}
+    public  ProdByData(String str){super(str);}
+    public  ProdByData(Actors prof, ProductsData prod){
+        this.prod = prod;
+        this.prof = prof;
+    }
 
     public String getProf() {
         return prof.getName();
+    }
+    @JsonIgnore
+    public Actors getProfObj() {
+        return prof;
     }
 
     public void setProf(Actors prof) {
