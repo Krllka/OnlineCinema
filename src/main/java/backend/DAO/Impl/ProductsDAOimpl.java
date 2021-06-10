@@ -94,6 +94,8 @@ public class ProductsDAOimpl extends AbstractDAO<ProductsData>
         if(prod == null) return null;
         prod.setGenres(new ArrayList<GenreData>());
 
+
+
         String currID = prod.getId();
         prod.setGenres(new ArrayList<GenreData>());
         prod.setActors(new ArrayList<ProdByData>());

@@ -3,6 +3,7 @@ package backend.DAO.Impl;
 import backend.DAO.Intrfaces.LibraryDAO;
 import backend.model.Library;
 import backend.model.ProductsData;
+import backend.model.ProductsGenresData;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,19 @@ public class LibraryDAOimpl extends AbstractDAO<Library>
     public void add(Library film) {
         Session session = sessionFactory.getCurrentSession();
         film.setPurchased(false);
+
+        String currID = film.getProductObj().getId();
+        Query<Library> query  = session.createQuery("from Library o where o.product.id = :currID");
+        query.setParameter("currID", currID);
+        List<Library> list = query.list();
+        for (Library item: list) {
+            if(item.equals(film)) {
+                System.out.println("-----------------");
+                System.out.println(item.equals(film));
+                System.out.println("-----------------");
+                return;
+            }
+        }
         session.save(film);
     }
 

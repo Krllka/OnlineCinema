@@ -1,5 +1,6 @@
 package backend.model;
 import backend.View.Views;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.*;
@@ -22,10 +23,15 @@ public class Library extends AbstractEntity{
     @Column(name = "purchased")
     private Boolean purchased;
 
+    public boolean equals(Library lib){
+        return  this.product.getId().equals(lib.getProductObj().getId())
+                & this.client.getId().equals(lib.getClientObj().getId());
+    }
+
     public String getClient() {
         return client.getName();
     }
-
+    @JsonIgnore
     public AccountData getClientObj() {
         return client;
     }
@@ -39,7 +45,7 @@ public class Library extends AbstractEntity{
     public String getProduct() {
         return product.getName();
     }
-
+    @JsonIgnore
     public ProductsData getProductObj() {
         return product;
     }
