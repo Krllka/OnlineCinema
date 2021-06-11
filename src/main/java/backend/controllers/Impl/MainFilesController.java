@@ -49,7 +49,7 @@ public class MainFilesController extends AbstractController<MainFileData, MainFi
 
         if(file != null){
 
-            File uploadDir = new File(AbstractControllerIntrface.class.getResource("").getPath()+"/Uploads");
+            File uploadDir = new File(upDir);
             if(!uploadDir.exists())
                 System.out.println(uploadDir.mkdir());;
 
