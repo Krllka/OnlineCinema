@@ -69,10 +69,17 @@
       <div class="movie__trailer">
         <video
           v-if="!trailerError"
-          :src="`http://localhost:8080/products/files/${movieData.trailer}`"
+          controls
+          width="640"
+          height="480"
           @error="trailerError = !trailerError"
-        ></video>
-        <div class="message">Трейлера, к сожалению, нет :(</div>
+        >
+          <source
+            :src="`http://localhost:8080/products/files/${movieData.trailer}`"
+            type="video/mp4"
+          />
+        </video>
+        <div v-else class="message">Трейлера, к сожалению, нет :(</div>
       </div>
     </div>
   </div>
