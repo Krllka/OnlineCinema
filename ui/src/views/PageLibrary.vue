@@ -22,6 +22,7 @@
             @openItemPage="openMoviePage"
           />
         </div>
+        <div v-else class="empty">Вы еще не приобрели ни одного фильма.</div>
       </div>
     </div>
     <div v-else class="message">

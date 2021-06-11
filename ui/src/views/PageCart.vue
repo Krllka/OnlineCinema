@@ -113,7 +113,7 @@ export default {
         .then((response) => {
           console.log(response);
           let movieIndex = this.moviesInCart.findIndex(
-            (item) => item.name === movie.name
+            (item) => item.id === movie.id
           );
           this.moviesInCart.splice(movieIndex, 1);
         })

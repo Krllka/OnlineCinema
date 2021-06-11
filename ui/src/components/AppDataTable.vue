@@ -9,7 +9,7 @@
         >
           {{ header.value }}
         </th>
-        <th class="table__header"></th>
+        <th v-if="canDeleteItems" class="table__header"></th>
       </tr>
     </thead>
     <tbody class="table__body">
@@ -30,6 +30,7 @@
             </slot>
           </td>
           <td
+            v-if="canDeleteItems"
             class="table__cell delete"
             id="delete"
             @click.stop="$emit('deleteItem', item)"
@@ -64,6 +65,10 @@ export default {
     filter: {
       type: String,
       default: "",
+    },
+    canDeleteItems: {
+      type: Boolean,
+      default: true,
     },
   },
   computed: {
