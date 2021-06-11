@@ -2,7 +2,9 @@ package backend.DAO.Impl;
 
 import backend.DAO.Intrfaces.MainFilesDAO;
 import backend.model.MainFileData;
+import backend.model.ProductsInOrder;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
@@ -24,6 +26,8 @@ public class MainFilesDAOimpl extends AbstractDAO<MainFileData>
     @Override
     public MainFileData getById(String id) {
         Session session = sessionFactory.getCurrentSession();
-        return session.get(MainFileData.class ,id);
+        Query<MainFileData> query  = session.createQuery("from MainFileData o where o.prod_id = :currID");
+        query.setParameter("currID", id);
+        return query.getSingleResult();
     }
 }

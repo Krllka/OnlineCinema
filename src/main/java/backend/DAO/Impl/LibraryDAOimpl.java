@@ -57,7 +57,7 @@ public class LibraryDAOimpl extends AbstractDAO<Library>
         query.setParameter("client", login);
 
         List<Library> ord = query.list();
-        List<ProductsData> prods = new ArrayList<>();
+
         for (Library item: ord) {
             if(item.getProduct().equals(prod))
                 session.delete(item);

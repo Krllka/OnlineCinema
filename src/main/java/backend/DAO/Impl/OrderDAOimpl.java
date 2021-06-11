@@ -76,7 +76,7 @@ public class OrderDAOimpl extends AbstractDAO<Order>
         Order order = new Order();
         order.setDate(new Date(System.currentTimeMillis()));
         order.setClient(id);
-        order.setStatus(String.valueOf(1));
+        order.setStatus(String.valueOf(2));
         ProductsInOrder purchase = new ProductsInOrder();
         double total = 0;
         Query<Library> query  = session.createQuery("from Library o where o.client.id = :id");

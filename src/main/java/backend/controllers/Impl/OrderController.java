@@ -1,6 +1,8 @@
 package backend.controllers.Impl;
 
 import backend.model.Order;
+import backend.model.ProductsData;
+import backend.response.Response;
 import backend.services.Impl.OrderServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +25,7 @@ public class OrderController extends  AbstractController<Order, OrderServiceImpl
     }
 
     @PostMapping("/{id}")
-    public String generateOrder(@PathVariable("id") String inputAcc ) {
+    public String generateOrder(@PathVariable("id") String inputAcc) {
 
             Service.add(inputAcc);
             return "Успешно";
