@@ -26,6 +26,24 @@ public class MainFilesController extends AbstractController<MainFileData, MainFi
     String upDir;
 
 
+    @RequestMapping("/get/{id}")
+    public void read(@PathVariable("id") String id, HttpServletResponse response) {
+        Path file = Paths.get(upDir, Service.getById(id).getFilePath()) ;
+
+        if (Files.exists(file)){
+
+            response.setContentType("multipart/form-data");
+
+            try {
+                Files.copy(file,  response.getOutputStream());
+                response.getOutputStream().flush();
+            } catch (IOException e) {
+
+            }
+        }
+
+    }
+
     @RequestMapping(value = "/files/{file_name:.+}", method = RequestMethod.GET)
     public void getFile(@PathVariable("file_name") String fileName, HttpServletResponse response) throws IOException {
 
@@ -49,7 +67,7 @@ public class MainFilesController extends AbstractController<MainFileData, MainFi
 
         if(file != null){
 
-            File uploadDir = new File(upDir);
+            File uploadDir = new File(AbstractControllerIntrface.class.getResource("").getPath()+"/Uploads");
             if(!uploadDir.exists())
                 System.out.println(uploadDir.mkdir());;
 
