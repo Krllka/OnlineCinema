@@ -67,8 +67,22 @@ public class OrderDAOimpl extends AbstractDAO<Order>
         Session session = sessionFactory.getCurrentSession();
         Query<Order> query = session.createQuery("FROM Order o where o.client.name = :client");
         query.setParameter("client", client);
-        List<Order> ord = query.list();
-        return ord;
+        List<Order> list = query.list();
+        String currID;
+        for (Order item: list) {
+            currID = item.getId();
+            item.setProds(new ArrayList<ProductsData>());
+
+
+            Query<ProductsInOrder> query1  = session.createQuery("from ProductsInOrder o where o.order.id = :currID");
+            query.setParameter("currID", currID);
+            List<ProductsInOrder> arr = query1.list();
+            for (ProductsInOrder prod: arr) {
+                item.addProds(prod.getProductObj());
+            }
+
+        }
+        return list;
     }
 
     public void add(String id) {
