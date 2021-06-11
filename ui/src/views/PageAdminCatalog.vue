@@ -33,6 +33,7 @@
             <app-movie-form
               @addMovie="addMovie"
               @updateMovie="updateMovie"
+              @submitFile="submitFile"
               :edit-mode="editMode"
               :edit-movie-data="movieData"
             />
@@ -186,6 +187,16 @@ export default {
           );
           this.moviesList.splice(movieIndex, 1);
         })
+        .catch((error) => console.log(error));
+    },
+    submitFile(file) {
+      const formData = new FormData();
+      formData.append("file", file);
+      this.axios
+        .post("http://localhost:8081/products/add", formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        })
+        .then((response) => console.log(response))
         .catch((error) => console.log(error));
     },
   },

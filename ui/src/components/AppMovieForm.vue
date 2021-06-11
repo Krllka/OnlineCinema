@@ -63,7 +63,7 @@
             <p class="title">Актеры:</p>
             <v-select
               multiple
-              label="prof"
+              label="name"
               :options="actors"
               class="select"
               v-model="movieData.actors"
@@ -160,7 +160,7 @@ export default {
   created() {
     const ratingsURL = this.axios.get("http://localhost:8081/age_restriction");
     const genresURL = this.axios.get("http://localhost:8081/genre");
-    const actorsURL = this.axios.get("http://localhost:8081/prodBy");
+    const actorsURL = this.axios.get("http://localhost:8081/actors");
     this.axios
       .all([ratingsURL, genresURL, actorsURL])
       .then(
@@ -168,6 +168,7 @@ export default {
           this.ratings = ratingsRes.data;
           this.genres = genresRes.data;
           this.actors = actorsRes.data;
+          this.actors.forEach((actor) => (actor.prof = actor.prof.id));
           this.loading = false;
         })
       )
@@ -195,25 +196,15 @@ export default {
     addFilePoster(event) {
       this.filePoster = event.target.files[0];
       this.movieData.poster = this.filePoster.name;
-      this.submitFile(this.filePoster);
+      this.$emit("submitFile", this.filePoster);
     },
     addFileTrailer(event) {
       this.fileTrailer = event.target.files[0];
       this.movieData.trailer = this.fileTrailer.name;
-      this.submitFile(this.fileTrailer);
+      this.$emit("submitFile", this.fileTrailer);
     },
     addFileMovie(event) {
       this.fileMovie = event.target.files[0];
-    },
-    submitFile(file) {
-      const formData = new FormData();
-      formData.append("file", file);
-      this.axios
-        .post("http://localhost:8081/products/add", formData, {
-          headers: { "Content-Type": "multipart/form-data" },
-        })
-        .then((response) => console.log(response))
-        .catch((error) => console.log(error));
     },
     addMovie() {
       this.$emit("addMovie", this.movieData);
