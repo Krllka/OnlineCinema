@@ -66,6 +66,14 @@
         <h4 class="description__title">Описание:</h4>
         <div class="description__value">{{ movieData.decription }}</div>
       </div>
+      <div class="movie__trailer">
+        <video
+          v-if="!trailerError"
+          :src="`http://localhost:8080/products/files/${movieData.trailer}`"
+          @error="trailerError = !trailerError"
+        ></video>
+        <div class="message">Трейлера, к сожалению, нет :(</div>
+      </div>
     </div>
   </div>
 </template>
@@ -82,6 +90,7 @@ export default {
     return {
       loading: true,
       imgError: false,
+      trailerError: false,
       movieData: {},
     };
   },
@@ -121,6 +130,20 @@ export default {
   }
   &__img {
     width: 300px;
+  }
+  &__trailer {
+    video {
+      display: block;
+      max-height: 300px;
+      width: auto;
+      margin: 20px auto;
+    }
+  }
+  .message {
+    text-align: center;
+    margin: 25px auto;
+    font-size: 20px;
+    font-weight: 700;
   }
   &__info {
     display: flex;
