@@ -94,7 +94,7 @@ export default {
           .map((genre) => genre.name)
           .join(", ");
         this.movieData.actors = this.movieData.actors
-          .map((actor) => actor.prof)
+          .map((actor) => actor.name)
           .join(", ");
         this.movieData.awards = this.movieData.awards
           .map((award) => award.name)
