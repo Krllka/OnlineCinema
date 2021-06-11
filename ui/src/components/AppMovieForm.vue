@@ -195,13 +195,25 @@ export default {
     addFilePoster(event) {
       this.filePoster = event.target.files[0];
       this.movieData.poster = this.filePoster.name;
+      this.submitFile(this.filePoster);
     },
     addFileTrailer(event) {
       this.fileTrailer = event.target.files[0];
-      this.movieData.trailer = this.filePoster.name;
+      this.movieData.trailer = this.fileTrailer.name;
+      this.submitFile(this.fileTrailer);
     },
     addFileMovie(event) {
       this.fileMovie = event.target.files[0];
+    },
+    submitFile(file) {
+      const formData = new FormData();
+      formData.append("file", file);
+      this.axios
+        .post("http://localhost:8081/products/add", formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        })
+        .then((response) => console.log(response))
+        .catch((error) => console.log(error));
     },
     addMovie() {
       this.$emit("addMovie", this.movieData);
