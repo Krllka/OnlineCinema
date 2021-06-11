@@ -24,7 +24,7 @@ public class ProductsController extends AbstractController<ProductsData, Product
         super(Service);
     }
     @Value("${upload.path}")
-    String upDir;
+    String upDir = "";
 
 
     @RequestMapping(value = "/files/{file_name:.+}", method = RequestMethod.GET)
@@ -48,12 +48,13 @@ public class ProductsController extends AbstractController<ProductsData, Product
     public String upLoadFile(@RequestParam("file") MultipartFile file) throws IOException {
 
         if(file != null){
-
             File uploadDir = new File(upDir);
             if(!uploadDir.exists())
-                System.out.println(uploadDir.mkdir());;
+                uploadDir.mkdir();
 
 
+
+            System.out.println(uploadDir.exists());
             String resultFilename =  file.getOriginalFilename();
             file.transferTo(new File(upDir +"/" + resultFilename));
 
