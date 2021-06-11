@@ -1,7 +1,28 @@
 <template>
   <div class="container">
     <div v-if="isAuthorized">
-      <h2 class="header">Мои фильмы:</h2>
+      <app-loader v-if="loading" :animation="'rectangle'" />
+      <div v-else>
+        <div v-if="renderLibraryMovies.length">
+          <div class="library">
+            <h2 class="header">Мои фильмы:</h2>
+            <input
+              type="search"
+              class="input search"
+              placeholder="Поиск фильмов..."
+              v-model="search"
+            />
+          </div>
+          <app-list
+            v-if="renderLibraryMovies.length"
+            :items="renderLibraryMovies"
+            :filter="search"
+            :is-item-in-library="true"
+            :is-authorized="isAuthorized"
+            @openItemPage="openMoviePage"
+          />
+        </div>
+      </div>
     </div>
     <div v-else class="message">
       <router-link to="/profile" class="link">Авторизируйтесь</router-link>,
@@ -11,16 +32,55 @@
 </template>
 
 <script>
+import AppLoader from "@/components/AppLoader";
+import AppList from "@/components/AppList";
+
 export default {
   name: "PageLibrary",
+  components: {
+    AppList,
+    AppLoader,
+  },
   props: {
     isAuthorized: {
       type: Boolean,
       default: false,
     },
+    userData: {
+      type: Object,
+      default: () => {},
+    },
+  },
+  data() {
+    return {
+      loading: true,
+      search: "",
+      moviesInLibrary: [],
+    };
   },
   created() {
     document.title = "Библиотека";
+    this.axios
+      .get(`http://localhost:8081/library/movies/${this.userData.name}`)
+      .then((response) => {
+        this.moviesInLibrary = response.data;
+        this.loading = false;
+      })
+      .catch((error) => {
+        console.log(error);
+        this.loading = false;
+      });
+  },
+  computed: {
+    renderLibraryMovies() {
+      return this.moviesInLibrary;
+    },
+  },
+  methods: {
+    openMoviePage(id) {
+      console.log(id);
+      this.$router.push({ path: `movies/${id}` });
+    },
   },
 };
 </script>
@@ -28,6 +88,20 @@ export default {
 <style scoped lang="scss">
 .header {
   font-size: 20px;
+}
+
+.library {
+  margin-bottom: 30px;
+}
+
+.header {
+  margin-bottom: 15px;
+}
+
+.empty {
+  margin-top: 40vh;
+  font-size: 32px;
+  text-align: center;
 }
 
 .message {

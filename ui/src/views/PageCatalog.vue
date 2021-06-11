@@ -17,6 +17,7 @@
       <app-list
         v-if="moviesList"
         :items="moviesList"
+        :library-items="userLibrary"
         :filter="search"
         :isAuthorized="isAuthorized"
         @openItemPage="openMoviePage"
@@ -49,22 +50,33 @@ export default {
   data() {
     return {
       moviesList: [],
+      userLibrary: [],
       search: "",
       loading: true,
     };
   },
   created() {
     document.title = "Каталог";
+    const getCatalog = this.axios.get("http://localhost:8081/products");
+    const getLibrary = this.axios.get(
+      `http://localhost:8081/library/movies/${this.userData.name}`
+    );
+
     this.axios
-      .get("http://localhost:8081/products")
-      .then((response) => {
-        this.moviesList = response.data;
-        this.moviesList.forEach(
-          (movie) =>
-            (movie.genres = movie.genres.map((genre) => genre.name).join(", "))
-        );
-        this.loading = false;
-      })
+      .all([getCatalog, getLibrary])
+      .then(
+        this.axios.spread((resCatalog, resLibrary) => {
+          this.moviesList = resCatalog.data;
+          this.userLibrary = resLibrary.data;
+          this.moviesList.forEach(
+            (movie) =>
+              (movie.genres = movie.genres
+                .map((genre) => genre.name)
+                .join(", "))
+          );
+          this.loading = false;
+        })
+      )
       .catch((error) => {
         console.log(error);
         this.moviesList = 0;

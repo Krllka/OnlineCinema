@@ -3,8 +3,10 @@
     <div class="head">
       <h3 class="card__header">{{ cardData.name }}</h3>
       <button
-        v-if="isAuthorized"
-        @click.stop="$emit('addToCart', cardData.id)"
+        v-if="
+          isAuthorized && !isAddedToCart && !isInLibrary && !isCardInLibrary
+        "
+        @click.stop="addToCart"
         class="button"
       >
         В корзину
@@ -62,7 +64,15 @@ export default {
       type: Object,
       default: () => {},
     },
+    libraryItems: {
+      type: Array,
+      default: () => [],
+    },
     isAuthorized: {
+      type: Boolean,
+      default: false,
+    },
+    isCardInLibrary: {
       type: Boolean,
       default: false,
     },
@@ -70,7 +80,23 @@ export default {
   data() {
     return {
       imgError: false,
+      isAddedToCart: false,
     };
+  },
+  methods: {
+    addToCart() {
+      this.isAddedToCart = true;
+      this.$emit("addToCart", this.cardData.id);
+    },
+  },
+  computed: {
+    isInLibrary() {
+      const res = this.libraryItems.find(
+        (item) => item.id === this.cardData.id
+      );
+      console.log(res);
+      return !!res;
+    },
   },
 };
 </script>

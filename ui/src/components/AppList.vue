@@ -8,6 +8,8 @@
       >
         <app-card
           :card-data="item"
+          :library-items="libraryItems"
+          :is-card-in-library="isItemInLibrary"
           :isAuthorized="isAuthorized"
           @openCardPage="$emit('openItemPage', item.id)"
           @addToCart="$emit('addToCart', item.id)"
@@ -29,6 +31,14 @@ export default {
     items: {
       type: Array,
       default: () => [],
+    },
+    libraryItems: {
+      type: Array,
+      default: () => [],
+    },
+    isItemInLibrary: {
+      type: Boolean,
+      default: false,
     },
     filter: {
       type: String,
