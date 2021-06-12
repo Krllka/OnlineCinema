@@ -1,5 +1,7 @@
 package backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -14,7 +16,7 @@ public class RoomData extends AbstractEntity{
     @ManyToOne
     @JoinColumn(name = "Prod_ID", foreignKey = @ForeignKey(name = "Prod_ID") )
     private ProductsData prod;
-
+    @JsonIgnore
     public ProductsData getProdObj() {
         return prod;
     }

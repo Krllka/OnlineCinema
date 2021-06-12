@@ -23,17 +23,6 @@ public class RoomDAO extends AbstractDAO<RoomData>
 
         Session session = super.sessionFactory.getCurrentSession();
         List<RoomData> list = session.createQuery("From RoomData ").list();
-        String currID;
-        for (RoomData item: list) {
-            currID = item.getId();
-
-            //--------------------------Фильмы--------------------------
-            Query<RoomHasProd> query  = session.createQuery("from RoomHasProd o where o.room.id = :currID");
-            query.setParameter("currID", currID);
-            item.setProd(query.getSingleResult().getProdObj());
-            //--------------------------Фильмы--------------------------
-
-        }
         return list;
     }
     @Override
