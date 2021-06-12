@@ -36,6 +36,7 @@
               @submitFile="submitFile"
               :edit-mode="editMode"
               :edit-movie-data="movieData"
+              :ages-data="agesList"
             />
           </template>
         </app-modal-window>
@@ -72,6 +73,7 @@ export default {
       currentMovieId: 0,
       isModalVisible: false,
       moviesList: [],
+      agesList: [],
       movieData: {},
       moviesData: [
         {
@@ -120,12 +122,28 @@ export default {
   },
   methods: {
     getMoviesList() {
+      // this.axios
+      //   .get("http://localhost:8081/products")
+      //   .then((response) => {
+      //     this.moviesList = response.data;
+      //     this.loading = false;
+      //   })
+      //   .catch((error) => {
+      //     console.log(error);
+      //     this.moviesList = 0;
+      //     this.loading = false;
+      //   });
+      const movies = this.axios.get("http://localhost:8081/products");
+      const ages = this.axios.get("http://localhost:8081/age_restriction");
       this.axios
-        .get("http://localhost:8081/products")
-        .then((response) => {
-          this.moviesList = response.data;
-          this.loading = false;
-        })
+        .all([movies, ages])
+        .then(
+          this.axios.spread((moviesRes, agesRes) => {
+            this.moviesList = moviesRes.data;
+            this.agesList = agesRes.data;
+            this.loading = false;
+          })
+        )
         .catch((error) => {
           console.log(error);
           this.moviesList = 0;
@@ -138,6 +156,7 @@ export default {
     closeModalWindow() {
       this.isModalVisible = false;
       this.editMode = false;
+      this.movieData = {};
     },
     addMovie(movieData) {
       console.log(movieData);

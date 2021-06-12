@@ -52,12 +52,23 @@
             v-model="movieData.country"
           />
 
-          <app-select
-            :select-title="'Возрастное ограничение'"
-            :select-options="ratings"
-            v-model="movieData.age_restr_id"
-            @change="selectOption"
-          />
+          <!--          <app-select-->
+          <!--            :select-title="'Возрастное ограничение'"-->
+          <!--            :select-options="ratings"-->
+          <!--            v-model="movieData.age_restr_id"-->
+          <!--            @change="selectOption"-->
+          <!--          />-->
+
+          <div class="select-wrapper">
+            <p class="title">Возрастное ограничение:</p>
+            <v-select
+              label="name"
+              :options="agesData"
+              :reduce="(agesData) => agesData.id"
+              class="select"
+              v-model="movieData.age_restr_id"
+            />
+          </div>
 
           <div class="select-wrapper">
             <p class="title">Актеры:</p>
@@ -109,7 +120,7 @@
 
 <script>
 import AppInput from "@/components/input/AppInput";
-import AppSelect from "@/components/input/AppSelect";
+// import AppSelect from "@/components/input/AppSelect";
 import AppLoader from "@/components/common/AppLoader";
 
 export default {
@@ -117,12 +128,15 @@ export default {
   components: {
     AppLoader,
     AppInput,
-    AppSelect,
   },
   props: {
     editMovieData: {
       type: Object,
       default: () => {},
+    },
+    agesData: {
+      type: Array,
+      default: () => [],
     },
     editMode: {
       type: Boolean,
@@ -156,6 +170,30 @@ export default {
         awards: [],
       },
     };
+  },
+  watch: {
+    editMovieData(movie) {
+      const ageId = this.agesData.find(
+        (item) => item.name === movie.age_restr_id
+      );
+      movie.actors.forEach((actor) => (actor.prof = actor.prof.id));
+      this.movieData.id = movie.id;
+      this.movieData.age_restr_id = ageId.id;
+      this.movieData.name = movie.name;
+      this.movieData.releseDate = movie.releseDate;
+      this.movieData.durat = String(movie.durat);
+      // this.movieData.age_restr_id = movie.age_restr_id;
+      this.movieData.viewsCount = String(movie.viewsCount);
+      this.movieData.trailer = movie.trailer;
+      this.movieData.country = movie.country;
+      this.movieData.decription = movie.decription;
+      this.movieData.poster = movie.poster;
+      this.movieData.price = String(movie.price);
+      this.movieData.rate = String(movie.rate);
+      this.movieData.genres = movie.genres;
+      this.movieData.actors = movie.actors;
+      this.movieData.awards = movie.awards;
+    },
   },
   created() {
     const ratingsURL = this.axios.get("http://localhost:8081/age_restriction");
