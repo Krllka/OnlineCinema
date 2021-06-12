@@ -4,20 +4,20 @@
       <div class="container">
         <router-link to="/">Онлайн-кинотеатр</router-link>
         <nav class="menu">
-          <ul class="menu__list">
+          <ul class="menu__list" :class="{ menu__shrink: !isAuthorized }">
             <li class="menu__item">
               <router-link to="/">Каталог</router-link>
             </li>
-            <li class="menu__item">
+            <li v-if="isAuthorized" class="menu__item">
               <router-link to="/library">Библиотека</router-link>
             </li>
-            <li class="menu__item">
+            <li v-if="isAuthorized" class="menu__item">
               <router-link to="/orders">Заказы</router-link>
             </li>
-            <li class="menu__item">
+            <li v-if="isAuthorized" class="menu__item">
               <router-link to="/cart">Корзина</router-link>
             </li>
-            <li class="menu__item">
+            <li v-if="isAuthorized" class="menu__item">
               <router-link to="/rooms">Комнаты</router-link>
             </li>
             <li class="menu__item">
@@ -62,6 +62,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    isAuthorized: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
     closeAdminPanel() {
@@ -97,8 +101,8 @@ export default {
       justify-content: space-between;
       width: 35vw;
     }
-    .extend {
-      width: 35vw;
+    &__shrink {
+      width: 13vw;
     }
     &__item a {
       font-size: 17px;

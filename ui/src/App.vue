@@ -3,6 +3,7 @@
     <the-header
       :isAdmin="isAdmin"
       :isAdminPanel="isAdminPanel"
+      :isAuthorized="isAuthorized"
       @hideAdminPanel="isAdminPanel = false"
     ></the-header>
     <router-view
