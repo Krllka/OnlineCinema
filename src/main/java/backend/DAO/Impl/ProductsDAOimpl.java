@@ -130,6 +130,15 @@ public class ProductsDAOimpl extends AbstractDAO<ProductsData>
     @Override
     public void edit(ProductsData film) {
         Session session = sessionFactory.getCurrentSession();
+        Query qu = session.createSQLQuery("DELETE  FROM products_has_genre WHERE Products_ID = :id" );
+        qu.setParameter("id", Integer.valueOf(film.getId()));
+        qu.executeUpdate();
+        qu =  session.createSQLQuery("DELETE  FROM products_has_awards  WHERE Products_ID = :id" );
+        qu.setParameter("id", Integer.valueOf(film.getId()));
+        qu.executeUpdate();
+        qu = session.createSQLQuery("DELETE  FROM prod_by WHERE Products_ID = :id" );
+        qu.setParameter("id", Integer.valueOf(film.getId()));
+        qu.executeUpdate();
         if( film.getGenres() != null )
             for (GenreData item : film.getGenres()) {
 
