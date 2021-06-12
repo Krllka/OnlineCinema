@@ -5,9 +5,11 @@
       v-if="inputType !== 'file'"
       :type="inputType"
       :disabled="inputDisabled"
-      @input="$emit('input', $event.target.value)"
+      @input="inputHandler"
       :class="{ input: inputType !== 'file', 'w-100': isWidthParent }"
       :value="value"
+      :min="inputMinValue"
+      :max="inputMaxValue"
     />
   </div>
 </template>
@@ -24,6 +26,12 @@ export default {
       type: String,
       default: "",
     },
+    inputMinValue: {
+      type: Number,
+    },
+    inputMaxValue: {
+      type: Number,
+    },
     inputDisabled: {
       type: Boolean,
       default: false,
@@ -35,6 +43,20 @@ export default {
     isWidthParent: {
       type: Boolean,
       default: false,
+    },
+  },
+  methods: {
+    inputHandler(event) {
+      if (event.target.value > this.inputMaxValue) {
+        event.target.value = 10;
+      }
+      if (event.target.value < this.inputMinValue) {
+        event.target.value = "";
+      }
+      if (event.target.value.length > 0 && event.target.value[0] === "0") {
+        event.target.value = 0;
+      }
+      this.$emit("input", event.target.value);
     },
   },
 };

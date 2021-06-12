@@ -43,6 +43,8 @@
           <app-input
             :input-title="'Рейтинг'"
             :input-type="'number'"
+            :input-min-value="0"
+            :input-max-value="10"
             v-model="movieData.rate"
           />
 

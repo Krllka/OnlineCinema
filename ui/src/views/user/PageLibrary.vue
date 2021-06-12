@@ -66,10 +66,10 @@ export default {
       .then((response) => {
         this.moviesInLibrary = response.data;
         this.loading = false;
-        // this.moviesInLibrary.forEach(
-        //   (movie) =>
-        //     (movie.genres = movie.genres.map((genre) => genre.name).join(", "))
-        // );
+        this.moviesInLibrary.forEach(
+          (movie) =>
+            (movie.genres = movie.genres.map((genre) => genre.name).join(", "))
+        );
       })
       .catch((error) => {
         console.log(error);
