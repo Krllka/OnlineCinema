@@ -6,6 +6,7 @@
         <div v-if="moviesList.length" class="rooms">
           <h2 class="header">Мои комнаты:</h2>
           <button class="button" @click="createRoom">Создать комнату</button>
+          <app-room-list :rooms-list="roomsList" :movies-list="moviesList" />
           <app-modal-window
             v-if="isModalVisible"
             @closeModalWindow="closeModalWindow"
@@ -49,6 +50,7 @@ import AppLoader from "@/components/common/AppLoader";
 import AppModalWindow from "@/components/modal/AppModalWindow";
 import AppInput from "@/components/input/AppInput";
 import AppSelect from "@/components/input/AppSelect";
+import AppRoomList from "@/components/common/AppRoomsList";
 
 export default {
   name: "PageRooms",
@@ -57,6 +59,7 @@ export default {
     AppInput,
     AppLoader,
     AppModalWindow,
+    AppRoomList,
   },
   props: {
     isAuthorized: {

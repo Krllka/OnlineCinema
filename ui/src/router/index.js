@@ -9,6 +9,7 @@ import PageAdminUsers from "@/views/admin/PageAdminUsers";
 import PageMovie from "@/views/catalog/PageMovie";
 import PageCart from "@/views/orders/PageCart";
 import PageRooms from "@/views/rooms/PageRooms";
+import PageRoom from "@/views/rooms/PageRoom";
 
 Vue.use(VueRouter);
 
@@ -42,6 +43,11 @@ const routes = [
     path: "/rooms",
     name: "Rooms",
     component: PageRooms,
+  },
+  {
+    path: "/room/:id",
+    name: "Room",
+    component: PageRoom,
   },
   {
     path: "/catalog-admin",
