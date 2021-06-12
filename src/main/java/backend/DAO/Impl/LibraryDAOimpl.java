@@ -1,9 +1,7 @@
 package backend.DAO.Impl;
 
 import backend.DAO.Intrfaces.LibraryDAO;
-import backend.model.Library;
-import backend.model.ProductsData;
-import backend.model.ProductsGenresData;
+import backend.model.*;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,10 +72,52 @@ public class LibraryDAOimpl extends AbstractDAO<Library>
         List<ProductsData> prods = new ArrayList<>();
         for (Library item: ord) {
             if(item.getPurchased() & !basket)
-                prods.add(item.getProductObj());
+                prods.add(getProdById(item.getProductObj().getId()));
             if(!item.getPurchased() & basket)
-                prods.add(item.getProductObj());
+                prods.add(getProdById(item.getProductObj().getId()));
         }
         return prods;
     }
+
+    //----------------------
+    public ProductsData getProdById(String id) {
+        Session session = sessionFactory.getCurrentSession();
+        ProductsData prod = session.get(ProductsData.class ,id);
+        if(prod == null) return null;
+        prod.setGenres(new ArrayList<GenreData>());
+
+
+
+        String currID = prod.getId();
+        prod.setGenres(new ArrayList<GenreData>());
+        prod.setActors(new ArrayList<Actors>());
+        prod.setAwards(new ArrayList<Awards>());
+        //--------------------------Жанры--------------------------
+        Query<ProductsGenresData> query  = session.createQuery("from ProductsGenresData o where o.prod.id = :currID");
+        query.setParameter("currID", currID);
+        List<ProductsGenresData> arr = query.list();
+        for (ProductsGenresData genres: arr) {
+            prod.addGenre(genres.getGenre());
+        }
+        //--------------------------Жанры--------------------------
+        //--------------------------Награды------------------------
+        Query<Prod_Awards> query2  = session.createQuery("from Prod_Awards o where o.prod.id = :currID");
+        query2.setParameter("currID", currID);
+        List<Prod_Awards> arr2 = query2.list();
+        for (Prod_Awards aw: arr2) {
+            prod.addAward(aw.getAward());
+        }
+        //--------------------------Награды------------------------
+        //--------------------------Актёры-------------------------
+        Query<ProdByData> query3 = session.createQuery("from ProdByData o where o.prod.id = :currID");
+        query3.setParameter("currID", currID);
+        List<ProdByData> arr3 = query3.list();
+        for (ProdByData actr: arr3) {
+            prod.addActor(actr.getProfObj());
+        }
+        //--------------------------Актёры-------------------------
+
+        return prod;
+    }
+
 }
