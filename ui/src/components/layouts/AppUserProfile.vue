@@ -32,7 +32,9 @@
         <button class="button" @click="$emit('changeUserData')">
           Изменить данные
         </button>
-        <button class="button">Изменить пароль</button>
+        <button class="button" @click="$emit('changeUserPassword')">
+          Изменить пароль
+        </button>
       </div>
     </div>
   </div>

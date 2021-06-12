@@ -11,11 +11,12 @@
         :userData="getUserInfo"
         @showAdminPanel="$emit('showAdminPanel')"
         @logOut="logOut"
-        @changeUserData="changeUserData"
+        @changeUserData="openChangeUserDataWindow"
+        @changeUserPassword="openChangeUserPasswordWindow"
       />
       <app-modal-window
-        v-if="isModalVisible"
-        @closeModalWindow="closeModalWindow"
+        v-if="isModalVisibleForData"
+        @closeModalWindow="closeModalWindowData"
       >
         <template #title>Личные данные</template>
         <template #body>
@@ -50,6 +51,40 @@
           <div class="btn-group">
             <button class="button" @click="clearInput">Сброс</button>
             <button class="button" @click="submitUserData">Сохранить</button>
+          </div>
+        </template>
+      </app-modal-window>
+      <app-modal-window
+        v-if="isModalVisibleForPass"
+        @closeModalWindow="closeModalWindowPass"
+      >
+        <template #title>Смена пароля</template>
+        <template #body>
+          <app-input
+            :input-type="'password'"
+            :input-title="'Введите текущий пароль'"
+            :is-width-parent="true"
+            v-model="oldPassword"
+          />
+          <app-input
+            :input-type="'password'"
+            :input-title="'Введите новый пароль'"
+            :is-width-parent="true"
+            v-model="newPassword"
+          />
+          <app-input
+            :input-type="'password'"
+            :input-title="'Подтвердите новый пароль'"
+            :is-width-parent="true"
+            v-model="confirmedPassword"
+          />
+          <div class="btn-group">
+            <button @click="submitUserPassword" class="button">
+              Сохранить
+            </button>
+            <div v-if="passwordError" class="error">
+              Ошибка! Данные не совпадают
+            </div>
           </div>
         </template>
       </app-modal-window>
@@ -89,7 +124,12 @@ export default {
   },
   data() {
     return {
-      isModalVisible: false,
+      isModalVisibleForData: false,
+      isModalVisibleForPass: false,
+      oldPassword: "",
+      newPassword: "",
+      confirmedPassword: "",
+      passwordError: false,
       userDataEdit: {
         name: "",
         mail: "",
@@ -113,21 +153,34 @@ export default {
     signIn(response) {
       this.$emit("signIn", response);
     },
-    changeUserData() {
-      this.isModalVisible = true;
+    fillUserData() {
       this.userDataEdit.name = this.userData.name;
       this.userDataEdit.mail = this.userData.mail;
       this.userDataEdit.sex = this.userData.Sex.id;
       this.userDataEdit.age = this.userData.age;
       this.userDataEdit.password = this.userData.password;
       this.userDataEdit.admin = this.userData.admin;
+    },
+    openChangeUserDataWindow() {
+      this.isModalVisibleForData = true;
+      this.fillUserData();
       this.axios
         .get("http://localhost:8081/sex")
         .then((response) => (this.genders = response.data))
         .catch((error) => console.log(error));
     },
-    closeModalWindow() {
-      this.isModalVisible = false;
+    openChangeUserPasswordWindow() {
+      this.isModalVisibleForPass = true;
+    },
+    closeModalWindowData() {
+      this.isModalVisibleForData = false;
+    },
+    closeModalWindowPass() {
+      this.isModalVisibleForPass = false;
+      this.oldPassword = "";
+      this.newPassword = "";
+      this.confirmedPassword = "";
+      this.passwordError = false;
     },
     clearInput() {
       this.userDataEdit.age = "";
@@ -143,11 +196,39 @@ export default {
         )
         .then((response) => console.log(response))
         .catch((error) => console.log(error));
-      this.closeModalWindow();
+      this.closeModalWindowData();
       this.axios
         .get(`http://localhost:8081/accounts/${this.userData.id}`)
         .then((response) => this.$emit("updateUserData", response.data))
         .catch((error) => console.log(error));
+    },
+    submitUserPassword() {
+      if (
+        this.oldPassword === this.userData.password &&
+        this.newPassword === this.confirmedPassword
+      ) {
+        this.passwordError = false;
+        this.fillUserData();
+        this.userDataEdit.password = this.newPassword;
+        console.log(this.userDataEdit);
+        this.axios
+          .put(
+            `http://localhost:8081/accounts/${this.userData.id}`,
+            this.userDataEdit
+          )
+          .then((response) => console.log(response))
+          .catch((error) => console.log(error));
+        this.oldPassword = "";
+        this.newPassword = "";
+        this.confirmedPassword = "";
+        this.closeModalWindowPass();
+        this.axios
+          .get(`http://localhost:8081/accounts/${this.userData.id}`)
+          .then((response) => this.$emit("updateUserData", response.data))
+          .catch((error) => console.log(error));
+      } else {
+        this.passwordError = true;
+      }
     },
     logOut() {
       Object.keys(this.userDataEdit).forEach(
@@ -167,6 +248,11 @@ export default {
 
 .select-wrapper {
   margin-bottom: 15px;
+}
+
+.error {
+  font-size: 15px;
+  color: red;
 }
 
 .btn-group {
