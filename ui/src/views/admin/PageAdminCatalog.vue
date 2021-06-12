@@ -122,17 +122,6 @@ export default {
   },
   methods: {
     getMoviesList() {
-      // this.axios
-      //   .get("http://localhost:8081/products")
-      //   .then((response) => {
-      //     this.moviesList = response.data;
-      //     this.loading = false;
-      //   })
-      //   .catch((error) => {
-      //     console.log(error);
-      //     this.moviesList = 0;
-      //     this.loading = false;
-      //   });
       const movies = this.axios.get("http://localhost:8081/products");
       const ages = this.axios.get("http://localhost:8081/age_restriction");
       this.axios
@@ -159,18 +148,20 @@ export default {
       this.movieData = {};
     },
     addMovie(movieData) {
-      console.log(movieData);
       this.axios
         .post("http://localhost:8081/products", movieData)
         .then(() => {
+          movieData.id = +this.moviesList[this.moviesList.length - 1].id + 1;
+          const age = this.agesList.find(
+            (item) => item.id === movieData.age_restr_id
+          );
+          movieData.age_restr_id = age.name;
           this.moviesList.push(movieData);
-          // console.log(this.moviesList);
-          // console.log(movieData);
         })
         .catch((error) => console.log(error));
-      this.getMoviesList();
+      // this.getMoviesList();
       this.closeModalWindow();
-      this.loading = true;
+      // this.loading = true;
     },
     editMovie(id) {
       this.editMode = true;
@@ -181,21 +172,24 @@ export default {
       this.currentMovieId = id;
     },
     updateMovie(movieData) {
-      console.log(movieData);
       this.axios
         .put(`http://localhost:8081/products/${this.currentMovieId}`, movieData)
         .then(() => {
           let movieIndex = this.moviesList.findIndex(
             (movie) => movie.id === this.currentMovieId
           );
+          const age = this.agesList.find(
+            (item) => item.id === movieData.age_restr_id
+          );
+          movieData.age_restr_id = age.name;
           this.moviesList.splice(movieIndex, 1, movieData);
         })
-        .catch((error) => console.log(error));
-      this.getMoviesList();
-      this.currentMovieId = 0;
+        .catch((error) => console.log(error))
+        .finally(() => (this.currentMovieId = 0));
+      // this.getMoviesList();
       this.editMode = false;
       this.closeModalWindow();
-      this.loading = true;
+      // this.loading = true;
     },
     deleteMovie(movie) {
       this.axios
