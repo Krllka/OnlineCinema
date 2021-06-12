@@ -16,16 +16,22 @@
                 :input-type="'text'"
                 :input-title="'Название комнаты'"
                 :is-width-parent="true"
-                v-model="roomName"
+                v-model="room.name"
+              />
+              <app-input
+                :input-type="'password'"
+                :input-title="'Пароль от комнаты'"
+                :is-width-parent="true"
+                v-model="room.pass"
               />
               <app-select
                 :select-title="'Выберите фильм'"
                 :select-options="moviesList"
                 :is-width-parent="true"
-                v-model="roomMovie"
+                v-model="room.prod"
                 @change="selectOption"
               />
-              <button class="button">Создать</button>
+              <button @click="addRoom" class="button">Создать</button>
             </template>
           </app-modal-window>
         </div>
@@ -66,20 +72,30 @@ export default {
     return {
       loading: true,
       isModalVisible: false,
-      roomName: "",
-      roomMovie: "",
+      room: {
+        name: "",
+        pass: "",
+        prod: "",
+      },
       moviesList: [],
       roomsList: [],
     };
   },
   created() {
     document.title = "Мои комнаты";
+    const movies = this.axios.get(
+      `http://localhost:8081/library/movies/${this.userData.name}`
+    );
+    const rooms = this.axios.get("http://localhost:8081/room");
     this.axios
-      .get(`http://localhost:8081/library/movies/${this.userData.name}`)
-      .then((response) => {
-        this.moviesList = response.data;
-        this.loading = false;
-      })
+      .all([movies, rooms])
+      .then(
+        this.axios.spread((moviesRes, roomsRes) => {
+          this.moviesList = moviesRes.data;
+          this.roomsList = roomsRes.data;
+          this.loading = false;
+        })
+      )
       .catch((error) => {
         console.log(error);
         this.loading = false;
@@ -89,11 +105,34 @@ export default {
     createRoom() {
       this.isModalVisible = true;
     },
+    getRoomsList() {
+      this.axios
+        .get("http://localhost:8081/room")
+        .then((response) => {
+          this.roomsList = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    addRoom() {
+      this.axios
+        .post("http://localhost:8081/room", this.room)
+        .then((response) => {
+          console.log(response);
+          this.getRoomsList();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      this.closeModalWindow();
+    },
     closeModalWindow() {
+      Object.keys(this.room).forEach((prop) => (this.room[prop] = ""));
       this.isModalVisible = false;
     },
     selectOption(value) {
-      this.roomMovie = value;
+      this.room.prod = value;
     },
   },
 };
