@@ -43,6 +43,8 @@
           <app-input
             :input-title="'Рейтинг'"
             :input-type="'number'"
+            :input-min-value="0"
+            :input-max-value="10"
             v-model="movieData.rate"
           />
 
@@ -182,7 +184,6 @@ export default {
       this.movieData.name = movie.name;
       this.movieData.releseDate = movie.releseDate;
       this.movieData.durat = String(movie.durat);
-      // this.movieData.age_restr_id = movie.age_restr_id;
       this.movieData.viewsCount = String(movie.viewsCount);
       this.movieData.trailer = movie.trailer;
       this.movieData.country = movie.country;

@@ -57,6 +57,10 @@ export default {
           value: "Дата покупки",
         },
         {
+          key: "prods",
+          value: "Товары",
+        },
+        {
           key: "price",
           value: "Цена",
         },
@@ -74,14 +78,9 @@ export default {
       .then((response) => {
         this.loading = false;
         this.ordersList = response.data;
-        // console.log(this.ordersList.prods);
-        // this.ordersList.prods = this.ordersList.prods
-        //   .map((item) => item.name)
-        //   .join(", ");
-        // eslint-disable-next-line no-unused-vars
-        // this.ordersList.forEach((order) => {
-        //   order = order.map((item) => item.name).join(", ");
-        // });
+        this.ordersList.forEach((item) => {
+          item.prods = item.prods.map((prod) => prod.name).join(", ");
+        });
       })
       .catch((error) => {
         console.log(error);

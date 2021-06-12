@@ -152,6 +152,9 @@ export default {
   &__title {
     color: rgba(0, 0, 0, 0.5);
   }
+  &__value {
+    font-size: 13px;
+  }
   &__footer {
     display: flex;
     justify-content: space-between;
