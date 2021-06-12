@@ -18,6 +18,9 @@
               <router-link to="/cart">Корзина</router-link>
             </li>
             <li class="menu__item">
+              <router-link to="/rooms">Комнаты</router-link>
+            </li>
+            <li class="menu__item">
               <router-link to="/profile">Мой профиль</router-link>
             </li>
           </ul>
@@ -92,7 +95,7 @@ export default {
     &__list {
       display: flex;
       justify-content: space-between;
-      width: 30vw;
+      width: 35vw;
     }
     .extend {
       width: 35vw;

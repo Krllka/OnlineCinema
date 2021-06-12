@@ -22,7 +22,7 @@
       />
       <img
         v-else
-        src="../assets/images/default-placeholder.png"
+        src="../../assets/images/default-placeholder.png"
         alt="Обложка не найдена"
         class="card__img"
       />

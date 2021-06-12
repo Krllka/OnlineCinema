@@ -3,6 +3,7 @@
     <p class="title">{{ selectTitle }}:</p>
     <select
       class="input"
+      :class="{ 'w-100': isWidthParent }"
       :multiple="multiple"
       @change="$emit('change', $event.target.value)"
     >
@@ -34,6 +35,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    isWidthParent: {
+      type: Boolean,
+      default: false,
+    },
   },
 };
 </script>
@@ -49,5 +54,8 @@ export default {
 .input {
   width: 170px;
   border: 1px solid rgba(60, 60, 60, 0.26);
+}
+.w-100 {
+  width: 100%;
 }
 </style>

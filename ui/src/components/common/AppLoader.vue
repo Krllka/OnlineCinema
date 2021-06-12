@@ -56,7 +56,7 @@ export default {
 }
 .lds-facebook div:nth-child(3) {
   left: 56px;
-  animation-delay: 0;
+  animation-delay: 0s;
 }
 @keyframes lds-facebook {
   0% {
@@ -84,9 +84,9 @@ export default {
   position: absolute;
   width: 13px;
   height: 13px;
-  //margin: 8px;
   margin-top: 2px;
-  border: 2px solid #000;
+  border-width: 2px;
+  border-style: solid;
   border-radius: 50%;
   animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
   border-color: #000 transparent transparent transparent;

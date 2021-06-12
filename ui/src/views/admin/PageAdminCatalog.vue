@@ -45,10 +45,10 @@
 </template>
 
 <script>
-import AppDataTable from "@/components/AppDataTable";
-import AppLoader from "@/components/AppLoader";
-import AppModalWindow from "@/components/AppModalWindow";
-import AppMovieForm from "@/components/AppMovieForm";
+import AppDataTable from "@/components/common/AppDataTable";
+import AppLoader from "@/components/common/AppLoader";
+import AppModalWindow from "@/components/modal/AppModalWindow";
+import AppMovieForm from "@/components/modal/AppMovieForm";
 
 export default {
   name: "PageAdminCatalog",

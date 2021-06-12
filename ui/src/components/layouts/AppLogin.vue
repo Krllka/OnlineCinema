@@ -122,7 +122,7 @@
 </template>
 
 <script>
-import AppLoader from "@/components/AppLoader";
+import AppLoader from "@/components/common/AppLoader";
 
 export default {
   name: "AppLogin",

@@ -33,8 +33,8 @@
 </template>
 
 <script>
-import AppLoader from "@/components/AppLoader";
-import AppList from "@/components/AppList";
+import AppLoader from "@/components/common/AppLoader";
+import AppList from "@/components/common/AppList";
 
 export default {
   name: "PageLibrary",

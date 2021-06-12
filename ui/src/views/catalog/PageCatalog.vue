@@ -28,8 +28,8 @@
 </template>
 
 <script>
-import AppList from "@/components/AppList";
-import AppLoader from "@/components/AppLoader";
+import AppList from "@/components/common/AppList";
+import AppLoader from "@/components/common/AppLoader";
 
 export default {
   name: "PageCatalog",

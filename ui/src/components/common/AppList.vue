@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import AppCard from "@/components/AppCard";
+import AppCard from "@/components/common/AppCard";
 
 export default {
   name: "AppList",

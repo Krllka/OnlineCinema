@@ -24,8 +24,8 @@
 </template>
 
 <script>
-import AppLoader from "@/components/AppLoader";
-import AppDataTable from "@/components/AppDataTable";
+import AppLoader from "@/components/common/AppLoader";
+import AppDataTable from "@/components/common/AppDataTable";
 
 export default {
   name: "PageOrders",

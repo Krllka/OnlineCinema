@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import TheHeader from "@/components/TheHeader";
+import TheHeader from "@/components/layouts/TheHeader";
 
 export default {
   name: "App",

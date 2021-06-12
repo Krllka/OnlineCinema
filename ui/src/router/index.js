@@ -1,13 +1,14 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import PageCatalog from "@/views/PageCatalog";
-import PageUserCabinet from "@/views/PageUserCabinet";
-import PageLibrary from "@/views/PageLibrary";
-import PageOrders from "@/views/PageOrders";
-import PageAdminCatalog from "@/views/PageAdminCatalog";
-import PageAdminUsers from "@/views/PageAdminUsers";
-import PageMovie from "@/views/PageMovie";
-import PageCart from "@/views/PageCart";
+import PageCatalog from "@/views/catalog/PageCatalog";
+import PageUserCabinet from "@/views/user/PageUserCabinet";
+import PageLibrary from "@/views/user/PageLibrary";
+import PageOrders from "@/views/orders/PageOrders";
+import PageAdminCatalog from "@/views/admin/PageAdminCatalog";
+import PageAdminUsers from "@/views/admin/PageAdminUsers";
+import PageMovie from "@/views/catalog/PageMovie";
+import PageCart from "@/views/orders/PageCart";
+import PageRooms from "@/views/rooms/PageRooms";
 
 Vue.use(VueRouter);
 
@@ -36,6 +37,11 @@ const routes = [
     path: "/cart",
     name: "Cart",
     component: PageCart,
+  },
+  {
+    path: "/rooms",
+    name: "Rooms",
+    component: PageRooms,
   },
   {
     path: "/catalog-admin",

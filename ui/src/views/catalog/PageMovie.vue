@@ -13,7 +13,7 @@
         />
         <img
           v-else
-          src="../assets/images/default-placeholder.png"
+          src="../../assets/images/default-placeholder.png"
           alt="Обложка не найдена"
           class="movie__img"
         />
@@ -70,6 +70,7 @@
         <video
           v-if="!trailerError"
           controls
+          controlsList="nodownload"
           width="640"
           height="480"
           @error="trailerError = !trailerError"
@@ -86,7 +87,7 @@
 </template>
 
 <script>
-import AppLoader from "@/components/AppLoader";
+import AppLoader from "@/components/common/AppLoader";
 
 export default {
   name: "PageMovie",

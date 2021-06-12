@@ -24,8 +24,8 @@
 </template>
 
 <script>
-import AppDataTable from "@/components/AppDataTable";
-import AppLoader from "@/components/AppLoader";
+import AppDataTable from "@/components/common/AppDataTable";
+import AppLoader from "@/components/common/AppLoader";
 
 export default {
   name: "PageAdminUsers",

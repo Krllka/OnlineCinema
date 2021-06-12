@@ -10,7 +10,7 @@
         v-else
         :userData="getUserInfo"
         @showAdminPanel="$emit('showAdminPanel')"
-        @logOut="$emit('logOut')"
+        @logOut="logOut"
         @changeUserData="changeUserData"
       />
       <app-modal-window
@@ -58,11 +58,11 @@
 </template>
 
 <script>
-import AppLogin from "@/components/AppLogin";
-import AppUserProfile from "@/components/AppUserProfile";
-import AppLoader from "@/components/AppLoader";
-import AppModalWindow from "@/components/AppModalWindow";
-import AppInput from "@/components/AppInput";
+import AppLogin from "@/components/layouts/AppLogin";
+import AppUserProfile from "@/components/layouts/AppUserProfile";
+import AppLoader from "@/components/common/AppLoader";
+import AppModalWindow from "@/components/modal/AppModalWindow";
+import AppInput from "@/components/input/AppInput";
 
 export default {
   name: "PageUserCabinet",
@@ -96,6 +96,7 @@ export default {
         sex: "",
         age: "",
         password: "",
+        admin: this.isAdmin,
       },
       genders: [],
     };
@@ -119,6 +120,7 @@ export default {
       this.userDataEdit.sex = this.userData.Sex.id;
       this.userDataEdit.age = this.userData.age;
       this.userDataEdit.password = this.userData.password;
+      this.userDataEdit.admin = this.userData.admin;
       this.axios
         .get("http://localhost:8081/sex")
         .then((response) => (this.genders = response.data))
@@ -133,8 +135,6 @@ export default {
       this.userDataEdit.sex = "";
     },
     submitUserData() {
-      // delete this.userDataEdit.name;
-      // delete this.userDataEdit.password;
       console.log(this.userDataEdit);
       this.axios
         .put(
@@ -148,6 +148,12 @@ export default {
         .get(`http://localhost:8081/accounts/${this.userData.id}`)
         .then((response) => this.$emit("updateUserData", response.data))
         .catch((error) => console.log(error));
+    },
+    logOut() {
+      Object.keys(this.userDataEdit).forEach(
+        (key) => (this.userDataEdit[key] = "")
+      );
+      this.$emit("logOut");
     },
   },
 };

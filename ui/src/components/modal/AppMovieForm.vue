@@ -108,9 +108,9 @@
 </template>
 
 <script>
-import AppInput from "@/components/AppInput";
-import AppSelect from "@/components/AppSelect";
-import AppLoader from "@/components/AppLoader";
+import AppInput from "@/components/input/AppInput";
+import AppSelect from "@/components/input/AppSelect";
+import AppLoader from "@/components/common/AppLoader";
 
 export default {
   name: "AppMovieForm",
@@ -176,18 +176,6 @@ export default {
         console.log(errors);
         this.loading = false;
       });
-    // this.axios
-    //   .get("http://localhost:8081/age_restriction")
-    //   .then((response) => (this.ratings = response.data))
-    //   .catch((error) => console.log(error));
-    // this.axios
-    //   .get("http://localhost:8081/genre")
-    //   .then((response) => (this.genres = response.data))
-    //   .catch((error) => console.log(error));
-    // this.axios
-    //   .get("http://localhost:8081/prodBy")
-    //   .then((response) => (this.actors = response.data))
-    //   .catch((error) => console.log(error));
   },
   methods: {
     selectOption(value) {
@@ -205,6 +193,7 @@ export default {
     },
     addFileMovie(event) {
       this.fileMovie = event.target.files[0];
+      this.$emit("submitFile", this.fileMovie);
     },
     addMovie() {
       this.$emit("addMovie", this.movieData);
