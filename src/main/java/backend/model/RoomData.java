@@ -12,7 +12,7 @@ public class RoomData extends AbstractEntity{
     @Column(name = "password")
     private String pass;
     @ManyToOne
-    @JoinColumn(name = "Products_ID", foreignKey = @ForeignKey(name = "Prod_ID") )
+    @JoinColumn(name = "Prod_ID", foreignKey = @ForeignKey(name = "Prod_ID") )
     private ProductsData prod;
 
     public ProductsData getProdObj() {
