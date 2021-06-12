@@ -151,17 +151,16 @@ export default {
       this.axios
         .post("http://localhost:8081/products", movieData)
         .then(() => {
-          movieData.id = +this.moviesList[this.moviesList.length - 1].id + 1;
-          const age = this.agesList.find(
-            (item) => item.id === movieData.age_restr_id
-          );
-          movieData.age_restr_id = age.name;
-          this.moviesList.push(movieData);
+          // movieData.id = +this.moviesList[this.moviesList.length - 1].id + 1;
+          // const age = this.agesList.find(
+          //   (item) => item.id === movieData.age_restr_id
+          // );
+          // movieData.age_restr_id = age.name;
+          // this.moviesList.push(movieData);
+          this.getMoviesList();
         })
         .catch((error) => console.log(error));
-      // this.getMoviesList();
       this.closeModalWindow();
-      // this.loading = true;
     },
     editMovie(id) {
       this.editMode = true;
@@ -175,14 +174,15 @@ export default {
       this.axios
         .put(`http://localhost:8081/products/${this.currentMovieId}`, movieData)
         .then(() => {
-          let movieIndex = this.moviesList.findIndex(
-            (movie) => movie.id === this.currentMovieId
-          );
-          const age = this.agesList.find(
-            (item) => item.id === movieData.age_restr_id
-          );
-          movieData.age_restr_id = age.name;
-          this.moviesList.splice(movieIndex, 1, movieData);
+          // let movieIndex = this.moviesList.findIndex(
+          //   (movie) => movie.id === this.currentMovieId
+          // );
+          // const age = this.agesList.find(
+          //   (item) => item.id === movieData.age_restr_id
+          // );
+          // movieData.age_restr_id = age.name;
+          // this.moviesList.splice(movieIndex, 1, movieData);
+          this.getMoviesList();
         })
         .catch((error) => console.log(error))
         .finally(() => (this.currentMovieId = 0));
@@ -195,10 +195,11 @@ export default {
       this.axios
         .delete(`http://localhost:8081/products/${movie.id}`)
         .then(() => {
-          let movieIndex = this.moviesList.findIndex(
-            (item) => item.id === movie.id
-          );
-          this.moviesList.splice(movieIndex, 1);
+          // let movieIndex = this.moviesList.findIndex(
+          //   (item) => item.id === movie.id
+          // );
+          // this.moviesList.splice(movieIndex, 1);
+          this.getMoviesList();
         })
         .catch((error) => console.log(error));
     },
