@@ -1,5 +1,7 @@
 package backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -32,6 +34,7 @@ public class ProductsInOrder extends AbstractEntity{
     public String getProduct() {
         return prod.getName();
     }
+    @JsonIgnore
     public ProductsData getProductObj() {
         return prod;
     }

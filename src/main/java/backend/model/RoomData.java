@@ -1,8 +1,6 @@
 package backend.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "rooms")
@@ -13,6 +11,23 @@ public class RoomData extends AbstractEntity{
     private String decription;
     @Column(name = "password")
     private String pass;
+    @ManyToOne
+    @JoinColumn(name = "Products_ID", foreignKey = @ForeignKey(name = "Prod_ID") )
+    private ProductsData prod;
+
+    public ProductsData getProdObj() {
+        return prod;
+    }
+    public String getProd() {
+        return prod.getId();
+    }
+
+    public void setProd(ProductsData prod) {
+        this.prod = prod;
+    }
+    public void setProd(String prod) {
+        this.prod = new ProductsData(prod);
+    }
 
     public RoomData(){}
     public RoomData(String s){super(s);}
