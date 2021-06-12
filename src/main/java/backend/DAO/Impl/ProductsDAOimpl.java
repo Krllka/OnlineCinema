@@ -146,6 +146,7 @@ public class ProductsDAOimpl extends AbstractDAO<ProductsData>
             for (Actors item : film.getActors()) {
                 session.save(new ProdByData(item, film));
             }
-        session.update(film);
+
+        session.merge(film);
     }
 }
