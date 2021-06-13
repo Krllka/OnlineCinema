@@ -12,8 +12,10 @@
             :rooms-list="roomsList"
             :movies-list="moviesList"
             @deleteRoom="deleteRoom"
+            @getIntoRoom="getIntoRoom"
           />
           <app-modal-window
+            :width-content="true"
             v-if="isModalVisible"
             @closeModalWindow="closeModalWindow"
           >
@@ -39,6 +41,25 @@
                 @change="selectOption"
               />
               <button @click="addRoom" class="button">Создать</button>
+            </template>
+          </app-modal-window>
+          <app-modal-window
+            v-if="isModalVisiblePass"
+            :width-content="true"
+            @closeModalWindow="closeModalWindowPass"
+          >
+            <template #title>Вход в комнату</template>
+            <template #body>
+              <app-input
+                :input-type="'password'"
+                :input-title="'Введите пароль от комнаты'"
+                :is-width-parent="true"
+                v-model="roomAccessPass"
+              />
+              <div class="btn-group">
+                <button @click="getRoomAccess" class="button">Войти</button>
+                <div v-if="accessError" class="error">Неверный пароль!</div>
+              </div>
             </template>
           </app-modal-window>
         </div>
@@ -81,6 +102,10 @@ export default {
     return {
       loading: true,
       isModalVisible: false,
+      isModalVisiblePass: false,
+      roomAccessPass: "",
+      accessError: false,
+      currentRoomId: "",
       room: {
         name: "",
         pass: "",
@@ -136,9 +161,30 @@ export default {
         });
       this.closeModalWindow();
     },
+    getIntoRoom(id) {
+      this.isModalVisiblePass = true;
+      this.currentRoomId = id;
+    },
+    getRoomAccess() {
+      const room = this.roomsList.find(
+        (item) => item.id === this.currentRoomId
+      );
+      if (room.pass === this.roomAccessPass) {
+        this.$router.push(`/room/${room.id}`);
+        this.accessError = false;
+        this.closeModalWindowPass();
+        this.currentRoomId = "";
+        this.roomAccessPass = "";
+      } else {
+        this.accessError = true;
+      }
+    },
     closeModalWindow() {
       Object.keys(this.room).forEach((prop) => (this.room[prop] = ""));
       this.isModalVisible = false;
+    },
+    closeModalWindowPass() {
+      this.isModalVisiblePass = false;
     },
     selectOption(value) {
       this.room.prod = value;
@@ -176,5 +222,14 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.btn-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.error {
+  color: red;
+  font-size: 14px;
 }
 </style>

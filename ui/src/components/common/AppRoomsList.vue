@@ -2,7 +2,7 @@
   <div class="rooms__wrapper">
     <ul class="rooms__list">
       <li
-        @click="getIntoRoom(room.id)"
+        @click="$emit('getIntoRoom', room.id)"
         v-for="(room, index) in renderRoomsList"
         :key="index"
         class="rooms__item"
@@ -55,9 +55,6 @@ export default {
         return movie.durat;
       }
     },
-    getIntoRoom(id) {
-      this.$router.push(`/room/${id}`);
-    },
   },
 };
 </script>
@@ -103,7 +100,7 @@ export default {
       font-size: 20px;
       color: transparent;
       transition: 0.3s all;
-      padding: 10px;
+      padding: 10px 0;
       &:hover {
         color: black;
       }

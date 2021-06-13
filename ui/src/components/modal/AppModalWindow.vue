@@ -1,6 +1,6 @@
 <template>
   <div class="window-container" @click.self="$emit('closeModalWindow')">
-    <div class="modal">
+    <div class="modal" :class="{ 'w-20': widthContent }">
       <div class="modal__header">
         <div class="modal__title">
           <slot name="title">Диалоговое окно</slot>
@@ -19,6 +19,12 @@
 <script>
 export default {
   name: "AppModalWindow",
+  props: {
+    widthContent: {
+      type: Boolean,
+      default: false,
+    },
+  },
 };
 </script>
 
@@ -65,5 +71,9 @@ export default {
   &__body {
     flex-grow: 1;
   }
+}
+
+.w-20 {
+  width: 20%;
 }
 </style>

@@ -16,6 +16,7 @@
       />
       <app-modal-window
         v-if="isModalVisibleForData"
+        :width-content="true"
         @closeModalWindow="closeModalWindowData"
       >
         <template #title>Личные данные</template>
@@ -56,6 +57,7 @@
       </app-modal-window>
       <app-modal-window
         v-if="isModalVisibleForPass"
+        :width-content="true"
         @closeModalWindow="closeModalWindowPass"
       >
         <template #title>Смена пароля</template>

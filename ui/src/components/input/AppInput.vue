@@ -10,6 +10,7 @@
       :value="value"
       :min="inputMinValue"
       :max="inputMaxValue"
+      :autocomplete="inputAutoComplete"
     />
   </div>
 </template>
@@ -35,6 +36,10 @@ export default {
     inputDisabled: {
       type: Boolean,
       default: false,
+    },
+    inputAutoComplete: {
+      type: String,
+      default: "off",
     },
     value: {
       type: String,
