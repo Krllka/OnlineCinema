@@ -83,6 +83,17 @@
             />
           </div>
 
+          <div class="select-wrapper">
+            <p class="title">Награды:</p>
+            <v-select
+              multiple
+              label="name"
+              :options="awards"
+              class="select"
+              v-model="movieData.awards"
+            />
+          </div>
+
           <app-input
             :input-title="'Количество просмотров'"
             :input-type="'number'"
@@ -151,6 +162,7 @@ export default {
       ratings: [],
       genres: [],
       actors: [],
+      awards: [],
       filePoster: null,
       fileTrailer: null,
       fileMovie: null,
@@ -200,13 +212,15 @@ export default {
     const ratingsURL = this.axios.get("http://localhost:8081/age_restriction");
     const genresURL = this.axios.get("http://localhost:8081/genre");
     const actorsURL = this.axios.get("http://localhost:8081/actors");
+    const awardsURL = this.axios.get("http://localhost:8081/awards");
     this.axios
-      .all([ratingsURL, genresURL, actorsURL])
+      .all([ratingsURL, genresURL, actorsURL, awardsURL])
       .then(
-        this.axios.spread((ratingsRes, genresRes, actorsRes) => {
+        this.axios.spread((ratingsRes, genresRes, actorsRes, awardsRes) => {
           this.ratings = ratingsRes.data;
           this.genres = genresRes.data;
           this.actors = actorsRes.data;
+          this.awards = awardsRes.data;
           this.actors.forEach((actor) => (actor.prof = actor.prof.id));
           this.loading = false;
         })
