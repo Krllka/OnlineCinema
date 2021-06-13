@@ -3,12 +3,22 @@
     <ul class="rooms__list">
       <li
         @click="getIntoRoom(room.id)"
-        v-for="(room, index) in roomsList"
+        v-for="(room, index) in renderRoomsList"
         :key="index"
         class="rooms__item"
       >
-        <div class="room__name">{{ room.name }}</div>
-        <div class="room__movie-name">{{ getMovieName(room.prod) }}</div>
+        <div class="room__info">
+          <div class="room__name">{{ room.name }}</div>
+          <div class="room__movie">
+            {{ getMovieName(room.prod) }},
+            <span class="room__duration"
+              >{{ getMovieDuration(room.prod) }} мин</span
+            >
+          </div>
+        </div>
+        <div class="room__delete" @click.stop="$emit('deleteRoom', room.id)">
+          &#10006;
+        </div>
       </li>
     </ul>
   </div>
@@ -27,11 +37,22 @@ export default {
       default: () => [],
     },
   },
+  computed: {
+    renderRoomsList() {
+      return this.roomsList;
+    },
+  },
   methods: {
     getMovieName(id) {
       const movie = this.moviesList.find((item) => item.id === id);
       if (movie) {
         return movie.name;
+      }
+    },
+    getMovieDuration(id) {
+      const movie = this.moviesList.find((item) => item.id === id);
+      if (movie) {
+        return movie.durat;
       }
     },
     getIntoRoom(id) {
@@ -44,37 +65,48 @@ export default {
 <style scoped lang="scss">
 .rooms {
   &__wrapper {
-    margin: 50px 0;
+    min-width: 300px;
+    max-width: 600px;
+    margin: 40px auto;
   }
   &__list {
-    width: 300px;
-    //padding: 5px 0;
-    margin: 0 auto;
-    border: 1px solid rgba(0, 0, 0, 0.5);
-    border-radius: 6px;
+    max-width: 100%;
   }
   &__item {
-    min-height: 50px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
-    //padding: 5px 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 10px;
+    border: 1px solid black;
+    padding: 20px;
+    border-radius: 6px;
+    margin-bottom: 15px;
     transition: 0.3s all;
     cursor: pointer;
     &:hover {
       background-color: #cccccc;
-    }
-    &:last-child {
-      border-bottom: none;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      .room__delete {
+        color: rgba(0, 0, 0, 0.5);
+      }
     }
   }
   .room {
     &__name {
-      border-right: 1px solid rgba(0, 0, 0, 0.5);
-      height: 100%;
-      width: 50%;
+      font-size: 25px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    &__duration {
+      font-size: 15px;
+    }
+    &__delete {
+      font-size: 20px;
+      color: transparent;
+      transition: 0.3s all;
+      padding: 10px;
+      &:hover {
+        color: black;
+      }
     }
   }
 }

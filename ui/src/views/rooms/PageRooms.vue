@@ -4,9 +4,15 @@
       <app-loader v-if="loading" :animation="'rectangle'" />
       <div v-else>
         <div v-if="moviesList.length" class="rooms">
-          <h2 class="header">Мои комнаты:</h2>
-          <button class="button" @click="createRoom">Создать комнату</button>
-          <app-room-list :rooms-list="roomsList" :movies-list="moviesList" />
+          <div class="panel">
+            <h2 class="header">Мои комнаты:</h2>
+            <button class="button" @click="createRoom">Создать комнату</button>
+          </div>
+          <app-room-list
+            :rooms-list="roomsList"
+            :movies-list="moviesList"
+            @deleteRoom="deleteRoom"
+          />
           <app-modal-window
             v-if="isModalVisible"
             @closeModalWindow="closeModalWindow"
@@ -137,6 +143,16 @@ export default {
     selectOption(value) {
       this.room.prod = value;
     },
+    deleteRoom(id) {
+      this.axios
+        .delete(`http://localhost:8081/room/${id}`)
+        .then(() => {
+          this.getRoomsList();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
   },
 };
 </script>
@@ -150,6 +166,15 @@ export default {
 
 .header {
   font-size: 20px;
-  margin-bottom: 15px;
+  //margin-bottom: 15px;
+}
+
+.panel {
+  //margin-bottom: 15px;
+  width: 600px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>
