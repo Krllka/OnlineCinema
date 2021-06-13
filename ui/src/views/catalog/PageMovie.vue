@@ -67,6 +67,7 @@
         <div class="description__value">{{ movieData.decription }}</div>
       </div>
       <div class="movie__trailer">
+        <h4 class="trailer__title">Трейлер:</h4>
         <video
           v-if="!trailerError"
           controls
@@ -140,12 +141,17 @@ export default {
     width: 300px;
   }
   &__trailer {
+    margin-top: 40px;
     video {
       display: block;
       max-height: 300px;
       width: auto;
       margin: 20px auto;
     }
+  }
+  .trailer__title {
+    text-align: center;
+    font-size: 20px;
   }
   .message {
     text-align: center;
@@ -173,9 +179,10 @@ export default {
   }
   .description__title {
     margin-bottom: 5px;
+    font-size: 20px;
   }
   .description__value {
-    font-size: 20px;
+    //font-size: 20px;
     padding: 5px;
   }
 }
