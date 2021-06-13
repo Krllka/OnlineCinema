@@ -91,13 +91,7 @@ export default {
   },
   created() {
     document.title = "Корзина";
-    this.axios
-      .get(`http://localhost:8081/library/basket/${this.userData.name}`)
-      .then((response) => {
-        this.moviesInCart = response.data;
-        this.loading = false;
-      })
-      .catch((error) => console.log(error));
+    this.getMoviesList();
   },
   computed: {
     renderMoviesInCart() {
@@ -105,17 +99,22 @@ export default {
     },
   },
   methods: {
+    getMoviesList() {
+      this.axios
+        .get(`http://localhost:8081/library/basket/${this.userData.name}`)
+        .then((response) => {
+          this.moviesInCart = response.data;
+          this.loading = false;
+        })
+        .catch((error) => console.log(error));
+    },
     deleteMovie(movie) {
       this.axios
         .delete(
           `http://localhost:8081/library/${this.userData.name}/${movie.name}`
         )
-        .then((response) => {
-          console.log(response);
-          let movieIndex = this.moviesInCart.findIndex(
-            (item) => item.id === movie.id
-          );
-          this.moviesInCart.splice(movieIndex, 1);
+        .then(() => {
+          this.getMoviesList();
         })
         .catch((error) => console.log(error));
     },
@@ -126,6 +125,7 @@ export default {
         .post(`http://localhost:8081/orders/${this.userData.id}`, requestBody)
         .then(() => {
           this.loading = false;
+          this.getMoviesList();
         })
         .catch((error) => {
           console.log(error);
