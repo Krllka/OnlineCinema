@@ -12,8 +12,8 @@
         @error="videoError = !videoError"
       >
         <source
-          type="video/mp4"
           :src="`http://localhost:8080/products/files/${movieData.mainFile}`"
+          type="video/mp4"
         />
       </video>
       <div v-else class="message">Фильм не найден.</div>
@@ -58,6 +58,9 @@ export default {
 <style scoped lang="scss">
 .room__title {
   margin-top: 20px;
+  text-align: center;
+}
+.movie__title {
   text-align: center;
 }
 .movie__video {

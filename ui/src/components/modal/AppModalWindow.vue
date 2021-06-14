@@ -1,5 +1,5 @@
 <template>
-  <div class="window-container" @click.self="$emit('closeModalWindow')">
+  <div class="window-container" @mousedown.self="$emit('closeModalWindow')">
     <div class="modal" :class="{ 'w-20': widthContent }">
       <div class="modal__header">
         <div class="modal__title">
