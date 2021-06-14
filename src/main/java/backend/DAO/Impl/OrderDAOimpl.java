@@ -96,6 +96,7 @@ public class OrderDAOimpl extends AbstractDAO<Order>
         List<Library> list = query.list();
         session.save(order);
         for (Library item: list) {
+            if(item.getPurchased()) continue;
             purchase = new ProductsInOrder();
             purchase.setOrder(order.getId());
             total += item.getProductObj().getPrice();
