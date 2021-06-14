@@ -46,6 +46,7 @@ export default {
         .get(`http://localhost:8081/products/${id}`)
         .then((response) => {
           this.movieData = response.data;
+          console.log(this.movieData.mainFile);
         })
         .catch((error) => {
           console.log(error);
