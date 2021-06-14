@@ -34,7 +34,7 @@ public class ProductsController extends AbstractController<ProductsData, Product
 
         if (Files.exists(file)){
 
-            response.setContentType("image/jpeg");
+            response.setContentType("multipart/form-data");
 
             try {
                 Files.copy(file,  response.getOutputStream());

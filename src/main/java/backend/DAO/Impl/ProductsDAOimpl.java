@@ -54,6 +54,13 @@ public class ProductsDAOimpl extends AbstractDAO<ProductsData>
                     item.addActor(prod.getProfObj());
                 }
             //--------------------------Актёры-------------------------
+            Query<MainFileData> query4 = session.createQuery("from MainFileData o where o.prod_id = :currID");
+            query4.setParameter("currID", currID);
+            try{
+                MainFileData arr4 = query4.getSingleResult();
+                item.setMainFile(arr4.getFilePath());
+            }catch (Exception ex){}
+
         }
         return list;
     }
@@ -83,7 +90,7 @@ public class ProductsDAOimpl extends AbstractDAO<ProductsData>
             for (Actors item : film.getActors()) {
                 session.save(new ProdByData(item, film));
             }
-
+        session.save(new MainFileData(film.getMainFile(), film.getId()));
     }
 
     @Override
@@ -123,6 +130,14 @@ public class ProductsDAOimpl extends AbstractDAO<ProductsData>
             prod.addActor(actr.getProfObj());
         }
         //--------------------------Актёры-------------------------
+        //--------------------------Файл_Фильма-------------------------
+        Query<MainFileData> query4 = session.createQuery("from MainFileData o where o.prod_id = :currID");
+        query4.setParameter("currID", currID);
+        try{
+            MainFileData arr4 = query4.getSingleResult();
+            prod.setMainFile(arr4.getFilePath());
+        }catch (Exception ex){}
+        //--------------------------Файл_Фильма-------------------------
 
         return prod;
     }
@@ -137,6 +152,9 @@ public class ProductsDAOimpl extends AbstractDAO<ProductsData>
         qu.setParameter("id", Integer.valueOf(film.getId()));
         qu.executeUpdate();
         qu = session.createSQLQuery("DELETE  FROM prod_by WHERE Products_ID = :id" );
+        qu.setParameter("id", Integer.valueOf(film.getId()));
+        qu.executeUpdate();
+        qu = session.createSQLQuery("DELETE  FROM mainfiles WHERE Products_ID = :id" );
         qu.setParameter("id", Integer.valueOf(film.getId()));
         qu.executeUpdate();
         if( film.getGenres() != null )
@@ -155,6 +173,9 @@ public class ProductsDAOimpl extends AbstractDAO<ProductsData>
             for (Actors item : film.getActors()) {
                 session.save(new ProdByData(item, film));
             }
+        if( film.getMainFile() != null ){
+            session.save(new MainFileData(film.getMainFile(), film.getId()));
+        }
 
         session.merge(film);
     }

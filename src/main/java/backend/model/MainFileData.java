@@ -6,13 +6,18 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "maintfiles")
+@Table(name = "mainfiles")
 public class MainFileData extends AbstractEntity{
     @Column(name = "FilePath")
     String filePath;
     @Column(name = "Products_ID")
     String prod_id;
 
+    public MainFileData(){}
+    public MainFileData(String path ,String id){
+        filePath = path;
+        prod_id = id;
+    }
     public String getFilePath() {
         return filePath;
     }

@@ -40,6 +40,7 @@ public class ProductsData extends AbstractEntity {
     transient private List<GenreData> genres;
     transient private List<Actors> actors;
     transient private List<Awards> awards;
+    transient private String mainFile;
 
 
     public ProductsData(String id){
@@ -47,6 +48,17 @@ public class ProductsData extends AbstractEntity {
     }
     public ProductsData(){}
 
+    public void setAge_restr_id(AgeRestrictionData age_restr_id) {
+        this.age_restr_id = age_restr_id;
+    }
+
+    public String getMainFile() {
+        return mainFile;
+    }
+
+    public void setMainFile(String mainFile) {
+        this.mainFile = mainFile;
+    }
 
     public List<Awards> getAwards() {
         return awards;
