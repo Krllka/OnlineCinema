@@ -46,8 +46,9 @@
       </div>
     </div>
     <div class="card__footer">
-      <div class="card__price">
-        <span class="card__title">Цена:</span> {{ cardData.price }}
+      <div v-if="!isCardInLibrary" class="card__price">
+        <span class="card__title">Цена:</span>
+        {{ cardData.price }} &#8381;
       </div>
       <div class="card__views">
         <span class="card__title">Просмотров:</span> {{ cardData.viewsCount }}
