@@ -93,11 +93,13 @@
 
 <script>
 import AppLoader from "@/components/common/AppLoader";
+import VueCoreVideoPlayer from "vue-core-video-player";
 
 export default {
   name: "PageMovie",
   components: {
     AppLoader,
+    VueCoreVideoPlayer,
   },
   data() {
     return {

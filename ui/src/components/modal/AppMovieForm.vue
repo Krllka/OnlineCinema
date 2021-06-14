@@ -116,10 +116,22 @@
           v-model="movieData.decription"
         ></textarea>
       </div>
-      <button v-if="!editMode" class="button submit" @click="addMovie">
+      <button
+        v-if="!editMode"
+        :disabled="isControlsDisabled"
+        class="button submit"
+        @click="addMovie"
+      >
         Сохранить
       </button>
-      <button v-else class="button submit" @click="editMovie">Сохранить</button>
+      <button
+        v-else
+        :disabled="isControlsDisabled"
+        class="button submit"
+        @click="editMovie"
+      >
+        Сохранить
+      </button>
     </div>
   </div>
 </template>
@@ -152,6 +164,7 @@ export default {
   data() {
     return {
       loading: true,
+      isControlsDisabled: false,
       ratings: [],
       genres: [],
       actors: [],
@@ -239,9 +252,11 @@ export default {
       this.$emit("submitFile", this.fileTrailer);
     },
     addFileMovie(event) {
+      this.isControlsDisabled = true;
       this.fileMovie = event.target.files[0];
       this.movieData.mainFile = this.fileMovie.name;
       this.$emit("submitFile", this.fileMovie);
+      this.isControlsDisabled = false;
     },
     addMovie() {
       this.$emit("addMovie", this.movieData);

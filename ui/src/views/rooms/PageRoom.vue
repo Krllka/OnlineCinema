@@ -30,10 +30,10 @@
 
 <script>
 import AppLoader from "@/components/common/AppLoader";
-// import VueCoreVideoPlayer from "vue-core-video-player";
+import VueCoreVideoPlayer from "vue-core-video-player";
 export default {
   name: "PageRoom",
-  components: { AppLoader },
+  components: { AppLoader, VueCoreVideoPlayer },
   data() {
     return {
       roomData: {},
