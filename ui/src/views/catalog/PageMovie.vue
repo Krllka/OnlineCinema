@@ -68,23 +68,19 @@
       </div>
       <div class="movie__trailer">
         <h4 class="trailer__title">Трейлер:</h4>
-        <!--        <video-->
-        <!--          v-if="!trailerError"-->
-        <!--          controls-->
-        <!--          controlsList="nodownload"-->
-        <!--          width="640"-->
-        <!--          height="480"-->
-        <!--          @error="trailerError = !trailerError"-->
-        <!--        >-->
-        <!--          <source-->
-        <!--            :src="`http://localhost:8080/products/files/${movieData.trailer}`"-->
-        <!--            type="video/mp4"-->
-        <!--          />-->
-        <!--        </video>-->
-        <vue-core-video-player
+        <video
           v-if="!trailerError"
-          :src="`http://localhost:8080/products/files/${movieData.trailer}`"
-        />
+          controls
+          controlsList="nodownload"
+          width="640"
+          height="480"
+          @error="trailerError = !trailerError"
+        >
+          <source
+            :src="`http://localhost:8080/products/files/${movieData.trailer}`"
+            type="video/mp4"
+          />
+        </video>
         <div v-else class="message">Трейлера, к сожалению, нет :(</div>
       </div>
     </div>
@@ -93,13 +89,11 @@
 
 <script>
 import AppLoader from "@/components/common/AppLoader";
-import VueCoreVideoPlayer from "vue-core-video-player";
 
 export default {
   name: "PageMovie",
   components: {
     AppLoader,
-    VueCoreVideoPlayer,
   },
   data() {
     return {

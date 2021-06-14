@@ -5,23 +5,19 @@
       <h2 class="room__title">{{ roomData.name }}</h2>
       <div class="movie__title">{{ movieData.name }}</div>
       <div class="movie__video">
-        <!--        <video-->
-        <!--          v-if="movieData.mainFile"-->
-        <!--          controls-->
-        <!--          controlsList="nodownload"-->
-        <!--          width="640"-->
-        <!--          height="480"-->
-        <!--          @error="videoError = !videoError"-->
-        <!--        >-->
-        <!--          <source-->
-        <!--            :src="`http://localhost:8080/products/files/${movieData.mainFile}`"-->
-        <!--            type="video/mp4"-->
-        <!--          />-->
-        <!--        </video>-->
-        <vue-core-video-player
+        <video
           v-if="movieData.mainFile"
-          :src="`http://localhost:8080/products/files/${movieData.mainFile}`"
-        />
+          controls
+          controlsList="nodownload"
+          width="640"
+          height="480"
+          @error="videoError = !videoError"
+        >
+          <source
+            :src="`http://localhost:8080/products/files/${movieData.mainFile}`"
+            type="video/mp4"
+          />
+        </video>
         <div v-else class="message">Фильм не найден.</div>
       </div>
     </div>
@@ -30,10 +26,10 @@
 
 <script>
 import AppLoader from "@/components/common/AppLoader";
-import VueCoreVideoPlayer from "vue-core-video-player";
+
 export default {
   name: "PageRoom",
-  components: { AppLoader, VueCoreVideoPlayer },
+  components: { AppLoader },
   data() {
     return {
       roomData: {},
