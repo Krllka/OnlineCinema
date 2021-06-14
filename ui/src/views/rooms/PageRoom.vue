@@ -13,7 +13,7 @@
       >
         <source
           type="video/mp4"
-          :src="`http://localhost:8080/products/files/${movieData.mainFiles}`"
+          :src="`http://localhost:8080/products/files/${movieData.mainFile}`"
         />
       </video>
       <div v-else class="message">Фильм не найден.</div>

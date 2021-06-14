@@ -167,7 +167,7 @@ export default {
         age_restr_id: "",
         viewsCount: "",
         trailer: "",
-        mainFiles: "",
+        mainFile: "",
         country: "",
         decription: "",
         poster: "",
@@ -240,7 +240,7 @@ export default {
     },
     addFileMovie(event) {
       this.fileMovie = event.target.files[0];
-      this.movieData.mainFiles = this.fileMovie.name;
+      this.movieData.mainFile = this.fileMovie.name;
       this.$emit("submitFile", this.fileMovie);
     },
     addMovie() {
