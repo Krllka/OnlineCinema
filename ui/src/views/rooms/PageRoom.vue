@@ -4,7 +4,7 @@
     <div class="movie__title">{{ movieData.name }}</div>
     <div class="movie__video">
       <video
-        v-if="!videoError"
+        v-if="movieData.mainFile"
         controls
         controlsList="nodownload"
         width="640"

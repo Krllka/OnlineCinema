@@ -118,6 +118,7 @@ export default {
           .map((award) => award.name)
           .join(", ");
         this.loading = false;
+        console.log(this.movieData.trailer);
         document.title = this.movieData.name;
       })
       .catch((error) => console.log(error));
