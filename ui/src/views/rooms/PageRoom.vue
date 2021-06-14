@@ -13,7 +13,7 @@
       >
         <source
           type="video/mp4"
-          :src="`http://localhost:8080/products/files/${videoData.filePath}`"
+          :src="`http://localhost:8080/products/files/${movieData.mainFiles}`"
         />
       </video>
       <div v-else class="message">Фильм не найден.</div>
@@ -28,7 +28,6 @@ export default {
     return {
       roomData: {},
       movieData: {},
-      videoData: {},
       videoError: false,
     };
   },
@@ -43,16 +42,11 @@ export default {
   },
   methods: {
     getMovie(id) {
-      const movieURL = this.axios.get(`http://localhost:8081/products/${id}`);
-      const videoURL = this.axios.get(`http://localhost:8081/mainFiles/${id}`);
       this.axios
-        .all([movieURL, videoURL])
-        .then(
-          this.axios.spread((movieRes, videoRes) => {
-            this.movieData = movieRes.data;
-            this.videoData = videoRes.data;
-          })
-        )
+        .get(`http://localhost:8081/products/${id}`)
+        .then((response) => {
+          this.movieData = response.data;
+        })
         .catch((error) => {
           console.log(error);
         });

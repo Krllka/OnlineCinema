@@ -54,13 +54,6 @@
             v-model="movieData.country"
           />
 
-          <!--          <app-select-->
-          <!--            :select-title="'Возрастное ограничение'"-->
-          <!--            :select-options="ratings"-->
-          <!--            v-model="movieData.age_restr_id"-->
-          <!--            @change="selectOption"-->
-          <!--          />-->
-
           <div class="select-wrapper">
             <p class="title">Возрастное ограничение:</p>
             <v-select
@@ -174,6 +167,7 @@ export default {
         age_restr_id: "",
         viewsCount: "",
         trailer: "",
+        mainFiles: "",
         country: "",
         decription: "",
         poster: "",
@@ -246,6 +240,7 @@ export default {
     },
     addFileMovie(event) {
       this.fileMovie = event.target.files[0];
+      this.movieData.mainFiles = this.fileMovie.name;
       this.$emit("submitFile", this.fileMovie);
     },
     addMovie() {
