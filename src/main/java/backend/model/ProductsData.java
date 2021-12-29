@@ -21,7 +21,6 @@ public class ProductsData extends AbstractEntity {
     @JoinColumn(name = "age_restriction_ID", foreignKey = @ForeignKey(name = "fk_Products_Raring1") )
     private AgeRestrictionData age_restr_id;
 
-
     @Column(name = "Views")
     private int viewsCount;
     @Column(name = "TrailerFile")
